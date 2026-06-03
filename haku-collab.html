@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisLogic.AI × Haku — Collaborative Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#0f0f0f;--s2:#151515;--s3:#1a1a1a;--s4:#212121;
+  --b1:#1e1e1e;--b2:#2a2a2a;--b3:#363636;
+  --t1:#f0ece3;--t2:#8c8880;--t3:#504e4b;--t4:#2e2c2a;
+  --red:#e8341c;--rdim:#5a1509;--rglow:rgba(232,52,28,.08);--rmid:rgba(232,52,28,.16);
+  --amber:#e09520;--adim:rgba(224,149,32,.11);--aborder:rgba(224,149,32,.28);
+  --teal:#1aaa98;--tdim:rgba(26,170,152,.11);--tborder:rgba(26,170,152,.28);
+  --slate:#4d85c8;--sdim:rgba(77,133,200,.11);--sborder:rgba(77,133,200,.28);
+  --display:"Bebas Neue",sans-serif;
+  --body:"Instrument Sans",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+}
+html{background:#040404;scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--t1);max-width:920px;margin:36px auto 120px;
+  box-shadow:0 0 0 1px var(--b1),0 0 120px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.03);}
+
+/* ── GRAIN OVERLAY ── */
+body::before{content:"";position:fixed;inset:0;opacity:.025;pointer-events:none;z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;}
+
+/* ── TOPBAR ── */
+.topbar{height:2px;background:linear-gradient(90deg,var(--red) 0%,#f05030 35%,#e87040 60%,transparent 100%)}
+
+/* ══════════ HEADER ══════════ */
+.hdr{padding:44px 56px 0;position:relative;overflow:hidden}
+.hdr-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 85% 20%,rgba(232,52,28,.07) 0%,transparent 70%);
+  pointer-events:none}
+.hdr-grid{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;position:relative}
+
+.logo-row{display:flex;align-items:center;gap:11px;margin-bottom:20px}
+.logo-img{height:20px;width:auto;opacity:.9}
+.logo-sep{color:var(--t3);font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+.logo-co{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.08em;color:var(--t2);text-transform:uppercase}
+
+.eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow-line{width:20px;height:1px;background:var(--red)}
+
+.hdr-title{font-family:var(--display);font-size:72px;line-height:.92;letter-spacing:.01em;
+  color:var(--t1);margin-bottom:6px}
+.hdr-title .accent{color:var(--red)}
+.hdr-title .dim{color:var(--t3)}
+
+.hdr-sub{font-size:13px;line-height:1.75;color:var(--t2);font-weight:400;
+  max-width:460px;margin-top:18px;margin-bottom:36px}
+
+/* badge stack */
+.badge-col{display:flex;flex-direction:column;gap:5px;padding-top:52px}
+.bdg{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 11px;border-radius:2px;white-space:nowrap;text-align:right}
+.bdg-red{background:var(--rglow);color:var(--red);border:1px solid var(--rdim)}
+.bdg-amber{background:var(--adim);color:var(--amber);border:1px solid var(--aborder)}
+.bdg-teal{background:var(--tdim);color:var(--teal);border:1px solid var(--tborder)}
+.bdg-slate{background:var(--sdim);color:var(--slate);border:1px solid var(--sborder)}
+.bdg-dim{background:transparent;color:var(--t3);border:1px solid var(--b2)}
+
+/* ── POSITIONING HERO BAND ── */
+.pos-hero{margin:0 0 0 0;padding:28px 56px 30px;background:var(--s1);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);position:relative;overflow:hidden}
+.pos-hero::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--red) 0%,transparent 100%)}
+.pos-label{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);margin-bottom:10px}
+.pos-statement{font-family:var(--display);font-size:34px;letter-spacing:.02em;color:var(--t1);line-height:1}
+.pos-statement .red{color:var(--red)}
+.pos-sub{font-size:12px;color:var(--t2);line-height:1.7;margin-top:12px;max-width:680px}
+.pos-sub strong{color:var(--t1);font-weight:600}
+
+/* ══════════ BODY ══════════ */
+.body{padding:0 56px 56px}
+
+.slabel{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);
+  margin-bottom:14px;margin-top:38px;display:flex;align-items:center;gap:12px}
+.slabel::after{content:"";flex:1;height:1px;background:var(--b1)}
+
+/* ── 5-LAYER OS VISUAL ── */
+.os-layers{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--b1);
+  border:1px solid var(--b1);border-radius:5px;overflow:hidden;margin-top:0}
+.os-layer{background:var(--s1);padding:18px 14px 20px;position:relative;cursor:default;
+  transition:background .2s}
+.os-layer:hover{background:var(--s2)}
+.os-layer::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.osl-1::before{background:var(--red)}
+.osl-2::before{background:var(--amber)}
+.osl-3::before{background:var(--teal)}
+.osl-4::before{background:var(--slate)}
+.osl-5::before{background:linear-gradient(90deg,var(--red),var(--amber))}
+.os-icon{font-size:36px;margin-bottom:12px;display:block}
+.os-num{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:5px}
+.osl-1 .os-num{color:var(--red)}
+.osl-2 .os-num{color:var(--amber)}
+.osl-3 .os-num{color:var(--teal)}
+.osl-4 .os-num{color:var(--slate)}
+.osl-5 .os-num{color:var(--amber)}
+.os-title{font-family:var(--display);font-size:15px;letter-spacing:.02em;color:var(--t1);margin-bottom:7px;line-height:1.1}
+.os-desc{font-size:10.5px;color:var(--t2);line-height:1.6;font-weight:400}
+
+/* ── KNOWN vs UNKNOWN ── */
+.ku-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ku-card{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.ku-head{padding:12px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:10px}
+.ku-icon{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ku-known .ku-icon{background:var(--teal)}
+.ku-unknown .ku-icon{background:var(--amber)}
+.ku-label{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+.ku-known .ku-label{color:var(--teal)}
+.ku-unknown .ku-label{color:var(--amber)}
+.ku-body{padding:14px 16px}
+.ku-item{font-size:11.5px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--b1);
+  display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.ku-item:last-child{border-bottom:none;padding-bottom:0}
+.ku-item::before{content:"";width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ku-known .ku-item::before{background:var(--teal)}
+.ku-unknown .ku-item::before{background:var(--amber)}
+.ku-item strong{color:var(--t1);font-weight:600}
+
+/* ── DISCOVERY SECTION ── */
+.disc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.disc-card{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.dc-head{padding:14px 16px 12px;border-bottom:1px solid var(--b1)}
+.dc-zone{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--t2);margin-bottom:5px}
+.dc-title{font-family:var(--display);font-size:18px;letter-spacing:.02em;color:var(--t1)}
+.dc-body{padding:14px 16px}
+.dc-q{margin-bottom:12px}
+.dc-q:last-child{margin-bottom:0}
+.dc-q-text{font-size:11.5px;color:var(--t2);line-height:1.6;margin-bottom:6px}
+/* ANSWER AREA */
+.answer-area{background:var(--s3);border:1px solid var(--b2);border-radius:3px;
+  min-height:52px;padding:8px 10px;position:relative}
+.answer-area textarea{width:100%;min-height:36px;background:transparent;border:none;
+  color:var(--t1);font-family:var(--body);font-size:11px;resize:vertical;outline:none;
+  line-height:1.55}
+.answer-area textarea::placeholder{color:var(--t3);font-style:italic}
+.answer-tools{display:flex;align-items:center;gap:6px;margin-top:5px;border-top:1px solid var(--b1);padding-top:5px}
+.a-tool-btn{font-family:var(--mono);font-size:8px;letter-spacing:.08em;color:var(--t3);
+  padding:3px 7px;border:1px solid var(--b2);border-radius:2px;cursor:pointer;background:transparent;
+  transition:all .15s;display:flex;align-items:center;gap:4px}
+.a-tool-btn:hover{color:var(--t1);border-color:var(--b3);background:var(--s4)}
+.a-tool-btn svg{width:9px;height:9px;fill:currentColor}
+/* voice recorder state */
+.recording{border-color:var(--red)!important;color:var(--red)!important}
+.rec-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* file drop */
+.file-drop{border:1px dashed var(--b2);border-radius:3px;padding:8px 12px;
+  font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
+  text-align:center;cursor:pointer;transition:all .2s;margin-top:4px}
+.file-drop:hover,.file-drop.drag-over{border-color:var(--red);color:var(--red);background:var(--rglow)}
+.file-drop input{display:none}
+.file-list{margin-top:4px;font-size:10px;color:var(--teal)}
+
+/* ── DATA SPEC TABLE ── */
+.spec-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.spec-head{padding:12px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
+.spec-title{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--t2)}
+.spec-entity{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 9px;border-radius:2px;background:var(--tdim);color:#1aaa98;border:1px solid var(--tborder)}
+.spec-row{display:grid;grid-template-columns:180px 1fr 100px;gap:0;border-bottom:1px solid var(--b1)}
+.spec-row:last-child{border-bottom:none}
+.spec-row.header-row{background:var(--s2)}
+.spec-cell{padding:10px 14px;font-size:11px}
+.spec-row.header-row .spec-cell{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.spec-field{color:var(--t2);border-right:1px solid var(--b1)}
+.spec-input{color:var(--t1)}
+.spec-input input{width:100%;background:transparent;border:none;color:var(--t1);font-family:var(--body);font-size:11px;outline:none}
+.spec-input input::placeholder{color:var(--t3);font-style:italic}
+.spec-status{border-left:1px solid var(--b1);display:flex;align-items:center;justify-content:center}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--b3)}
+.status-dot.confirmed{background:var(--teal)}
+.status-dot.pending{background:var(--amber)}
+
+/* ── DEMO REQUIREMENTS ── */
+.req-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.req-item{padding:14px 16px;border-bottom:1px solid var(--b1);display:grid;
+  grid-template-columns:28px 1fr auto;gap:12px;align-items:start}
+.req-item:last-child{border-bottom:none}
+.req-num{font-family:var(--mono);font-size:9px;color:var(--t2);padding-top:2px}
+.req-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:3px}
+.req-desc{font-size:11px;color:var(--t2);line-height:1.6}
+.req-desc strong{color:var(--t1);font-weight:600}
+.req-tag{font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;white-space:nowrap;align-self:flex-start}
+.rt-poc{background:var(--tdim);color:var(--teal);border:1px solid var(--tborder)}
+.rt-tbd{background:transparent;color:var(--t3);border:1px solid var(--b2)}
+.rt-team{background:var(--adim);color:var(--amber);border:1px solid var(--aborder)}
+
+/* ── PHASE FLOW ── */
+.phase-flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b1);
+  border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.pf{background:var(--s1);padding:20px 18px 22px;position:relative}
+.pf.now{background:var(--s2)}
+.pf::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.pf.now::before{background:var(--red)}
+.pf.build::before{background:var(--amber)}
+.pf.show::before{background:var(--teal)}
+.pf-step{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--t2);margin-bottom:6px}
+.pf.now .pf-step{color:#ff5035}
+.pf.build .pf-step{color:var(--amber)}
+.pf.show .pf-step{color:var(--teal)}
+.pf-title{font-family:var(--display);font-size:18px;letter-spacing:.02em;color:var(--t1);margin-bottom:10px}
+.pf-items{list-style:none;font-size:11px;color:var(--t2)}
+.pf-items li{padding:3px 0;display:flex;gap:8px}
+.pf-items li::before{content:"—";color:var(--b3);flex-shrink:0}
+.pf.now .pf-items li::before{color:var(--red)}
+
+/* ── IP / VALUATION SECTION ── */
+.ip-block{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.ip-visual{padding:28px 24px 24px;background:var(--s2);border-bottom:1px solid var(--b1);position:relative;overflow:hidden}
+.ip-visual::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(201,127,20,.07) 0%,transparent 70%);pointer-events:none}
+.ip-label{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#f0a030;margin-bottom:12px}
+.ip-headline{font-family:var(--display);font-size:32px;letter-spacing:.02em;color:var(--t1);line-height:1;margin-bottom:10px}
+.ip-sub{font-size:12px;color:var(--t2);line-height:1.7;max-width:580px}
+.ip-sub strong{color:var(--t1);font-weight:600}
+.ip-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b1)}
+.ip-pillar{background:var(--s1);padding:14px 15px 16px}
+.ip-pnum{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:#f0a030;margin-bottom:5px}
+.ip-ptitle{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.ip-pdesc{font-size:10.5px;color:var(--t2);line-height:1.6}
+
+/* ── TEAM (fluid) ── */
+.team-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tc{background:var(--s1);border:1px solid var(--b1);border-radius:4px;padding:15px 16px 17px}
+.tc-who{font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:4px}
+.tc-name{font-family:var(--display);font-size:16px;letter-spacing:.01em;color:var(--t1);margin-bottom:2px}
+.tc-role{font-size:10px;color:var(--t3);font-style:italic;margin-bottom:10px}
+.tc-div{height:1px;background:var(--b1);margin-bottom:10px}
+.tc-note{font-size:11px;color:var(--t2);line-height:1.6}
+.tc-note strong{color:var(--t1);font-weight:600}
+
+/* ── FOOTER ── */
+.footer{margin-top:48px;padding:18px 0 0;border-top:1px solid var(--b1);
+  display:flex;justify-content:space-between;align-items:flex-end}
+.fc{font-size:11px;color:var(--t3);line-height:1.65}
+.fc strong{color:var(--t2);font-weight:500}
+.ft{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);text-align:right}
+
+/* ── VOICE RECORDING JS VARS ── */
+.voice-status{font-family:var(--mono);font-size:9px;color:var(--red);margin-top:4px;min-height:14px}
+
+.os-bullets{list-style:none;padding:0;margin:0}
+.os-bullets li{font-size:10px;color:var(--t2);padding:2.5px 0;display:flex;gap:6px;align-items:flex-start;line-height:1.45}
+.os-bullets li::before{content:"—";color:var(--t3);flex-shrink:0;font-size:9px}
+.osl-1 .os-bullets li::before{color:var(--red)}
+.osl-2 .os-bullets li::before{color:var(--amber)}
+.osl-3 .os-bullets li::before{color:var(--teal)}
+.osl-4 .os-bullets li::before{color:var(--slate)}
+.osl-5 .os-bullets li::before{color:var(--amber)}
+
+/* ── SAVE BAR ── */
+.save-bar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(7,7,7,.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--b2);
+  padding:10px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.save-bar-left{display:flex;align-items:center;gap:10px}
+.save-status{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.save-status.saved{color:var(--teal)}
+.save-status.unsaved{color:var(--amber)}
+.save-bar-right{display:flex;gap:7px}
+.save-btn{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 13px;border-radius:2px;cursor:pointer;transition:all .15s;
+  border:1px solid var(--b2);background:var(--s2);color:var(--t2);
+}
+.save-btn:hover{color:var(--t1);border-color:var(--b3);background:var(--s3)}
+.sb-save{background:var(--rglow);color:var(--red);border-color:var(--rdim)}
+.sb-save:hover{background:var(--red);color:#fff}
+.sb-load{background:var(--tdim);color:var(--teal);border-color:var(--tborder)}
+.sb-load:hover{background:var(--teal);color:#000}
+.sb-export{background:var(--sdim);color:var(--slate);border-color:var(--sborder)}
+.sb-export:hover{background:var(--slate);color:#fff}
+@media print{.save-bar{display:none}.answer-tools{display:none}}
+
+
+.ku-text{display:block;line-height:1.6}
+.ku-text strong{display:inline;font-weight:600;color:var(--t1)}
+
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<!-- ══ HEADER ══ -->
+
+<!-- ══ SESSION SAVE/LOAD BAR ══ -->
+<div class="save-bar">
+  <div class="save-bar-left">
+    <span class="save-status" id="saveStatus">Session not saved</span>
+  </div>
+  <div class="save-bar-right">
+    <button class="save-btn sb-load" onclick="loadSession()">⬆ Load Session</button>
+    <button class="save-btn sb-export" onclick="exportPDF()">⬇ Print / Export PDF</button>
+    <button class="save-btn sb-save" onclick="saveSession()">💾 Save Session</button>
+    <input type="file" id="loadFileInput" accept=".json" style="display:none" onchange="handleLoad(this)">
+  </div>
+</div>
+
+<div class="hdr">
+  <div class="hdr-bg"></div>
+  <div class="hdr-grid">
+    <div>
+      <div class="logo-row">
+        <img class="logo-img" src="data:image/png;base64,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" alt="VisLogic.AI">
+        <span class="logo-sep">&times;</span>
+        <span class="logo-co">Haku Technology</span>
+      </div>
+      <div class="eyebrow"><span class="eyebrow-line"></span>Collaborative Discovery &mdash; Phase 1 of 2</div>
+      <div class="hdr-title">
+        COLLAB<span class="accent">ORATIVE</span><br>
+        <span class="dim">DISCO</span>VERY
+      </div>
+      <p class="hdr-sub">This <strong>IDEATION Palette</strong> lives in all sessions, captures what we learn, and builds toward a demo that speaks to real operational challenges &mdash; not hypotheticals. Everything here is meant to evolve.</p>
+    </div>
+    <div class="badge-col">
+      <span class="bdg bdg-red">Proof of Concept Target</span>
+      <span class="bdg bdg-amber">IP Development &amp; Valuation</span>
+      <span class="bdg bdg-teal">HIPAA Compliant &middot; Gov&rsquo;t Vetted</span>
+      <span class="bdg bdg-slate">IEC 60601 Compatible</span>
+      <span class="bdg bdg-dim">Collaborative Working Session</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ POSITIONING HERO ══ -->
+<div class="pos-hero">
+  <div class="pos-label">The Real Positioning</div>
+  <div class="pos-statement">AI-Powered <span class="red">Regulatory + Operational</span> Intelligence Layer</div>
+  <div class="pos-sub">
+    Haku operates with the complexity of a company 5&times; its size &mdash; boutique med-device skunkworks, regulatory orchestration layer, rapid prototyping firm, and outsourced innovation engine, all at once, on 10 people.
+    <strong>VisLogic.AI is the operational nervous system that makes that sustainable, scalable, and enterprise-ready.</strong>
+  </div>
+</div>
+
+<!-- ══ VENN A: MARKET COMPLEXITY ══ -->
+<div style="background:#050505;border-top:1px solid #1c1c1c;border-bottom:1px solid #1c1c1c;padding:32px 0 24px">
+<svg width="100%" viewBox="0 0 860 520" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Haku Logix OS — Market Complexity &amp; Identity</title>
+<desc>Four overlapping ellipses representing Haku's four market-facing identities — boutique skunkworks, regulatory layer, rapid prototyping, and outsourced innovation engine — converging on the HAKU LOGIX OS operational intelligence layer.</desc>
+<defs>
+  <radialGradient id="core-va" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#202020"/>
+    <stop offset="100%" stop-color="#080808"/>
+  </radialGradient>
+  <radialGradient id="pulse-coral" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#D85A30" stop-opacity="0.6"/>
+    <stop offset="100%" stop-color="#D85A30" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="pulse-teal" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#1aaa98" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#1aaa98" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="pulse-amber" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#e09520" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#e09520" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="pulse-purple" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#7F77DD" stop-opacity="0.5"/>
+    <stop offset="100%" stop-color="#7F77DD" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+
+<!-- Diagram label -->
+<text x="430" y="22" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="9" fill="#3a3836" letter-spacing="3">DIAGRAM A — MARKET COMPLEXITY &amp; IDENTITY</text>
+
+<!-- ELLIPSES -->
+<!-- Top-left: Boutique Skunkworks — coral -->
+<ellipse cx="310" cy="210" rx="196" ry="118" fill="#D85A30" fill-opacity="0.13"/>
+<ellipse cx="310" cy="210" rx="196" ry="118" fill="none" stroke="#D85A30" stroke-width="1.4" stroke-opacity="0.72"/>
+
+<!-- Top-right: Regulatory Orchestration — teal -->
+<ellipse cx="550" cy="210" rx="196" ry="118" fill="#1aaa98" fill-opacity="0.13"/>
+<ellipse cx="550" cy="210" rx="196" ry="118" fill="none" stroke="#1aaa98" stroke-width="1.4" stroke-opacity="0.72"/>
+
+<!-- Bottom-left: Rapid Prototyping — amber -->
+<ellipse cx="310" cy="360" rx="196" ry="118" fill="#e09520" fill-opacity="0.13"/>
+<ellipse cx="310" cy="360" rx="196" ry="118" fill="none" stroke="#e09520" stroke-width="1.4" stroke-opacity="0.72"/>
+
+<!-- Bottom-right: Outsourced Innovation — purple -->
+<ellipse cx="550" cy="360" rx="196" ry="118" fill="#7F77DD" fill-opacity="0.13"/>
+<ellipse cx="550" cy="360" rx="196" ry="118" fill="none" stroke="#7F77DD" stroke-width="1.4" stroke-opacity="0.72"/>
+
+<!-- Center glow convergence -->
+<ellipse cx="430" cy="285" rx="110" ry="110" fill="url(#pulse-coral)" fill-opacity="0.45"/>
+<ellipse cx="430" cy="285" rx="110" ry="110" fill="url(#pulse-teal)" fill-opacity="0.38"/>
+<ellipse cx="430" cy="285" rx="110" ry="110" fill="url(#pulse-amber)" fill-opacity="0.38"/>
+<ellipse cx="430" cy="285" rx="110" ry="110" fill="url(#pulse-purple)" fill-opacity="0.32"/>
+
+<!-- Core circle -->
+<circle cx="430" cy="285" r="86" fill="url(#core-va)"/>
+<circle cx="430" cy="285" r="86" fill="none" stroke="#e8341c" stroke-width="1.8" stroke-opacity="0.88"/>
+<circle cx="430" cy="285" r="80" fill="none" stroke="#e8341c" stroke-width="0.4" stroke-opacity="0.3"/>
+
+<!-- Core text -->
+<text x="430" y="270" text-anchor="middle" font-family="Bebas Neue,Arial Black,sans-serif" font-size="18" fill="#f0ece3" letter-spacing="2.5">HAKU LOGIX OS</text>
+<line x1="380" y1="279" x2="480" y2="279" stroke="#e8341c" stroke-width="0.9" stroke-opacity="0.65"/>
+<text x="430" y="293" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8" fill="#e8341c" letter-spacing="2">OPERATIONAL</text>
+<text x="430" y="306" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8" fill="#e8341c" letter-spacing="2">INTELLIGENCE LAYER</text>
+
+<!-- ELLIPSE LABELS — positioned in outer lobes, clear of center -->
+<!-- Top-left: Boutique Skunkworks -->
+<text x="168" y="153" text-anchor="middle" font-family="Bebas Neue,Arial Black,sans-serif" font-size="14" fill="#F09975" letter-spacing="0.8">BOUTIQUE SKUNKWORKS</text>
+<text x="168" y="170" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8" fill="#F09975" fill-opacity="0.75" letter-spacing="0.5">Med-Device Development</text>
+
+<!-- Top-right: Regulatory Orchestration -->
+<text x="692" y="153" text-anchor="middle" font-family="Bebas Neue,Arial Black,sans-serif" font-size="14" fill="#5DCAA5" letter-spacing="0.8">REGULATORY LAYER</text>
+<text x="692" y="170" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8" fill="#5DCAA5" fill-opacity="0.75" letter-spacing="0.5">Orchestration &amp; Compliance</text>
+
+<!-- Bottom-left: Rapid Prototyping -->
+<text x="168" y="405" text-anchor="middle" font-family="Bebas Neue,Arial Black,sans-serif" font-size="14" fill="#FAC775" letter-spacing="0.8">RAPID PROTOTYPING</text>
+<text x="168" y="422" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8" fill="#FAC775" fill-opacity="0.75" letter-spacing="0.5">Speed-to-Market Firm</text>
+
+<!-- Bottom-right: Outsourced Innovation -->
+<text x="692" y="405" text-anchor="middle" font-family="Bebas Neue,Arial Black,sans-serif" font-size="14" fill="#AFA9EC" letter-spacing="0.8">INNOVATION ENGINE</text>
+<text x="692" y="422" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8" fill="#AFA9EC" fill-opacity="0.75" letter-spacing="0.5">Outsourced R&amp;D Partner</text>
+
+<!-- Corner color pips -->
+<rect x="52" y="138" width="7" height="7" rx="1.5" fill="#D85A30"/>
+<rect x="801" y="138" width="7" height="7" rx="1.5" fill="#1aaa98"/>
+<rect x="52" y="412" width="7" height="7" rx="1.5" fill="#e09520"/>
+<rect x="801" y="412" width="7" height="7" rx="1.5" fill="#7F77DD"/>
+
+<!-- Bottom caption -->
+<text x="430" y="492" text-anchor="middle" font-family="JetBrains Mono,Courier New,monospace" font-size="8.5" fill="#2e2c2a" letter-spacing="2">THE INTERSECTION IS WHERE HAKU OPERATES. THE OS IS WHAT MAKES IT SUSTAINABLE.</text>
+</svg>
+</div>
+
+
+<div class="body">
+
+<!-- ══ THE OS: 5 LAYERS ══ -->
+<p class="slabel">The HAKU LOGIX OS &mdash; 5 Integrated Layers</p>
+<div class="os-layers">
+  <div class="os-layer osl-1">
+    <span class="os-icon">⚖️</span>
+    <div class="os-num">Layer 01</div>
+    <div class="os-title">Regulatory Intelligence</div>
+    <ul class="os-bullets">
+      <li>CAPA workflow automation</li>
+      <li>FDA response orchestration</li>
+      <li>Compliance audit trail</li>
+      <li>Quality system visibility</li>
+    </ul>
+  </div>
+  <div class="os-layer osl-2">
+    <span class="os-icon">🔬</span>
+    <div class="os-num">Layer 02</div>
+    <div class="os-title">V&amp;V + Validation Intelligence</div>
+    <ul class="os-bullets">
+      <li>Regression tracking by build</li>
+      <li>Predicate delta (bias/SD/LOA)</li>
+      <li>Smart re-test flagging</li>
+      <li>DHF version intelligence</li>
+    </ul>
+  </div>
+  <div class="os-layer osl-3">
+    <span class="os-icon">🗄️</span>
+    <div class="os-num">Layer 03</div>
+    <div class="os-title">Historical Data Activation</div>
+    <ul class="os-bullets">
+      <li>Archive &rarr; live intelligence</li>
+      <li>Bench test history surfaced</li>
+      <li>Predicate equivalence retrieval</li>
+      <li>Cross-engagement patterns</li>
+    </ul>
+  </div>
+  <div class="os-layer osl-4">
+    <span class="os-icon">🧭</span>
+    <div class="os-num">Layer 04</div>
+    <div class="os-title">Engineering + Program Command</div>
+    <ul class="os-bullets">
+      <li>Virtual COO layer</li>
+      <li>Sprint &amp; milestone tracking</li>
+      <li>Team coordination telemetry</li>
+      <li>Bottleneck flagging</li>
+    </ul>
+  </div>
+  <div class="os-layer osl-5">
+    <span class="os-icon">📈</span>
+    <div class="os-num">Layer 05</div>
+    <div class="os-title">IP &amp; Valuation Infrastructure</div>
+    <ul class="os-bullets">
+      <li>Institutional knowledge captured</li>
+      <li>Auditable &amp; repeatable systems</li>
+      <li>Founder-to-platform transition</li>
+      <li>Enterprise-grade readiness</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══ KNOWN vs UNKNOWN ══ -->
+<p class="slabel">Known &amp; Unknown Factors</p>
+<div class="ku-grid">
+  <div class="ku-card ku-known">
+    <div class="ku-head"><div class="ku-icon"></div><div class="ku-label">Known &mdash; Confirmed Signals</div></div>
+    <div class="ku-body">
+      <div class="ku-item"><span class="ku-text"><strong>Regulatory complexity is high.</strong> FDA quality separation enforced. CAPA violations on record. The governance structure creates structured, AI-amenable data.</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>V&amp;V throughput is the ceiling.</strong> Speed-to-clearance is Haku&rsquo;s core competitive value. Rebuild loops are the friction point named unprompted.</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>Quality system is manual and people-dependent.</strong> One person runs it. Any growth, absence, or handoff is a risk.</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>Software team has coordination gaps.</strong> Young, technically strong, operationally immature. Needs structured workflow governance, not more engineers.</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>Business model is in transition.</strong> Contract grind &rarr; platform company &rarr; investor-ready. The transition is active, not aspirational.</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>Historical data archive exists.</strong> Years of bench test, predicate equivalence, and clinical data. Format and accessibility TBD.</span></div>
+    </div>
+  </div>
+  <div class="ku-card ku-unknown">
+    <div class="ku-head"><div class="ku-icon"></div><div class="ku-label">Unknown &mdash; Discovery Targets</div></div>
+    <div class="ku-body">
+      <div class="ku-item"><span class="ku-text"><strong>Data format and accessibility.</strong> Is the archive structured, spreadsheet-based, PDFs, or custom? What can be shared in sanitized form?</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>CAPA workflow specifics.</strong> How many stages does Haku actually use? What triggers a CAPA? Where does it live today?</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>V&amp;V cycle time.</strong> How many bench test cycles on a typical engagement? Where does the most time disappear?</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>Eric&rsquo;s operational priorities.</strong> What does the head engineer actually feel the most? PM layer, regression tracking, or something else?</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>Investment readiness timeline.</strong> Is the raise aspirational or actively being pursued? What would an investor-ready ops layer need to look like?</span></div>
+      <div class="ku-item"><span class="ku-text"><strong>POC data availability.</strong> Can a sanitized dataset from a past engagement be shared for demo build? What are the constraints?</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SESSION PARTICIPANTS ══ -->
+<p class="slabel">Session Participants</p>
+<div class="team-row">
+  <div class="tc">
+    <div class="tc-who">VisLogic.AI</div>
+    <div class="tc-name">Oz Rosario</div>
+    <div class="tc-role">Chief Growth &amp; Strategy Officer</div>
+    <div class="tc-div"></div>
+    <div class="tc-note">Discovery lead. Owns the relationship and the session frame. <strong>Objective: leave with enough context and data direction to build the demo.</strong></div>
+  </div>
+  <div class="tc">
+    <div class="tc-who">VisLogic.AI Platform &mdash; Remote</div>
+    <div class="tc-name">Platform Team</div>
+    <div class="tc-role">Technical + UX Representation (as available)</div>
+    <div class="tc-div"></div>
+    <div class="tc-note">Technical validation and demo spec confirmation. <strong>Joins as schedule allows &mdash; session runs regardless.</strong> Findings feed directly into demo build.</div>
+  </div>
+  <div class="tc">
+    <div class="tc-who">Haku Technology</div>
+    <div class="tc-name">Team Haku</div>
+    <div class="tc-role">Joey Banet &amp; Collaborators</div>
+    <div class="tc-div"></div>
+    <div class="tc-note">The domain experts. What&rsquo;s shared here shapes what gets built. <strong>This session is as valuable as the data and context Haku brings into it.</strong></div>
+  </div>
+</div>
+
+<!-- ══ DISCOVERY QUESTIONS ══ -->
+<p class="slabel">Discovery &mdash; Four Focus Areas</p>
+<div class="disc-grid">
+
+  <div class="disc-card">
+    <div class="dc-head">
+      <div class="dc-zone"><span style="color:#e09520">Focus Area 01</span> &mdash; Regulatory</div>
+      <div class="dc-title">CAPA + Quality System</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-q">
+        <div class="dc-q-text">Walk us through a CAPA from trigger to close. Where does it live today?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">When an FDA question comes back on a filing &mdash; how do you trace it to the source test or complaint?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">Average CAPA cycle time? What&rsquo;s the longest one you&rsquo;ve had to manage?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-card">
+    <div class="dc-head">
+      <div class="dc-zone"><span style="color:#1aaa98">Focus Area 02</span> &mdash; Validation</div>
+      <div class="dc-title">V&amp;V Workflow + Cycle Time</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-q">
+        <div class="dc-q-text">On your most recent 510(k) &mdash; how many bench test cycles, and where did time disappear?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">When an algorithm parameter changes &mdash; what triggers re-validation? Is that a judgment call or a defined rule?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">How do you compare current device performance to your predicate today &mdash; manual or automated?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-card">
+    <div class="dc-head">
+      <div class="dc-zone"><span style="color:#4d85c8">Focus Area 03</span> &mdash; Data</div>
+      <div class="dc-title">Archive + Historical Intelligence</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-q">
+        <div class="dc-q-text">How far back does the testing archive go? What format &mdash; spreadsheets, CSV, custom system?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">Does a past engagement&rsquo;s sanitized data exist that we could use to model a real demo?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">Does historical test data get referenced when starting a new build, or does each project start fresh?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-card">
+    <div class="dc-head">
+      <div class="dc-zone"><span style="color:#e8341c">Focus Area 04</span> &mdash; Operations</div>
+      <div class="dc-title">Engineering + Program Management</div>
+    </div>
+    <div class="dc-body">
+      <div class="dc-q">
+        <div class="dc-q-text">How is the engineering team tracking tasks and milestones today &mdash; formal system or ad hoc?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">If you could fix one operational thing in the next 90 days, what would it be?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+      <div class="dc-q">
+        <div class="dc-q-text">What does &ldquo;working on the business, not in the business&rdquo; look like concretely for Haku right now?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea>
+          <div class="answer-tools">
+            <button class="a-tool-btn" onclick="toggleRec(this)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record</button>
+            <label class="a-tool-btn"><svg viewBox="0 0 16 16"><path d="M8 1v10M3 6l5 5 5-5M2 14h12"/></svg>Attach<input type="file" accept="*/*" onchange="handleFile(this)"></label>
+          </div>
+          <div class="file-list"></div>
+          <div class="voice-status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DATA SPEC ══ -->
+<p class="slabel">Data &amp; Context &mdash; Team Haku</p>
+<div class="spec-wrap">
+  <div class="spec-head">
+    <span class="spec-title">What we&rsquo;re looking to understand &amp; potentially ingest</span>
+    <span class="spec-entity">Team Haku</span>
+  </div>
+  <div class="spec-row header-row">
+    <div class="spec-cell spec-field">Data Type</div>
+    <div class="spec-cell spec-input">Notes / Format / Availability</div>
+    <div class="spec-cell spec-status" style="font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;justify-content:center">Status</div>
+  </div>
+  <div class="spec-row"><div class="spec-cell spec-field">CAPA Records</div><div class="spec-cell spec-input"><input type="text" placeholder="Format, tool, years covered..."></div><div class="spec-cell spec-status"><div class="status-dot"></div></div></div>
+  <div class="spec-row"><div class="spec-cell spec-field">Bench Test Archive</div><div class="spec-cell spec-input"><input type="text" placeholder="Format, depth, shareable?"></div><div class="spec-cell spec-status"><div class="status-dot"></div></div></div>
+  <div class="spec-row"><div class="spec-cell spec-field">Predicate Equivalence Data</div><div class="spec-cell spec-input"><input type="text" placeholder="Bias / SD / LOA &mdash; how stored?"></div><div class="spec-cell spec-status"><div class="status-dot"></div></div></div>
+  <div class="spec-row"><div class="spec-cell spec-field">DHF Structure</div><div class="spec-cell spec-input"><input type="text" placeholder="Template, versioning, format..."></div><div class="spec-cell spec-status"><div class="status-dot"></div></div></div>
+  <div class="spec-row"><div class="spec-cell spec-field">Engineering Task / Sprint Data</div><div class="spec-cell spec-input"><input type="text" placeholder="Any formal tracking today?"></div><div class="spec-cell spec-status"><div class="status-dot"></div></div></div>
+  <div class="spec-row"><div class="spec-cell spec-field">Sanitized Past Engagement</div><div class="spec-cell spec-input"><input type="text" placeholder="Availability, PHI constraints, ETA..."></div><div class="spec-cell spec-status"><div class="status-dot"></div></div></div>
+</div>
+
+<!-- ══ DEMO REQUIREMENTS ══ -->
+<p class="slabel">Demo Build Requirements</p>
+<div class="req-wrap">
+  <div class="req-item">
+    <div class="req-num">01</div>
+    <div><div class="req-title">CAPA Workflow Visualization</div><div class="req-desc">End-to-end from complaint intake to root-cause closure. <strong>The most tangible pain in the room</strong> &mdash; show it first. Confirm the stages Haku actually uses.</div></div>
+    <span class="req-tag rt-poc">POC Target</span>
+  </div>
+  <div class="req-item">
+    <div class="req-num">02</div>
+    <div><div class="req-title">Historical Data Archive Intelligence</div><div class="req-desc">Ingest past bench test data &rarr; surface live intelligence for current builds. <strong>Their own data, made useful.</strong> Confirm data availability and format this session.</div></div>
+    <span class="req-tag rt-poc">POC Target</span>
+  </div>
+  <div class="req-item">
+    <div class="req-num">03</div>
+    <div><div class="req-title">V&amp;V Regression + Predicate Tracking</div><div class="req-desc">Flag parameter changes between builds. Automate bias/SD/LOA comparison vs. predicate. Stop running the full test suite every cycle.</div></div>
+    <span class="req-tag rt-team">Confirm with Team</span>
+  </div>
+  <div class="req-item">
+    <div class="req-num">04</div>
+    <div><div class="req-title">Engineering PM &amp; Sprint Visibility</div><div class="req-desc">Task tracking, milestone charting, operational telemetry for the engineering team. <strong>Confirm whether this is a priority for the demo or a Phase 2 expansion.</strong></div></div>
+    <span class="req-tag rt-tbd">TBD</span>
+  </div>
+  <div class="req-item">
+    <div class="req-num">05</div>
+    <div><div class="req-title">Operational Dashboard &mdash; Eye in the Sky</div><div class="req-desc">Real-time status triangulation across CAPA, V&amp;V, engineering, and compliance. The single-pane view that replaces ten manual processes.</div></div>
+    <span class="req-tag rt-poc">POC Target</span>
+  </div>
+</div>
+
+<!-- ══ IP / VALUATION ══ -->
+<p class="slabel">IP Development &amp; Valuation Building</p>
+<div class="ip-block">
+  <div class="ip-visual">
+    <div class="ip-label">Strategic Layer &mdash; The Bigger Picture</div>
+    <div class="ip-headline">From Founder-Dependent<br>to Enterprise-Ready</div>
+    <div class="ip-sub">
+      Companies that scale don&rsquo;t just get more efficient &mdash; they <strong>institutionalize what makes them exceptional.</strong> The expertise that lives in a founding team&rsquo;s heads becomes auditable, repeatable, and demonstrably valuable. That&rsquo;s the difference between a services business and a platform. <strong>Building the HAKU LOGIX OS is how that transition accelerates &mdash; efficiently, deliberately, and on your terms.</strong>
+    </div>
+  </div>
+  <div class="ip-pillars">
+    <div class="ip-pillar">
+      <div class="ip-pnum">Pillar A</div>
+      <div class="ip-ptitle">Repeatability &amp; Leverage</div>
+      <div class="ip-pdesc">Systematized workflows that replicate founder judgment without requiring founders in every room. Scale without proportional headcount.</div>
+    </div>
+    <div class="ip-pillar">
+      <div class="ip-pnum">Pillar B</div>
+      <div class="ip-ptitle">Institutional Resilience</div>
+      <div class="ip-pdesc">Regulatory knowledge, clinical methodology, and V&amp;V history captured in architecture &mdash; not individuals. The company survives and grows beyond any single person.</div>
+    </div>
+    <div class="ip-pillar">
+      <div class="ip-pnum">Pillar C</div>
+      <div class="ip-ptitle">Valuation Infrastructure</div>
+      <div class="ip-pdesc">Auditable data architecture, documented processes, and automated compliance systems that tell a compelling story to enterprise partners and growth capital &mdash; in any room, any conversation.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHASE FLOW ══ -->
+<p class="slabel">How We Get There</p>
+<div class="phase-flow">
+  <div class="pf now">
+    <div class="pf-step">To Start</div>
+    <div class="pf-title">Collaborative Discovery</div>
+    <ul class="pf-items">
+      <li>Map the operational reality</li>
+      <li>Understand data landscape</li>
+      <li>Confirm demo requirements</li>
+      <li>Identify the highest-value entry point</li>
+      <li>Define what a win looks like</li>
+    </ul>
+  </div>
+  <div class="pf build">
+    <div class="pf-step">To Build</div>
+    <div class="pf-title">Demo Construction</div>
+    <ul class="pf-items">
+      <li>Ingest available data</li>
+      <li>Build CAPA + archive intelligence layer</li>
+      <li>Model V&amp;V regression tracking</li>
+      <li>Design operational dashboard</li>
+      <li>Tune to Haku&rsquo;s actual workflows</li>
+    </ul>
+  </div>
+  <div class="pf show">
+    <div class="pf-step">To Show</div>
+    <div class="pf-title">Full Team Demonstration</div>
+    <ul class="pf-items">
+      <li>Live platform demo &mdash; Haku data</li>
+      <li>POC scope discussion</li>
+      <li>Data handoff agreement</li>
+      <li>Enterprise fit + growth roadmap</li>
+      <li>Define the next milestone</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="fc"><strong>Oz Rosario</strong><br>Chief Growth &amp; Strategy Officer &mdash; VisLogic.AI<br>oz@vislogic.ai &nbsp;|&nbsp; 619.987.4040</div>
+  <div class="ft">Collaborative Discovery &mdash; Phase 1 of 2<br>VisLogic.AI &times; Haku Technology &mdash; 2026</div>
+</div>
+
+</div>
+
+<script>
+// ── VOICE RECORDING ──
+let mediaRecorder=null,audioChunks=[],activeBtn=null;
+
+function toggleRec(btn){
+  const block=btn.closest('.answer-area');
+  const statusEl=block.querySelector('.voice-status');
+  if(mediaRecorder&&mediaRecorder.state==='recording'){
+    mediaRecorder.stop();
+    btn.classList.remove('recording');
+    btn.innerHTML='<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record';
+    statusEl.textContent='';
+    activeBtn=null;
+  } else {
+    if(activeBtn){
+      // stop previous
+      if(mediaRecorder) mediaRecorder.stop();
+      activeBtn.classList.remove('recording');
+      activeBtn.innerHTML='<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/></svg>Record';
+      activeBtn.closest('.answer-area').querySelector('.voice-status').textContent='';
+    }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+      audioChunks=[];
+      mediaRecorder=new MediaRecorder(stream);
+      mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+      mediaRecorder.onstop=()=>{
+        const blob=new Blob(audioChunks,{type:'audio/webm'});
+        const url=URL.createObjectURL(blob);
+        const audio=document.createElement('audio');
+        audio.controls=true;audio.src=url;audio.style.cssText='width:100%;margin-top:6px;height:28px;filter:invert(1) hue-rotate(180deg)';
+        block.appendChild(audio);
+        stream.getTracks().forEach(t=>t.stop());
+      };
+      mediaRecorder.start();
+      activeBtn=btn;
+      btn.classList.add('recording');
+      btn.innerHTML='<span class="rec-dot"></span>Stop';
+      statusEl.textContent='Recording...';
+    }).catch(()=>{statusEl.textContent='Mic access denied';});
+  }
+}
+
+// ── FILE ATTACH ──
+function handleFile(input){
+  const listEl=input.closest('.answer-area').querySelector('.file-list');
+  Array.from(input.files).forEach(f=>{
+    const div=document.createElement('div');
+    div.textContent='📎 '+f.name;div.style.padding='2px 0';
+    listEl.appendChild(div);
+  });
+}
+
+// ── DRAG + DROP on file-drop zones ──
+document.querySelectorAll('.file-drop').forEach(zone=>{
+  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over')});
+  zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+  zone.addEventListener('drop',e=>{
+    e.preventDefault();zone.classList.remove('drag-over');
+    const listEl=zone.querySelector('.file-list');
+    Array.from(e.dataTransfer.files).forEach(f=>{
+      const div=document.createElement('div');div.textContent='📎 '+f.name;
+      listEl.appendChild(div);
+    });
+  });
+});
+
+// ── STATUS DOT CLICK TOGGLE ──
+document.querySelectorAll('.status-dot').forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    if(dot.classList.contains('confirmed')){dot.classList.remove('confirmed');dot.classList.add('pending');}
+    else if(dot.classList.contains('pending')){dot.classList.remove('pending');}
+    else{dot.classList.add('confirmed');}
+  });
+  dot.style.cursor='pointer';
+  dot.title='Click to toggle status';
+});
+
+// ── SESSION SAVE / LOAD ──
+function collectSession(){
+  const data = {
+    version: 1,
+    timestamp: new Date().toISOString(),
+    label: 'Haku × VisLogic.AI — Collaborative Discovery',
+    fields: {}
+  };
+  // Textareas
+  document.querySelectorAll('textarea').forEach((el,i)=>{
+    if(el.value) data.fields['ta_'+i] = el.value;
+  });
+  // Text inputs
+  document.querySelectorAll('input[type="text"]').forEach((el,i)=>{
+    if(el.value) data.fields['inp_'+i] = el.value;
+  });
+  // Status dots
+  document.querySelectorAll('.status-dot').forEach((el,i)=>{
+    data.fields['dot_'+i] = el.classList.contains('confirmed') ? 'confirmed' : el.classList.contains('pending') ? 'pending' : 'none';
+  });
+  return data;
+}
+
+function applySession(data){
+  const tas = document.querySelectorAll('textarea');
+  const inps = document.querySelectorAll('input[type="text"]');
+  const dots = document.querySelectorAll('.status-dot');
+  Object.entries(data.fields||{}).forEach(([k,v])=>{
+    if(k.startsWith('ta_')){const el=tas[+k.slice(3)];if(el)el.value=v;}
+    else if(k.startsWith('inp_')){const el=inps[+k.slice(4)];if(el)el.value=v;}
+    else if(k.startsWith('dot_')){
+      const el=dots[+k.slice(4)];
+      if(el){el.classList.remove('confirmed','pending');if(v!=='none')el.classList.add(v);}
+    }
+  });
+}
+
+function saveSession(){
+  const data = collectSession();
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'haku-session-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  setStatus('saved','Session saved — ' + new Date().toLocaleTimeString());
+}
+
+function loadSession(){
+  document.getElementById('loadFileInput').click();
+}
+
+function handleLoad(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      applySession(data);
+      setStatus('saved','Session loaded — ' + (data.timestamp ? new Date(data.timestamp).toLocaleString() : 'unknown date'));
+    } catch(err){
+      setStatus('unsaved','Load failed — invalid file');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function exportPDF(){
+  window.print();
+}
+
+function setStatus(state, msg){
+  const el = document.getElementById('saveStatus');
+  el.textContent = msg;
+  el.className = 'save-status ' + state;
+}
+
+// Auto-flag unsaved on any input
+document.addEventListener('input', ()=>setStatus('unsaved','Unsaved changes'));
+document.addEventListener('change', ()=>setStatus('unsaved','Unsaved changes'));
+
+</script>
+</body>
+</html>

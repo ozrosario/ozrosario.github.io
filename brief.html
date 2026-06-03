@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oz Rosario · AI Operator Brief · v6</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --ink:   #0c0b09;
+  --ink3:  #3d3a35;
+  --mid:   #7a7570;
+  --rule:  #e2ddd8;
+  --cream: #f9f7f3;
+  --paper: #ffffff;
+  --gold:  #b87d1a;
+  --gold2: rgba(184,125,26,0.09);
+  --goldB: rgba(184,125,26,0.32);
+  --teal:  #106668;
+  --teal2: rgba(16,102,104,0.09);
+  --red:   #a8312a;
+  --red2:  rgba(168,49,42,0.09);
+  --slate: #284568;
+  --slate2:rgba(40,69,104,0.09);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:15px;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;}
+.hero{background:var(--ink);display:grid;grid-template-columns:1fr 340px;min-height:400px;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:42px 42px;pointer-events:none;}
+.hero-left{padding:52px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2;}
+.hero-right{border-left:1px solid rgba(255,255,255,0.07);padding:40px 36px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;z-index:2;}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);}
+.hero-name{font-family:'DM Serif Display',serif;font-weight:400;font-style:normal;font-size:clamp(38px,4.8vw,58px);line-height:1.08;letter-spacing:-0.01em;color:#fff;margin-bottom:4px;}
+.hero-name em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,0.42);max-width:400px;line-height:1.75;margin-bottom:36px;margin-top:10px;}
+.hero-sub strong{color:rgba(255,255,255,0.72);font-weight:500;}
+.stat-row{display:flex;flex-direction:column;gap:0;}
+.stat-item{display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid rgba(255,255,255,0.06);}
+.stat-item:last-child{border-bottom:1px solid rgba(255,255,255,0.06);}
+.stat-icon{color:var(--gold);font-size:16px;flex-shrink:0;width:20px;text-align:center;}
+.stat-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold);min-width:80px;line-height:1;}
+.stat-lbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;line-height:1.5;}
+.chip-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.chip-grid{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 9px;border-radius:2px;letter-spacing:0.03em;border:1px solid rgba(255,255,255,0.09);color:rgba(255,255,255,0.45);}
+.chip.g{border-color:rgba(184,125,26,0.4);color:var(--gold);background:rgba(184,125,26,0.07);}
+.chip.t{border-color:rgba(16,102,104,0.4);color:#4bb8bb;background:rgba(16,102,104,0.07);}
+.chip.s{border-color:rgba(40,69,104,0.4);color:#7aabd4;background:rgba(40,69,104,0.07);}
+.chip.r{border-color:rgba(168,49,42,0.4);color:#e07570;background:rgba(168,49,42,0.07);}
+.strip{background:var(--paper);border-bottom:1px solid var(--rule);padding:13px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.strip-name{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);}
+.strip-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
+.strip-contact{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mid);text-align:right;line-height:1.9;}
+.strip-contact a{color:var(--teal);text-decoration:none;}
+.nav{background:var(--paper);border-bottom:1px solid var(--rule);padding:0 56px;display:flex;overflow-x:auto;}
+.nav a{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:12px 16px;color:var(--mid);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;}
+.nav a:hover{color:var(--gold);border-bottom-color:var(--gold);}
+.wrap{max-width:980px;margin:0 auto;padding:0 56px;}
+.section{padding:52px 0;border-bottom:1px solid var(--rule);}
+.section:last-child{border-bottom:none;}
+.sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;display:flex;align-items:center;gap:8px;}
+.sec-title{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(20px,2.4vw,26px);color:var(--ink);letter-spacing:-0.01em;line-height:1.2;margin-bottom:5px;}
+.sec-sub{font-size:13px;color:var(--mid);line-height:1.72;max-width:660px;margin-bottom:24px;}
+.class-grid{display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:start;}
+.spectrum{display:flex;align-items:flex-end;gap:5px;height:48px;margin-bottom:8px;}
+.spec-bar{width:24px;border-radius:3px 3px 0 0;}
+.spec-labels{display:flex;gap:5px;margin-top:5px;}
+.spec-lbl{width:24px;font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--mid);text-align:center;line-height:1.3;text-transform:uppercase;}
+.spec-lbl.on{color:var(--gold);}
+.class-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold2);border:1px solid var(--goldB);border-radius:3px;padding:8px 14px;margin-top:12px;}
+.class-badge i{color:var(--gold);font-size:14px;}
+.class-badge-text{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);}
+.verdict{background:var(--ink);border-radius:8px;padding:28px 32px;position:relative;overflow:hidden;}
+.verdict-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.13em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.verdict-hl{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;line-height:1.4;margin-bottom:10px;}
+.verdict-body{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.74;}
+.verdict-body strong{color:var(--gold);}
+.vel-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0 32px;}
+.vel-card{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 14px;text-align:center;}
+.vel-icon{font-size:20px;margin-bottom:6px;}
+.vel-num{font-family:'DM Serif Display',serif;font-size:26px;line-height:1;margin-bottom:4px;}
+.vel-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.06em;text-transform:uppercase;color:var(--mid);line-height:1.5;}
+.timeline{padding-left:30px;position:relative;}
+.timeline::before{content:'';position:absolute;left:7px;top:10px;bottom:10px;width:1px;background:linear-gradient(to bottom,var(--gold),var(--rule) 90%);}
+.tl{position:relative;margin-bottom:22px;}
+.tl::before{content:'';position:absolute;left:-25px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--paper);border:1.5px solid var(--rule);}
+.tl.key::before{background:var(--gold);border-color:var(--gold);}
+.tl-time{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--mid);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:2px;}
+.tl-title{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:3px;}
+.tl-body{font-size:12px;color:var(--ink3);line-height:1.65;max-width:640px;}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+.tt{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 8px;border-radius:2px;letter-spacing:0.04em;}
+.tt-g{background:var(--gold2);color:var(--gold);border:1px solid rgba(184,125,26,0.25);}
+.tt-t{background:var(--teal2);color:var(--teal);border:1px solid rgba(16,102,104,0.25);}
+.tt-r{background:var(--red2);color:var(--red);border:1px solid rgba(168,49,42,0.25);}
+.tt-s{background:var(--slate2);color:var(--slate);border:1px solid rgba(40,69,104,0.25);}
+.ai-stack{display:flex;flex-direction:column;gap:6px;margin:10px 0;}
+.ai-row{display:flex;gap:10px;align-items:baseline;}
+.ai-tag{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 8px;border-radius:2px;white-space:nowrap;flex-shrink:0;}
+.ai-desc{font-size:11.5px;color:var(--ink3);}
+.del-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.del-card{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:13px 14px;display:flex;gap:10px;align-items:flex-start;transition:border-color 0.18s,transform 0.15s;}
+.del-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+.del-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);min-width:18px;flex-shrink:0;padding-top:1px;}
+.del-name{font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:2px;line-height:1.3;}
+.del-desc{font-size:11px;color:var(--ink3);line-height:1.5;}
+.del-badge{display:inline-block;margin-top:5px;font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 6px;border-radius:2px;letter-spacing:0.03em;text-transform:uppercase;}
+.db-g{background:var(--gold2);color:var(--gold);}
+.db-t{background:var(--teal2);color:var(--teal);}
+.db-r{background:var(--red2);color:var(--red);}
+.db-s{background:var(--slate2);color:var(--slate);}
+.skill-divider{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.13em;text-transform:uppercase;color:var(--mid);margin:22px 0 12px;display:flex;align-items:center;gap:10px;}
+.skill-divider i{font-size:13px;}
+.div-rule{flex:1;height:1px;background:var(--rule);}
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.sc{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:14px 16px;position:relative;overflow:hidden;}
+.sc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.sc-g::before{background:var(--gold);}
+.sc-t::before{background:var(--teal);}
+.sc-r::before{background:var(--red);}
+.sc-s::before{background:var(--slate);}
+.sc-domain{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.09em;text-transform:uppercase;color:var(--mid);margin-bottom:4px;display:flex;align-items:center;gap:5px;}
+.sc-domain i{font-size:12px;}
+.sc-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;}
+.sc-body{font-size:11.5px;color:var(--ink3);line-height:1.62;}
+.sc-proof{font-size:10.5px;color:var(--mid);font-style:italic;margin-top:6px;line-height:1.55;}
+.ozolo{background:var(--ink);border-radius:8px;padding:30px 34px;position:relative;overflow:hidden;margin:24px 0;}
+.ozolo-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.13em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.ozolo-label i{font-size:13px;}
+.ozolo-hl{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;line-height:1.4;margin-bottom:10px;}
+.ozolo-body{font-size:12.5px;color:rgba(255,255,255,0.5);line-height:1.75;}
+.ozolo-body strong{color:var(--gold);}
+.princ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:20px 0;}
+.pc{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:15px 14px;}
+.pc-icon{font-size:20px;margin-bottom:8px;}
+.pc-num{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mid);letter-spacing:0.1em;margin-bottom:5px;}
+.pc-title{font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:5px;line-height:1.3;}
+.pc-body{font-size:11px;color:var(--ink3);line-height:1.6;}
+.pq{border-left:3px solid var(--gold);padding:14px 20px;background:var(--gold2);border-radius:0 6px 6px 0;margin:16px 0;}
+.pq-text{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);line-height:1.5;margin-bottom:4px;}
+.pq-attr{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;}
+.growth-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.gc{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;}
+.gc:nth-child(1){border-top:2px solid var(--gold);}
+.gc:nth-child(2){border-top:2px solid var(--teal);}
+.gc:nth-child(3){border-top:2px solid var(--red);}
+.gc:nth-child(4){border-top:2px solid var(--slate);}
+.gc-icon{font-size:20px;margin-bottom:8px;}
+.gc-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.09em;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
+.gc-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:5px;}
+.gc-body{font-size:11.5px;color:var(--ink3);line-height:1.62;}
+.tag-cloud{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+.footer{background:var(--ink);color:rgba(255,255,255,0.28);padding:20px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.07em;}
+.footer-right{color:var(--gold);}
+@media(max-width:800px){
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-left,.wrap,.strip,.nav,.footer{padding-left:24px;padding-right:24px;}
+  .vel-grid,.del-grid,.skill-grid,.princ-grid,.growth-grid,.class-grid{grid-template-columns:1fr;}
+  .del-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Executive Brief · AI Operator Profile · 2026</div>
+    <div class="hero-name">Oz Rosario.<br>One Day.<br><em>Twelve Deliverables.</em></div>
+    <div class="hero-sub"><strong>AI Co-Development Operator.</strong> Business development engineer who turns a morning discovery call into a full enterprise intelligence program before end of day — and writes zero lines of code doing it.</div>
+    <div class="stat-row">
+      <div class="stat-item">
+        <i class="ti ti-clock stat-icon"></i>
+        <div class="stat-val">~6 hrs</div>
+        <div class="stat-lbl">Active build time<br>net of call blocks</div>
+      </div>
+      <div class="stat-item">
+        <i class="ti ti-file-check stat-icon"></i>
+        <div class="stat-val">12</div>
+        <div class="stat-lbl">Production deliverables<br>shipped in one sprint</div>
+      </div>
+      <div class="stat-item">
+        <i class="ti ti-chart-bar stat-icon"></i>
+        <div class="stat-val">$694K</div>
+        <div class="stat-lbl">Year 1 ROI modeled<br>for municipal client</div>
+      </div>
+      <div class="stat-item">
+        <i class="ti ti-trending-up stat-icon"></i>
+        <div class="stat-val">$40–100K</div>
+        <div class="stat-lbl">Output delta vs. traditional<br>4–6 person team @ $250/hr</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="chip-label">Deliverables shipped · April 21, 2026</div>
+    <div class="chip-grid">
+      <span class="chip g">Intelligence Brief</span><span class="chip t">POC Dashboard</span>
+      <span class="chip t">Master Dashboard</span><span class="chip s">Captain's Deck</span>
+      <span class="chip g">SWOT + TAM</span><span class="chip t">Station Brief</span>
+      <span class="chip g">Cost Displacement</span><span class="chip r">Python · 400 ln</span>
+      <span class="chip r">JSON Model · 15KB</span><span class="chip g">ROI Projection</span>
+      <span class="chip s">Data Access Matrix</span><span class="chip t">AI Conversion Kit</span>
+    </div>
+  </div>
+</div>
+
+<div class="strip">
+  <div>
+    <div class="strip-name">Oz Rosario</div>
+    <div class="strip-sub">Chief Growth & Strategy Officer · VisLogic.AI · San Diego, CA</div>
+  </div>
+  <div class="strip-contact">
+    oz.rosario@gmail.com &nbsp;·&nbsp; 619.987.4040 &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/ozrosario">linkedin.com/in/ozrosario</a>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#class">Classification</a>
+  <a href="#sprint">Sprint Timeline</a>
+  <a href="#output">Deliverables</a>
+  <a href="#skills">Skills</a>
+  <a href="#ozolo">Ozolosophy</a>
+  <a href="#growth">Growth Map</a>
+  <a href="#words">In His Words</a>
+</div>
+
+<div class="wrap">
+
+<div class="section" id="class">
+  <div class="sec-eyebrow"><i class="ti ti-user-check"></i> AI User Classification</div>
+  <div class="sec-title">Where Oz Sits on the Spectrum</div>
+  <div class="sec-sub">Not every AI user is an operator. The spectrum from consumer to engineer has a tier most candidates can't reach.</div>
+  <div class="class-grid">
+    <div>
+      <div class="spectrum">
+        <div class="spec-bar" style="height:14px;background:var(--rule);"></div>
+        <div class="spec-bar" style="height:22px;background:var(--rule);"></div>
+        <div class="spec-bar" style="height:30px;background:var(--rule);"></div>
+        <div class="spec-bar" style="height:40px;background:var(--gold);"></div>
+        <div class="spec-bar" style="height:46px;background:rgba(184,125,26,0.28);"></div>
+        <div class="spec-bar" style="height:48px;background:rgba(184,125,26,0.11);"></div>
+      </div>
+      <div class="spec-labels">
+        <div class="spec-lbl">User</div><div class="spec-lbl">Power</div>
+        <div class="spec-lbl">Director</div><div class="spec-lbl on">Oper­ator</div>
+        <div class="spec-lbl">Arch­itect</div><div class="spec-lbl">Eng­ineer</div>
+      </div>
+      <div class="class-badge">
+        <i class="ti ti-bolt"></i>
+        <span class="class-badge-text">Strategic AI Operator — Senior Tier</span>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-label"><i class="ti ti-shield-check"></i> &nbsp;Classification Verdict</div>
+      <div class="verdict-hl">"Beginner" is the wrong word. It hasn't been for a while.</div>
+      <div class="verdict-body">Beginners use AI to draft emails. What Oz did on April 21 was <strong>orchestrate a multi-model intelligence engagement</strong> against a live B2G pipeline — processing real government data, running correlation models, building interactive dashboards with embedded JSON and production Python, and packaging it all into C-suite-ready sales collateral. That's a <strong>force-multiplied CGSO</strong> operating at the output level of a six-person team.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="sprint">
+  <div class="sec-eyebrow"><i class="ti ti-timeline"></i> April 21, 2026 · Sprint Timeline</div>
+  <div class="sec-title">The Day, By the Numbers</div>
+  <div class="vel-grid">
+    <div class="vel-card"><div class="vel-icon" style="color:var(--slate);"><i class="ti ti-player-play"></i></div><div class="vel-num" style="color:var(--slate);">10:00</div><div class="vel-lbl">Discovery call begins</div></div>
+    <div class="vel-card"><div class="vel-icon" style="color:var(--gold);"><i class="ti ti-stack"></i></div><div class="vel-num" style="color:var(--gold);">5</div><div class="vel-lbl">AI platforms in active rotation</div></div>
+    <div class="vel-card"><div class="vel-icon" style="color:var(--teal);"><i class="ti ti-package"></i></div><div class="vel-num" style="color:var(--teal);">12</div><div class="vel-lbl">Production deliverables shipped</div></div>
+    <div class="vel-card"><div class="vel-icon" style="color:var(--red);"><i class="ti ti-clock"></i></div><div class="vel-num" style="color:var(--red);">~6 hrs</div><div class="vel-lbl">Net build time</div></div>
+    <div class="vel-card"><div class="vel-icon" style="color:var(--gold);"><i class="ti ti-coin"></i></div><div class="vel-num" style="color:var(--gold);font-size:18px;">$40–100K</div><div class="vel-lbl">Output delta vs. 4–6 person team</div></div>
+  </div>
+  <div class="timeline">
+    <div class="tl key"><div class="tl-time">10:00 – 11:00 AM</div><div class="tl-title">Discovery Call — San Diego Lifeguard Service</div><div class="tl-body">Mapped a 5-platform tech stack in real time. Identified budget deficit framing, extracted a verbal data commitment, secured a captain's meeting pathway — while surfacing four product use cases and a Watchtower procurement angle.</div><div class="tags"><span class="tt tt-g">Business Development</span><span class="tt tt-t">Stakeholder Intel</span><span class="tt tt-r">Procurement Strategy</span></div></div>
+    <div class="tl"><div class="tl-time">11:00 AM – 12:30 PM</div><div class="tl-title">Multi-Model Intelligence Stack — Five Platforms, One Workflow</div><div class="ai-stack"><div class="ai-row"><span class="ai-tag tt-g">PromptCowboy</span><span class="ai-desc">Prompt refinement — sharpens the ask before deployment, tightening all downstream outputs.</span></div><div class="ai-row"><span class="ai-tag tt-t">Gemini</span><span class="ai-desc">Fast directional sanity check and initial orientation before going deeper.</span></div><div class="ai-row"><span class="ai-tag tt-s">ChatGPT</span><span class="ai-desc">Depth and narrative consistency. Style memory aligns naturally with Oz's framing.</span></div><div class="ai-row"><span class="ai-tag tt-r">Claude</span><span class="ai-desc">Production assembly. Dashboards, JSON, Python, structured briefs. Output becomes deliverable.</span></div><div class="ai-row"><span class="ai-tag tt-g">Perplexity</span><span class="ai-desc">Adversarial mapping — challenges assumptions before anything goes client-facing.</span></div></div><div class="tags"><span class="tt tt-g">Multi-Model Orchestration</span><span class="tt tt-t">Prompt Engineering</span><span class="tt tt-r">Adversarial QA</span></div></div>
+    <div class="tl"><div class="tl-time">12:30 – 2:00 PM</div><div class="tl-title">AI Context Architecture — Project Design & Conversion Kit</div><div class="tl-body">Built a full Claude Project with role context, behavioral rules, platform stack briefing, and Starter Prompt Library. Treats AI context as a systems design problem, not a chat session.</div><div class="tags"><span class="tt tt-g">Program Management</span><span class="tt tt-t">Context Architecture</span><span class="tt tt-s">Systems Design</span></div></div>
+    <div class="tl"><div class="tl-time">2:00 – 4:00 PM</div><div class="tl-title">External Calls — Grind Analytics + VisLogic Team Sync</div><div class="tl-body">Two scheduled calls interrupted the build window. Resumed complex parallel workstreams without loss of context — standard operating mode for an executive running multiple active engagements.</div><div class="tags"><span class="tt tt-r">Context Switching</span><span class="tt tt-s">Executive Operations</span></div></div>
+    <div class="tl key"><div class="tl-time">4:00 – 6:30 PM</div><div class="tl-title">Intelligence Suite Build — 8 Deliverables in ~2.5 Hours</div><div class="tl-body">POC dashboard (4 tabs, 9 charts), Master Intelligence Dashboard (8 tabs, pentagon map), WNS Station Brief, Captain's Deck, Watchtower Cost Displacement Brief, NOAA Swell-Rescue Correlation Engine (Python, 400 lines), embedded swell model JSON. Zero code written by hand.</div><div class="tags"><span class="tt tt-g">Product Development</span><span class="tt tt-t">Data Visualization</span><span class="tt tt-r">Financial Modeling</span><span class="tt tt-s">Directed Dev</span></div></div>
+    <div class="tl key"><div class="tl-time">6:30 PM – EOD</div><div class="tl-title">QA, Debug & Integration — 3 Iterations, 5 Bugs Resolved</div><div class="tl-body">Identified and resolved 5 JavaScript architecture bugs — including infinite recursion from function hoisting, an orphaned function body, and a variable declaration order error crashing downstream chart rendering. Diagnosed everything in natural language. Wrote zero code.</div><div class="tags"><span class="tt tt-g">Root Cause Analysis</span><span class="tt tt-t">QA Engineering</span><span class="tt tt-s">Systems Thinking</span></div></div>
+  </div>
+</div>
+
+<div class="section" id="output">
+  <div class="sec-eyebrow"><i class="ti ti-packages"></i> Production Output</div>
+  <div class="sec-title">12 Deliverables. One Working Day.</div>
+  <div class="sec-sub">Every item below is production-grade — built from real government data, ready for a captain's meeting, a budget committee, or a board deck.</div>
+  <div class="del-grid">
+    <div class="del-card"><div class="del-num">01</div><div><div class="del-name">Intelligence Brief</div><div class="del-desc">Discovery call → exec summary, platform map, political map, deal signals.</div><span class="del-badge db-s">PDF · 3 docs</span></div></div>
+    <div class="del-card"><div class="del-num">02</div><div><div class="del-name">AI Conversion Kit</div><div class="del-desc">Full onboarding doc — role context, prompt library, engagement rules.</div><span class="del-badge db-t">HTML</span></div></div>
+    <div class="del-card"><div class="del-num">03</div><div><div class="del-name">SWOT + TAM Analysis</div><div class="del-desc">Competitive landscape, market sizing, budget gaps, procurement path.</div><span class="del-badge db-s">PDF</span></div></div>
+    <div class="del-card"><div class="del-num">04</div><div><div class="del-name">POC Intelligence Dashboard</div><div class="del-desc">4-tab HTML — 12 months of real StreetLG data, 24 stations, 9 charts.</div><span class="del-badge db-t">HTML · interactive</span></div></div>
+    <div class="del-card"><div class="del-num">05</div><div><div class="del-name">Master Intelligence Dashboard</div><div class="del-desc">8-tab command center — pentagon map, swell model, staffing, ROI, dual-audience matrix.</div><span class="del-badge db-t">HTML · 127KB</span></div></div>
+    <div class="del-card"><div class="del-num">06</div><div><div class="del-name">Captain's Meeting Deck</div><div class="del-desc">6-slide dark presentation — surge model, station risk, Watchtower, ROI ask.</div><span class="del-badge db-t">HTML · deck</span></div></div>
+    <div class="del-card"><div class="del-num">07</div><div><div class="del-name">WNS Station Brief</div><div class="del-desc">7-chart deep dive + plain-language brief for budget committee read-aloud.</div><span class="del-badge db-t">HTML</span></div></div>
+    <div class="del-card"><div class="del-num">08</div><div><div class="del-name">Watchtower Cost Displacement</div><div class="del-desc">$95K–$180K displacement model, city attorney framing, 15-month window.</div><span class="del-badge db-g">HTML</span></div></div>
+    <div class="del-card"><div class="del-num">09</div><div><div class="del-name">NOAA Swell–Rescue Engine</div><div class="del-desc">Production Python — CDIP API integration, OLS regression, blended projection.</div><span class="del-badge db-r">Python · 400 lines</span></div></div>
+    <div class="del-card"><div class="del-num">10</div><div><div class="del-name">Swell Model JSON Object</div><div class="del-desc">Dashboard-embeddable data — 2025 actuals, 2026 projections, deployment triggers.</div><span class="del-badge db-r">JSON · 15KB</span></div></div>
+    <div class="del-card"><div class="del-num">11</div><div><div class="del-name">ROI Projection Model</div><div class="del-desc">$373K–$694K Year 1 savings, 6 categories — unit economics, confidence disclosures.</div><span class="del-badge db-g">Embedded</span></div></div>
+    <div class="del-card"><div class="del-num">12</div><div><div class="del-name">Data Access Matrix</div><div class="del-desc">Dual-audience toggle — operational vs. executive framing on same underlying data.</div><span class="del-badge db-g">Embedded</span></div></div>
+  </div>
+</div>
+
+<div class="section" id="skills">
+  <div class="sec-eyebrow"><i class="ti ti-brain"></i> Skills Inventory</div>
+  <div class="sec-title">What This Day Demonstrates</div>
+  <div class="sec-sub">Not abstract competencies. Each skill is evidenced by a specific deliverable produced on a live engagement, against real data.</div>
+  <div class="skill-divider"><i class="ti ti-cpu"></i><div class="div-rule"></div>AI & Technical<div class="div-rule"></div></div>
+  <div class="skill-grid">
+    <div class="sc sc-g"><div class="sc-domain"><i class="ti ti-antenna"></i> AI Orchestration</div><div class="sc-name">Multi-Model Prompt Engineering</div><div class="sc-body">Deployed Gemini, ChatGPT, and Claude simultaneously against the same source material — using each platform's strengths to triangulate output quality rather than defaulting to one model.</div><div class="sc-proof">↳ 3-platform Smarty Pants run · 12+ structured prompts.</div></div>
+    <div class="sc sc-t"><div class="sc-domain"><i class="ti ti-layout-grid"></i> AI Architecture</div><div class="sc-name">Context Engineering & Project Design</div><div class="sc-body">Designed the Claude Project system prompt as a complete team brief — persona, behavioral rules, data keys, platform stack, Starter Prompt Library. AI context as a systems design problem.</div><div class="sc-proof">↳ SDLG Project Conversion Kit · 6-rule behavioral architecture.</div></div>
+    <div class="sc sc-r"><div class="sc-domain"><i class="ti ti-code"></i> Directed Development</div><div class="sc-name">Vibe Coding — Spec Without Syntax</div><div class="sc-body">Produced a 400-line Python script, a 127KB interactive dashboard, and a 15KB JSON object by specifying requirements in natural language precise enough to require only QA — not rewriting.</div><div class="sc-proof">↳ sdlg_swell_rescue_model.py · Master Dashboard v2 · 3-round JS debug.</div></div>
+    <div class="sc sc-s"><div class="sc-domain"><i class="ti ti-chart-scatter"></i> Statistical Interpretation</div><div class="sc-name">Data Model Literacy — No Degree Required</div><div class="sc-body">Understood Pearson correlation output, identified OLS overfitting, specified a blended anchor + delta correction, and correctly interpreted a counterintuitive negative Hs-rescue correlation.</div><div class="sc-proof">↳ Blended projection rationale · r=−0.81 interpretation.</div></div>
+  </div>
+  <div class="skill-divider"><i class="ti ti-building-store"></i><div class="div-rule"></div>Business Development & Strategy<div class="div-rule"></div></div>
+  <div class="skill-grid">
+    <div class="sc sc-g"><div class="sc-domain"><i class="ti ti-building"></i> B2G Sales</div><div class="sc-name">Public Sector Framing & Entry Strategy</div><div class="sc-body">Recognized immediately that "AI" is not the pitch in a budget-deficit environment. Reframed from technology to operational modernization — cost savings, labor efficiency, budget defense — before the call ended.</div><div class="sc-proof">↳ "Pilot analytics program that reduces scheduling waste" · ROI-first structure.</div></div>
+    <div class="sc sc-t"><div class="sc-domain"><i class="ti ti-sitemap"></i> Account Strategy</div><div class="sc-name">Political Map Navigation</div><div class="sc-body">Correctly identified internal champion vs. buyer, mapped the full approval chain to Deputy Chief and Procurement, and designed every deliverable to advance through the chain — not just impress the room.</div><div class="sc-proof">↳ Dual-audience Data Access Matrix · "No budget commitment required" ask.</div></div>
+    <div class="sc sc-r"><div class="sc-domain"><i class="ti ti-calendar-time"></i> Procurement Strategy</div><div class="sc-name">Window Exploitation — Timing as Leverage</div><div class="sc-body">Identified the 15-month Watchtower procurement window as highest-leverage. Built a cost displacement argument designed to be presented before contract signature — positioning inside an active decision.</div><div class="sc-proof">↳ Watchtower redundancy table · city attorney review framing.</div></div>
+    <div class="sc sc-s"><div class="sc-domain"><i class="ti ti-signal"></i> Deal Intelligence</div><div class="sc-name">Signal Discipline — Enthusiasm ≠ Commitment</div><div class="sc-body">Maintained honest pipeline assessment throughout — distinguishing confirmed signals from projected ones, flagging budget authority limits, and surfacing the USLA compliance risk proactively.</div><div class="sc-proof">↳ Deal Signal Register · "Caution" badges on stakeholder roles.</div></div>
+  </div>
+  <div class="skill-divider"><i class="ti ti-speakerphone"></i><div class="div-rule"></div>Leadership, Communication & Financial Modeling<div class="div-rule"></div></div>
+  <div class="skill-grid">
+    <div class="sc sc-g"><div class="sc-domain"><i class="ti ti-users"></i> C-Suite Communication</div><div class="sc-name">Audience-Split Messaging</div><div class="sc-body">Every deliverable built with a specific audience in mind. The dual-audience Data Access Matrix takes this furthest — same underlying data, completely different framing toggle-switched in a single interface.</div><div class="sc-proof">↳ Captain's deck vs. master dashboard · operational vs. executive views.</div></div>
+    <div class="sc sc-t"><div class="sc-domain"><i class="ti ti-chart-line"></i> Data Storytelling</div><div class="sc-name">Translating Data Into Decisions</div><div class="sc-body">Transformed raw municipal rescue statistics into staffing arguments, liability narratives, and budget justifications. The WNS brief was written to be read aloud to a budget committee encountering the data for the first time.</div><div class="sc-proof">↳ "12.8×" hero number · 69:1 prevention ratio framing.</div></div>
+    <div class="sc sc-r"><div class="sc-domain"><i class="ti ti-calculator"></i> ROI Modeling</div><div class="sc-name">Conservative-to-Upside Financial Architecture</div><div class="sc-body">Built a 6-category Year 1 savings model with explicit confidence disclosures and data-gate conditions. Ranges $373K–$694K. Unit economics ($61/rescue prevented) — defensible in a budget review.</div><div class="sc-proof">↳ ROI tab in Master Dashboard · unit economics callouts.</div></div>
+    <div class="sc sc-s"><div class="sc-domain"><i class="ti ti-rocket"></i> Executive Operations</div><div class="sc-name">Velocity Under Constraint</div><div class="sc-body">Produced 12 production artifacts while managing two external calls and a parallel active engagement. Prioritized ruthlessly, maintained context across a fragmented working day, caught 5 bugs before client delivery.</div><div class="sc-proof">↳ The timeline itself. Velocity and quality, simultaneously.</div></div>
+  </div>
+</div>
+
+<div class="section" id="ozolo">
+  <div class="sec-eyebrow"><i class="ti ti-bulb"></i> Ozolosophy 101</div>
+  <div class="sec-title">On Directed Development — The Defining Skill</div>
+  <div class="pq"><div class="pq-text">"I couldn't write that out in code for the life of me — but that's the point. I was able to know enough to close the loop and request a deliverable."</div><div class="pq-attr">Oz Rosario · Self-assessment · April 21, 2026</div></div>
+  <div class="princ-grid">
+    <div class="pc"><div class="pc-icon" style="color:var(--gold);"><i class="ti ti-file-description"></i></div><div class="pc-num">Principle 01</div><div class="pc-title">Understand the Output Requirements</div><div class="pc-body">Oz knew the Python script needed to pull from two NOAA CDIP buoy stations, run a correlation model, project a 2026 staffing index, and output dashboard-embeddable JSON. Specifying that precisely is a product management skill — not a coding skill.</div></div>
+    <div class="pc"><div class="pc-icon" style="color:var(--teal);"><i class="ti ti-zoom-question"></i></div><div class="pc-num">Principle 02</div><div class="pc-title">Know When the Output is Wrong & Why</div><div class="pc-body">When the OLS projection produced artifacts, Oz asked why — not just for a fix. When the dashboard broke, he requested root cause diagnosis before re-running. That diagnostic instinct separates an operator from a user.</div></div>
+    <div class="pc"><div class="pc-icon" style="color:var(--red);"><i class="ti ti-plug-connected"></i></div><div class="pc-num">Principle 03</div><div class="pc-title">Close the Integration Loop</div><div class="pc-body">Taking JSON output from a Python script and directing its embedding into a live HTML dashboard required no code. It required understanding what needed to happen and verifying that it did.</div></div>
+    <div class="pc"><div class="pc-icon" style="color:var(--slate);"><i class="ti ti-robot"></i></div><div class="pc-num">Principle 04</div><div class="pc-title">Manage the AI Like a Team Member</div><div class="pc-body">Oz pushed back when outputs were wrong, asked for root cause rather than band-aids, reviewed validation output independently, and demanded precision over speed. That's accountable collaboration — not a user-tool relationship.</div></div>
+  </div>
+  <div class="ozolo">
+    <div class="ozolo-label"><i class="ti ti-infinity"></i> Ozolosophy 101 · The Framework</div>
+    <div class="ozolo-hl">"The limiting factor on what I can build isn't syntax — it's how clearly I can think."</div>
+    <div class="ozolo-body">Oz practices <strong>directed development</strong> — specifying architecture, data models, output formats, and integration requirements in natural language precise enough that the AI's output requires QA, not rewriting. The result: the output velocity of a full development team, without the team.<br><br>The engine is a deliberate five-platform stack: <strong>PromptCowboy</strong> to sharpen the ask, <strong>Gemini</strong> for fast sanity checks, <strong>ChatGPT</strong> for depth and narrative, <strong>Claude</strong> for production assembly, and <strong>Perplexity</strong> for adversarial blind-spot analysis. Each platform chosen for what it does best — not defaulted to out of habit.</div>
+  </div>
+</div>
+
+<div class="section" id="growth">
+  <div class="sec-eyebrow"><i class="ti ti-map-2"></i> Performance Analysis</div>
+  <div class="sec-title">Blind Spots — Named, Owned, Being Closed</div>
+  <div class="sec-sub">The strongest operators know where the ceiling is and why. These are the next unlocks — not limitations.</div>
+  <div class="growth-grid">
+    <div class="gc"><div class="gc-icon" style="color:var(--gold);"><i class="ti ti-api"></i></div><div class="gc-label">Next Unlock</div><div class="gc-title">Live API Connectivity</div><div class="gc-body">The CDIP/NOAA endpoints are architected and documented. Network access in the current sandbox blocks execution. When connected to a live environment, this flips from static JSON to a real-time intelligence feed.</div></div>
+    <div class="gc"><div class="gc-icon" style="color:var(--teal);"><i class="ti ti-robot"></i></div><div class="gc-label">Next Unlock</div><div class="gc-title">Agentic Workflow Design</div><div class="gc-body">Today's work was human-directed, one prompt at a time. The next tier: designing multi-step agentic workflows that execute sequences autonomously — with defined checkpoints and human-in-the-loop gates at the right moments.</div></div>
+    <div class="gc"><div class="gc-icon" style="color:var(--red);"><i class="ti ti-template"></i></div><div class="gc-label">Next Unlock</div><div class="gc-title">Reusable Prompt Templates</div><div class="gc-body">Today's prompt quality was high — but improvised. Building a documented prompt library for recurring deliverable types creates a repeatable delivery system, not just a repeatable performance.</div></div>
+    <div class="gc"><div class="gc-icon" style="color:var(--slate);"><i class="ti ti-currency-dollar"></i></div><div class="gc-label">Next Unlock</div><div class="gc-title">Pricing AI-Augmented Delivery</div><div class="gc-body">The April 21 sprint produced the equivalent of a 4–6 person team working 2–4 weeks — in one day. The open question: how to price this commercially at scale. The capability is proven. The model is the next build.</div></div>
+  </div>
+</div>
+
+<div class="section" id="words">
+  <div class="sec-eyebrow"><i class="ti ti-quote"></i> In His Own Words</div>
+  <div class="sec-title">How Oz Describes This Work</div>
+  <div class="pq" style="margin-bottom:13px;"><div class="pq-text">"I had a discovery call at 10am with a municipal client. By end of day, I had a 12-deliverable intelligence program — live data from 24 government stations, a predictive staffing model backed by NOAA wave data, a 6-slide captain's presentation, and a $700K ROI projection embedded in an interactive dashboard. I wrote zero lines of code."</div><div class="pq-attr">Personal Interview Quote — April 21, 2026</div></div>
+  <div class="pq"><div class="pq-text">"I practice directed development across a five-platform AI stack — each tool selected for what it does best. PromptCowboy sharpens the ask. Gemini gives me the fast sanity check. ChatGPT goes deeper with style memory. Claude assembles the deliverable. Perplexity challenges my blind spots. The limiting factor isn't syntax — it's how clearly I can think about the problem. That's the rarer skill."</div><div class="pq-attr">Ozolosophy 101 — Framework for AI Co-Development Operations</div></div>
+  <div style="margin-top:28px;">
+    <div class="sec-eyebrow" style="margin-bottom:10px;"><i class="ti ti-tags"></i> Profile Tags</div>
+    <div class="tag-cloud">
+      <span class="tt tt-g">AI Strategy</span><span class="tt tt-t">Directed Development</span>
+      <span class="tt tt-s">B2G Sales</span><span class="tt tt-r">Multi-Model Orchestration</span>
+      <span class="tt tt-g">ROI Modeling</span><span class="tt tt-t">Data Storytelling</span>
+      <span class="tt tt-s">Program Management</span><span class="tt tt-r">Procurement Strategy</span>
+      <span class="tt tt-g">Statistical Interpretation</span><span class="tt tt-t">Political Map Navigation</span>
+      <span class="tt tt-s">Context Engineering</span><span class="tt tt-r">Executive Communication</span>
+      <span class="tt tt-g">Enterprise Services Sales</span><span class="tt tt-t">Adversarial QA</span>
+      <span class="tt tt-s">Force Multiplication</span><span class="tt tt-r">Agentic Workflow Design</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <span>Oz Rosario · oz.rosario@gmail.com · 619.987.4040 · VisLogic.AI</span>
+  <span class="footer-right">AI Co-Development Operator Brief · v6 · 2026</span>
+</div>
+
+</body>
+</html>

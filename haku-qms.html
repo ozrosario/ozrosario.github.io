@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA/QMS Intelligence Brief — Haku Discovery Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070707;--s1:#0f0f0f;--s2:#141414;--s3:#1a1a1a;--s4:#212121;
+  --b1:#1c1c1c;--b2:#272727;--b3:#363636;
+  --t1:#f0ece3;--t2:#8c8880;--t3:#504e4b;
+  --red:#e8341c;--rdim:#5a1509;--rglow:rgba(232,52,28,.08);--rmid:rgba(232,52,28,.18);
+  --amber:#e09520;--adim:rgba(224,149,32,.11);--aborder:rgba(224,149,32,.28);
+  --teal:#1aaa98;--tdim:rgba(26,170,152,.11);--tborder:rgba(26,170,152,.28);
+  --slate:#4d85c8;--sdim:rgba(77,133,200,.11);--sborder:rgba(77,133,200,.28);
+  --green:#4a9a5e;--gdim:rgba(74,154,94,.11);--gborder:rgba(74,154,94,.28);
+  --display:"Bebas Neue",sans-serif;
+  --body:"Instrument Sans",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+}
+html{background:#040404}
+body{font-family:var(--body);background:var(--bg);color:var(--t1);max-width:960px;margin:36px auto 120px;
+  box-shadow:0 0 0 1px var(--b1),0 0 120px rgba(0,0,0,.9)}
+body::before{content:"";position:fixed;inset:0;opacity:.018;pointer-events:none;z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px}
+.topbar{height:2px;background:linear-gradient(90deg,var(--red) 0%,#f05030 35%,transparent 100%)}
+
+/* ══ SAVE BAR ══ */
+.save-bar{position:sticky;top:0;z-index:100;background:rgba(7,7,7,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--b2);padding:10px 56px;display:flex;justify-content:space-between;align-items:center}
+.save-status{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.save-status.saved{color:var(--teal)}.save-status.unsaved{color:var(--amber)}
+.save-bar-right{display:flex;gap:7px}
+.save-btn{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 13px;border-radius:2px;cursor:pointer;transition:all .15s;border:1px solid var(--b2);background:var(--s2);color:var(--t2)}
+.save-btn:hover{color:var(--t1);border-color:var(--b3);background:var(--s3)}
+.sb-save{background:var(--rglow);color:var(--red);border-color:var(--rdim)}
+.sb-save:hover{background:var(--red);color:#fff}
+.sb-load{background:var(--tdim);color:var(--teal);border-color:var(--tborder)}
+.sb-load:hover{background:var(--teal);color:#000}
+.sb-export{background:var(--sdim);color:var(--slate);border-color:var(--sborder)}
+@media print{.save-bar,.answer-tools{display:none}}
+
+/* ══ HEADER ══ */
+.hdr{padding:44px 56px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--b1)}
+.hdr-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 85% 20%,rgba(232,52,28,.05) 0%,transparent 70%);pointer-events:none}
+.hdr-inner{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;position:relative;padding-bottom:36px}
+.logo-row{display:flex;align-items:center;gap:11px;margin-bottom:20px}
+.logo-img{height:20px;width:auto;opacity:.9}
+.logo-sep{color:var(--t3);font-family:var(--mono);font-size:11px}
+.logo-co{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--t2);text-transform:uppercase}
+.eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);
+  margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow-line{width:20px;height:1px;background:var(--red)}
+.hdr-title{font-family:var(--display);font-size:62px;line-height:.92;letter-spacing:.01em;color:var(--t1);margin-bottom:14px}
+.hdr-title .r{color:var(--red)}
+.hdr-sub{font-size:12.5px;line-height:1.75;color:var(--t2);max-width:480px}
+.badge-col{display:flex;flex-direction:column;gap:5px;padding-top:48px}
+.bdg{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 11px;border-radius:2px;white-space:nowrap;text-align:right}
+.bdg-red{background:var(--rglow);color:var(--red);border:1px solid var(--rdim)}
+.bdg-amber{background:var(--adim);color:var(--amber);border:1px solid var(--aborder)}
+.bdg-teal{background:var(--tdim);color:var(--teal);border:1px solid var(--tborder)}
+.bdg-dim{background:transparent;color:var(--t3);border:1px solid var(--b2)}
+.eyes-tag{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:2px;background:var(--rglow);color:var(--red);border:1px solid var(--rdim)}
+
+/* ══ BODY ══ */
+.body{padding:0 56px 56px}
+.slabel{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--t2);
+  margin-bottom:14px;margin-top:38px;display:flex;align-items:center;gap:12px}
+.slabel::after{content:"";flex:1;height:1px;background:var(--b1)}
+
+/* ══ EXEC SUMMARY BAND ══ */
+.exec-band{background:var(--s1);border:1px solid var(--b1);border-left:3px solid var(--red);border-radius:4px;padding:20px 24px 22px;margin-top:0}
+.eb-label{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.eb-headline{font-family:var(--display);font-size:26px;letter-spacing:.02em;color:var(--t1);margin-bottom:12px;line-height:1}
+.eb-body{font-size:12px;color:var(--t2);line-height:1.75}
+.eb-body strong{color:var(--t1);font-weight:600}
+.eb-body .hot{color:var(--red);font-weight:600}
+.eb-body .warm{color:var(--amber);font-weight:600}
+.eb-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1);margin-top:18px;border-radius:3px;overflow:hidden}
+.eb-stat{background:var(--s2);padding:14px 16px}
+.eb-stat-num{font-family:var(--display);font-size:28px;letter-spacing:.02em;color:var(--t1);line-height:1;margin-bottom:4px}
+.eb-stat-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);line-height:1.4}
+
+/* ══ PAIN TABLE ══ */
+.pain-table{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.pt-head{display:grid;grid-template-columns:160px 1fr 1fr;background:var(--s3);border-bottom:1px solid var(--b2)}
+.pt-row{display:grid;grid-template-columns:160px 1fr 1fr;border-bottom:1px solid var(--b1)}
+.pt-row:last-child{border-bottom:none}
+.pt-cell{padding:12px 14px;font-size:11px;color:var(--t2);border-right:1px solid var(--b1)}
+.pt-cell:last-child{border-right:none}
+.pt-head .pt-cell{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3)}
+.pt-area{color:var(--t1);font-weight:600;font-size:11.5px}
+.pt-impact{color:var(--red)}
+
+/* ══ SAFE ZONE SPLIT ══ */
+.zone-split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.zone-safe{background:var(--s1);padding:18px 20px 20px;border-top:2px solid var(--teal)}
+.zone-danger{background:var(--s1);padding:18px 20px 20px;border-top:2px solid var(--red)}
+.zone-title{font-family:var(--display);font-size:18px;letter-spacing:.02em;margin-bottom:4px}
+.zone-safe .zone-title{color:var(--teal)}
+.zone-danger .zone-title{color:var(--red)}
+.zone-sub{font-size:11px;color:var(--t3);font-style:italic;margin-bottom:12px}
+.zone-items{list-style:none;font-size:11.5px;color:var(--t2)}
+.zone-items li{padding:4px 0;display:flex;gap:7px;border-bottom:1px solid var(--b1)}
+.zone-items li:last-child{border-bottom:none}
+.zone-items li::before{content:"—";flex-shrink:0;font-size:10px}
+.zone-safe .zone-items li::before{color:var(--teal)}
+.zone-danger .zone-items li::before{color:var(--red)}
+.zone-footer{margin-top:10px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:2px;display:inline-block}
+.zone-safe .zone-footer{background:var(--tdim);color:var(--teal);border:1px solid var(--tborder)}
+.zone-danger .zone-footer{background:var(--rglow);color:var(--red);border:1px solid var(--rdim)}
+
+/* ══ PLATFORM LANDSCAPE ══ */
+.platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plat-card{background:var(--s1);border:1px solid var(--b1);border-radius:4px;padding:16px 18px 18px}
+.plat-tier{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.plat-name{font-family:var(--display);font-size:16px;letter-spacing:.02em;color:var(--t1);margin-bottom:4px}
+.plat-type{font-size:10px;color:var(--t3);font-style:italic;margin-bottom:12px}
+.plat-div{height:1px;background:var(--b1);margin-bottom:12px}
+.plat-vuln{font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:8px}
+.plat-vuln strong{color:var(--t1);font-weight:600}
+.plat-opp{font-size:11px;color:var(--teal);display:flex;gap:7px;align-items:flex-start}
+.plat-opp::before{content:"→";flex-shrink:0}
+.plat-goliath .plat-tier{color:var(--red)}
+.plat-innovator .plat-tier{color:var(--amber)}
+.plat-white .plat-tier{color:var(--teal)}
+.plat-excel .plat-tier{color:var(--slate)}
+
+/* ══ MCP ARCHITECTURE ══ */
+.mcp-layers{display:flex;flex-direction:column;gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.mcp-layer{background:var(--s1);padding:16px 20px 18px;display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:start}
+.mcp-layer:nth-child(2){background:var(--s2)}
+.mcp-layer:nth-child(3){background:var(--s1)}
+.mcp-num{font-family:var(--display);font-size:22px;letter-spacing:.02em;line-height:1}
+.mcp-layer:nth-child(1) .mcp-num{color:var(--t3)}
+.mcp-layer:nth-child(2) .mcp-num{color:var(--amber)}
+.mcp-layer:nth-child(3) .mcp-num{color:var(--red)}
+.mcp-label{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-top:2px}
+.mcp-title{font-family:var(--display);font-size:16px;letter-spacing:.02em;color:var(--t1);margin-bottom:8px}
+.mcp-desc{font-size:11.5px;color:var(--t2);line-height:1.65;margin-bottom:8px}
+.mcp-items{display:flex;flex-wrap:wrap;gap:5px}
+.mcp-tag{font-family:var(--mono);font-size:8px;letter-spacing:.07em;padding:3px 8px;border-radius:2px;background:var(--s3);color:var(--t3);border:1px solid var(--b2)}
+
+/* ══ DISCOVERY Q FRAMEWORK ══ */
+.disc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.disc-theme{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.dt-head{padding:14px 16px 12px;border-bottom:1px solid var(--b1)}
+.dt-theme{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.dt-title{font-family:var(--display);font-size:16px;letter-spacing:.02em;color:var(--t1)}
+.dt-body{padding:14px 16px}
+.dt-q{margin-bottom:12px}
+.dt-q:last-child{margin-bottom:0}
+.dt-q-text{font-size:11.5px;color:var(--t2);line-height:1.6;margin-bottom:6px}
+.answer-area{background:var(--s3);border:1px solid var(--b2);border-radius:3px;min-height:48px;padding:7px 10px}
+.answer-area textarea{width:100%;min-height:32px;background:transparent;border:none;color:var(--t1);
+  font-family:var(--body);font-size:11px;resize:vertical;outline:none;line-height:1.55}
+.answer-area textarea::placeholder{color:var(--t3);font-style:italic}
+.answer-tools{display:flex;gap:5px;margin-top:5px;border-top:1px solid var(--b1);padding-top:5px}
+.a-tool-btn{font-family:var(--mono);font-size:8px;letter-spacing:.08em;color:var(--t3);
+  padding:3px 7px;border:1px solid var(--b2);border-radius:2px;cursor:pointer;background:transparent;transition:all .15s}
+.a-tool-btn:hover{color:var(--t1);border-color:var(--b3);background:var(--s4)}
+.recording{border-color:var(--red)!important;color:var(--red)!important}
+.rec-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1s infinite;margin-right:3px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.voice-status{font-family:var(--mono);font-size:9px;color:var(--red);margin-top:3px;min-height:12px}
+
+/* ══ AGENT TAXONOMY ══ */
+.agent-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.agent-card{background:var(--s1);padding:16px 14px 18px;position:relative}
+.agent-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.ac-1::before{background:var(--red)}
+.ac-2::before{background:var(--amber)}
+.ac-3::before{background:var(--teal)}
+.ac-4::before{background:var(--slate)}
+.ac-5::before{background:var(--green)}
+.agent-icon{font-size:28px;margin-bottom:10px;display:block}
+.agent-num{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.ac-1 .agent-num{color:var(--red)}
+.ac-2 .agent-num{color:var(--amber)}
+.ac-3 .agent-num{color:var(--teal)}
+.ac-4 .agent-num{color:var(--slate)}
+.ac-5 .agent-num{color:var(--green)}
+.agent-name{font-family:var(--display);font-size:14px;letter-spacing:.02em;color:var(--t1);margin-bottom:8px;line-height:1.1}
+.agent-fns{list-style:none;font-size:10px;color:var(--t2)}
+.agent-fns li{padding:2.5px 0;display:flex;gap:5px;border-bottom:1px solid var(--b1);line-height:1.4}
+.agent-fns li:last-child{border-bottom:none}
+.agent-fns li::before{content:"—";flex-shrink:0;color:var(--b3);font-size:9px}
+.ac-1 .agent-fns li::before{color:var(--red)}
+.ac-2 .agent-fns li::before{color:var(--amber)}
+.ac-3 .agent-fns li::before{color:var(--teal)}
+.ac-4 .agent-fns li::before{color:var(--slate)}
+.ac-5 .agent-fns li::before{color:var(--green)}
+
+/* ══ PILOT PROGRAMS ══ */
+.pilot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.pilot-card{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.pilot-head{padding:16px 17px 14px;border-bottom:1px solid var(--b1)}
+.pilot-card:nth-child(1) .pilot-head{border-top:2px solid var(--red)}
+.pilot-card:nth-child(2) .pilot-head{border-top:2px solid var(--amber)}
+.pilot-card:nth-child(3) .pilot-head{border-top:2px solid var(--teal)}
+.pilot-num{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.pilot-card:nth-child(1) .pilot-num{color:var(--red)}
+.pilot-card:nth-child(2) .pilot-num{color:var(--amber)}
+.pilot-card:nth-child(3) .pilot-num{color:var(--teal)}
+.pilot-title{font-family:var(--display);font-size:16px;letter-spacing:.02em;color:var(--t1);margin-bottom:4px}
+.pilot-scope{font-size:10px;color:var(--t3);font-style:italic}
+.pilot-body{padding:14px 17px}
+.pilot-section{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:6px;margin-top:12px}
+.pilot-section:first-child{margin-top:0}
+.pilot-items{list-style:none;font-size:11px;color:var(--t2)}
+.pilot-items li{padding:2.5px 0;display:flex;gap:6px;line-height:1.5}
+.pilot-items li::before{content:"—";flex-shrink:0;color:var(--b3);font-size:9px}
+.pilot-delta{margin-top:12px;padding:10px 12px;background:var(--s2);border-radius:3px;border-left:2px solid var(--b2)}
+.pilot-delta-label{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.pilot-delta-text{font-size:11px;color:var(--teal);line-height:1.55}
+.pilot-price{margin-top:10px;font-family:var(--mono);font-size:10px;font-weight:500;color:var(--t1)}
+
+/* ══ OBJECTIONS ══ */
+.obj-list{display:flex;flex-direction:column;gap:8px}
+.obj-card{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.obj-head{padding:14px 17px;border-bottom:1px solid var(--b1);display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;cursor:pointer}
+.obj-icon{font-size:14px;color:var(--amber)}
+.obj-title{font-size:12.5px;font-weight:600;color:var(--t1)}
+.obj-tag{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:var(--adim);color:var(--amber);border:1px solid var(--aborder);white-space:nowrap}
+.obj-body{padding:14px 17px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.obj-section-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.obj-them .obj-section-lbl{color:var(--red)}
+.obj-us .obj-section-lbl{color:var(--teal)}
+.obj-text{font-size:11.5px;color:var(--t2);line-height:1.7}
+.obj-text strong{color:var(--t1);font-weight:600}
+
+/* ══ EXCEL WEDGE ══ */
+.excel-block{background:var(--s1);border:1px solid var(--b1);border-radius:4px;overflow:hidden}
+.excel-hero{padding:22px 24px 18px;background:var(--s2);border-bottom:1px solid var(--b1);border-left:3px solid var(--slate)}
+.eh-label{font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-bottom:8px}
+.eh-headline{font-family:var(--display);font-size:22px;letter-spacing:.02em;color:var(--t1);margin-bottom:8px}
+.eh-sub{font-size:12px;color:var(--t2);line-height:1.7}
+.eh-sub strong{color:var(--t1);font-weight:600}
+.excel-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--b1)}
+.excel-step{background:var(--s1);padding:14px 15px 16px}
+.es-num{font-family:var(--display);font-size:24px;letter-spacing:.02em;color:var(--slate);line-height:1;margin-bottom:6px}
+.es-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:6px}
+.es-desc{font-size:10.5px;color:var(--t2);line-height:1.55}
+
+/* ══ FOOTER ══ */
+.footer{margin-top:48px;padding:18px 0 0;border-top:1px solid var(--b1);display:flex;justify-content:space-between;align-items:flex-end}
+.fc{font-size:11px;color:var(--t3);line-height:1.65}
+.fc strong{color:var(--t2);font-weight:500}
+.ft{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);text-align:right}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<!-- SAVE BAR -->
+<div class="save-bar">
+  <span class="save-status" id="saveStatus">Session not saved</span>
+  <div class="save-bar-right">
+    <button class="save-btn sb-load" onclick="loadSession()">⬆ Load</button>
+    <button class="save-btn sb-export" onclick="window.print()">⬇ Print / PDF</button>
+    <button class="save-btn sb-save" onclick="saveSession()">💾 Save</button>
+    <input type="file" id="loadFileInput" accept=".json" style="display:none" onchange="handleLoad(this)">
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-bg"></div>
+  <div class="hdr-inner">
+    <div>
+      <div class="logo-row">
+        <img class="logo-img" src="data:image/png;base64,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" alt="VisLogic.AI">
+        <span class="logo-sep">&times;</span>
+        <span class="logo-co">Haku Technology &mdash; QA/QMS Intelligence Brief</span>
+      </div>
+      <div class="eyebrow"><span class="eyebrow-line"></span>Discovery Playbook &mdash; Internal Reference</div>
+      <div class="hdr-title">QA/QMS<br><span class="r">INTEL BRIEF.</span></div>
+      <p class="hdr-sub">Pre-session ramp-up on the CAPA/QMS/V&V landscape — manual pitfalls, market players, MCP architecture, and the discovery framework to extract maximum signal from Team Haku. Built from two deep-dive research sessions. Internal use only.</p>
+      <div class="eyes-tag">⚑ &nbsp; Internal Reference Only &mdash; Do Not Share</div>
+    </div>
+    <div class="badge-col">
+      <span class="bdg bdg-red">CAPA + V&V Focus</span>
+      <span class="bdg bdg-amber">MCP Architecture</span>
+      <span class="bdg bdg-teal">Agentic AI Overlay</span>
+      <span class="bdg bdg-dim">FDA &middot; 21 CFR Part 820</span>
+      <span class="bdg bdg-dim">ISO 13485 &middot; ALCOA+</span>
+    </div>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- EXEC SUMMARY -->
+<p class="slabel">The Opportunity in One Frame</p>
+<div class="exec-band">
+  <div class="eb-label">Executive Summary &mdash; Where the Real Market Opportunity Lives</div>
+  <div class="eb-headline">The QMS/PLM space is drowning in data.<br>It is starved for orchestration.</div>
+  <div class="eb-body">
+    The highest-value AI opportunity in MedTech manufacturing today is not clinical AI, diagnostics, or device intelligence. <strong>It is reducing the compliance burden on CAPA management, V&V documentation, 510(k) preparation, requirements traceability, regression testing, and audit readiness.</strong> Most organizations still run these processes through a combination of Excel, email, SharePoint, Jira, Word documents, and legacy QMS systems — with human review cycles stitching it together.
+    <br><br>
+    The result is enormous compliance debt. <span class="hot">Agentic AI can reduce 30–70% of manual effort without touching regulated decision-making.</span> That distinction is critical. <span class="warm">The winning strategy: AI assists. Humans approve.</span> The opportunity is not building another QMS. <strong>The opportunity is becoming the orchestration layer that sits between them.</strong>
+  </div>
+  <div class="eb-stats">
+    <div class="eb-stat"><div class="eb-stat-num">30–60</div><div class="eb-stat-lbl">Day avg. CAPA closure time (manual)</div></div>
+    <div class="eb-stat"><div class="eb-stat-num">30–70%</div><div class="eb-stat-lbl">Manual effort reducible via agentic AI</div></div>
+    <div class="eb-stat"><div class="eb-stat-num">10–20</div><div class="eb-stat-lbl">Systems 510(k) data is scattered across</div></div>
+    <div class="eb-stat"><div class="eb-stat-num">48hr</div><div class="eb-stat-lbl">CAPA closure draft — agentic target</div></div>
+  </div>
+</div>
+
+<!-- MANUAL PITFALLS TABLE -->
+<p class="slabel">Manual CAPA & V&V Pitfalls &mdash; Where Time Dies</p>
+<div class="pain-table">
+  <div class="pt-head">
+    <div class="pt-cell">Workflow Area</div>
+    <div class="pt-cell">The Manual Pitfall</div>
+    <div class="pt-cell">Operational Impact</div>
+  </div>
+  <div class="pt-row">
+    <div class="pt-cell pt-area">510(k) Submission Prep</div>
+    <div class="pt-cell">Reconstructing traceability matrices from disconnected silos — Jira, Jama, Word — months after design lock. Most data already exists. Problem: it lives across 10–20 systems.</div>
+    <div class="pt-cell pt-impact">Weeks of delay. Missing trace links inevitably trigger auditor findings and FDA pushback. Teams spend months collecting information they already own.</div>
+  </div>
+  <div class="pt-row">
+    <div class="pt-cell pt-area">CAPA Management</div>
+    <div class="pt-cell">Subjective root-cause analysis, manual deviation routing, disconnected intake. A single CAPA requires gathering evidence from prior CAPAs, NCRs, complaints, test failures, and manufacturing deviations — manually.</div>
+    <div class="pt-cell pt-impact">30 to 60-day closure times. Recurring issues due to superficial "band-aid" corrective actions. High QA engineer burnout.</div>
+  </div>
+  <div class="pt-row">
+    <div class="pt-cell pt-area">V&V Regression Testing</div>
+    <div class="pt-cell">Redundant manual test execution with fragmented evidence collection. Teams over-test because they lack confidence in change impact scope. Every software release triggers full regression plan review.</div>
+    <div class="pt-cell pt-impact">Inflated Cost of Quality (CoQ). Slowed time-to-market. QA bottlenecks. Regulatory risk from inconsistent evidence packages.</div>
+  </div>
+  <div class="pt-row">
+    <div class="pt-cell pt-area">Compliance Gap Tracking</div>
+    <div class="pt-cell">Disconnect between live ISO 14971 risk management files and actual verified controls. Risk files update months after a test fails.</div>
+    <div class="pt-cell pt-impact">Unseen compliance blind spots. Audit surprises. Gap between what's in the risk file and what's been tested.</div>
+  </div>
+  <div class="pt-row">
+    <div class="pt-cell pt-area">DHF / Design Controls</div>
+    <div class="pt-cell">Every requirement must map to risk, test case, test result, and validation evidence. Manual tracking means requirement changes cascade into undocumented impact.</div>
+    <div class="pt-cell pt-impact">When Requirement #112 changes — humans search dozens of documents. AI: impact analysis in seconds.</div>
+  </div>
+</div>
+
+<!-- SAFE ZONE vs DANGER ZONE -->
+<p class="slabel">The Critical Distinction &mdash; Safe Zone vs. Danger Zone</p>
+<div class="zone-split">
+  <div class="zone-safe">
+    <div class="zone-title">Safe Zone</div>
+    <div class="zone-sub">Low regulatory friction. This is where to play.</div>
+    <ul class="zone-items">
+      <li>Draft CAPA investigation packets</li>
+      <li>Summarize and cluster evidence</li>
+      <li>Recommend regression test scope</li>
+      <li>Suggest traceability links</li>
+      <li>Generate compliance gap reports</li>
+      <li>Draft 510(k) traceability sections</li>
+      <li>Surface predicate delta analysis</li>
+      <li>Flag missing documentation</li>
+    </ul>
+    <div class="zone-footer">AI assists &mdash; Human approves</div>
+  </div>
+  <div class="zone-danger">
+    <div class="zone-title">Danger Zone</div>
+    <div class="zone-sub">Avoid early. Creates regulated software liability.</div>
+    <ul class="zone-items">
+      <li>Auto-close CAPAs without review</li>
+      <li>Approve validations autonomously</li>
+      <li>Release design changes automatically</li>
+      <li>Make final risk determinations</li>
+      <li>Sign off on regulatory submissions</li>
+      <li>Modify QMS records without audit trail</li>
+      <li>Override human CAPA disposition</li>
+    </ul>
+    <div class="zone-footer">Creates software subject to additional FDA scrutiny</div>
+  </div>
+</div>
+
+<!-- PLATFORM LANDSCAPE -->
+<p class="slabel">QMS/PLM Platform Landscape &mdash; Vulnerabilities & Opportunities</p>
+<div class="platform-grid">
+  <div class="plat-card plat-goliath">
+    <div class="plat-tier">Tier 1 &mdash; Enterprise Goliaths</div>
+    <div class="plat-name">Veeva Vault QMS / IQVIA SmartSolve</div>
+    <div class="plat-type">Deeply embedded in life sciences. AI moving toward deviation triage and CAPA drafting.</div>
+    <div class="plat-div"></div>
+    <div class="plat-vuln"><strong>Vulnerability:</strong> Monolithic. Getting engineering data (GitLab, Jira) into these systems requires heavy, custom API maintenance. Customers locked in but underserved on cross-system intelligence.</div>
+    <div class="plat-opp">Agentic overlay sits above Veeva — reads data without displacing the system of record.</div>
+  </div>
+  <div class="plat-card plat-innovator">
+    <div class="plat-tier">Tier 2 &mdash; Connected Innovators</div>
+    <div class="plat-name">Ketryx &amp; Greenlight Guru</div>
+    <div class="plat-type">Purpose-built for software-driven medical devices. DHF + developer tool integration.</div>
+    <div class="plat-div"></div>
+    <div class="plat-vuln"><strong>Vulnerability:</strong> Replacing a legacy system at a company like Philips or ResMed requires years of change management and data migration. Customers maintain external systems alongside.</div>
+    <div class="plat-opp">Opportunity exists precisely because customers don't rip out their existing stack — they layer on top.</div>
+  </div>
+  <div class="plat-card plat-white">
+    <div class="plat-tier">White Space &mdash; The Real Opportunity</div>
+    <div class="plat-name">Agentic Overlay Layer</div>
+    <div class="plat-type">The orchestration gap between QMS, PLM, engineering tools, and compliance docs.</div>
+    <div class="plat-div"></div>
+    <div class="plat-vuln"><strong>The core insight:</strong> Legacy systems don't talk to each other seamlessly. The market is wide open for AI agents that sit <em>above</em> the QMS and PLM, reading data across systems without displacing the system of record.</div>
+    <div class="plat-opp">This is exactly where the HAKU LOGIX OS plays. Not a QMS replacement — the connective intelligence tissue.</div>
+  </div>
+  <div class="plat-card plat-excel">
+    <div class="plat-tier">The Shadow QMS &mdash; Haku&rsquo;s Actual System</div>
+    <div class="plat-name">Manual Excel Sheets</div>
+    <div class="plat-type">Confirmed by Joey: the actual system of record for CAPA, DHF, and V&V logs.</div>
+    <div class="plat-div"></div>
+    <div class="plat-vuln"><strong>The liability:</strong> Excel lacks native audit trails, enforces no data integrity (ALCOA+), and requires hundreds of hours of manual cross-referencing. Direct threat to 21 CFR Part 11 compliance.</div>
+    <div class="plat-opp">Perfect wedge. Don't pry Excel away on day one — deploy an agentic overlay that translates spreadsheets into validated compliance data. Engineers never leave Excel. Output is audit-ready.</div>
+  </div>
+</div>
+
+<!-- MCP ARCHITECTURE -->
+<p class="slabel">MCP Architecture &mdash; The Three-Layer Stack</p>
+<div class="mcp-layers">
+  <div class="mcp-layer">
+    <div><div class="mcp-num">L1</div><div class="mcp-label">Leave Untouched</div></div>
+    <div>
+      <div class="mcp-title">Existing Systems of Record</div>
+      <div class="mcp-desc">Don't touch the client's QMS, PLM, or legacy tools. They are validated systems. Disrupting them triggers revalidation cycles that cost more than the problem being solved.</div>
+      <div class="mcp-items">
+        <span class="mcp-tag">MasterControl</span><span class="mcp-tag">Arena PLM</span><span class="mcp-tag">Windchill</span>
+        <span class="mcp-tag">Jira</span><span class="mcp-tag">SharePoint</span><span class="mcp-tag">Azure DevOps</span>
+        <span class="mcp-tag">SAP</span><span class="mcp-tag">Confluence</span><span class="mcp-tag">Excel</span>
+      </div>
+    </div>
+  </div>
+  <div class="mcp-layer">
+    <div><div class="mcp-num" style="color:var(--amber)">L2</div><div class="mcp-label" style="color:var(--amber)">Build Here</div></div>
+    <div>
+      <div class="mcp-title">MCP Connector Layer</div>
+      <div class="mcp-desc">Model Context Protocol becomes the integration backbone. <strong>MCP is the USB-C for AI</strong> — standardized, secure connections between AI agents and enterprise tools. Validate the MCP framework once; FDA-compliant audit logging and multi-user authorization handled natively. Agents read across silos without displacing the system of record.</div>
+      <div class="mcp-items">
+        <span class="mcp-tag">QMS Connector</span><span class="mcp-tag">PLM Connector</span><span class="mcp-tag">Test Repository</span>
+        <span class="mcp-tag">Complaint Systems</span><span class="mcp-tag">Regulatory Docs</span><span class="mcp-tag">Excel MCP Server</span>
+      </div>
+    </div>
+  </div>
+  <div class="mcp-layer">
+    <div><div class="mcp-num" style="color:var(--red)">L3</div><div class="mcp-label" style="color:var(--red)">The Value Layer</div></div>
+    <div>
+      <div class="mcp-title">Specialized AI Agents + RAG</div>
+      <div class="mcp-desc">Agents reason across all connected systems. <strong>RAG (Retrieval-Augmented Generation) is non-negotiable</strong> — agents must be strictly tethered to the client's validated SOPs, ISO standards, and FDA documentation. If the answer is not in the approved repository, the agent escalates to a human. This is the hallucination firewall.</div>
+      <div class="mcp-items">
+        <span class="mcp-tag">CAPA Agent</span><span class="mcp-tag">V&amp;V Agent</span><span class="mcp-tag">Regression Agent</span>
+        <span class="mcp-tag">510(k) Agent</span><span class="mcp-tag">Audit Agent</span><span class="mcp-tag">HITL Review Layer</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AGENT TAXONOMY -->
+<p class="slabel">The 5-Agent Taxonomy &mdash; What Gets Built</p>
+<div class="agent-grid">
+  <div class="agent-card ac-1">
+    <span class="agent-icon">⚖️</span>
+    <div class="agent-num">Agent 01</div>
+    <div class="agent-name">CAPA Agent</div>
+    <ul class="agent-fns">
+      <li>Similarity search across CAPA history</li>
+      <li>Evidence collection from QMS/PLM</li>
+      <li>Root cause suggestions via RAG</li>
+      <li>Investigation packet generation</li>
+      <li>Draft CAPA for HITL review</li>
+    </ul>
+  </div>
+  <div class="agent-card ac-2">
+    <span class="agent-icon">🔬</span>
+    <div class="agent-num">Agent 02</div>
+    <div class="agent-name">V&amp;V Agent</div>
+    <ul class="agent-fns">
+      <li>Requirement-to-test tracing</li>
+      <li>Coverage gap analysis</li>
+      <li>Change impact mapping</li>
+      <li>Test suite selection recommendation</li>
+      <li>Validation evidence package</li>
+    </ul>
+  </div>
+  <div class="agent-card ac-3">
+    <span class="agent-icon">🔁</span>
+    <div class="agent-num">Agent 03</div>
+    <div class="agent-name">Regression Agent</div>
+    <ul class="agent-fns">
+      <li>Change set analysis</li>
+      <li>Affected requirement mapping</li>
+      <li>Regression scope recommendation</li>
+      <li>Justification package generation</li>
+      <li>Over-test prevention flagging</li>
+    </ul>
+  </div>
+  <div class="agent-card ac-4">
+    <span class="agent-icon">📋</span>
+    <div class="agent-num">Agent 04</div>
+    <div class="agent-name">510(k) Agent</div>
+    <ul class="agent-fns">
+      <li>Predicate device comparison</li>
+      <li>Traceability matrix assembly</li>
+      <li>Documentation collection</li>
+      <li>Submission readiness scoring</li>
+      <li>Gap identification pre-submission</li>
+    </ul>
+  </div>
+  <div class="agent-card ac-5">
+    <span class="agent-icon">🔍</span>
+    <div class="agent-num">Agent 05</div>
+    <div class="agent-name">Audit Agent</div>
+    <ul class="agent-fns">
+      <li>Audit readiness checks</li>
+      <li>Missing evidence detection</li>
+      <li>Documentation gap reporting</li>
+      <li>SOP compliance review (100% coverage)</li>
+      <li>Audit package template population</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EXCEL WEDGE -->
+<p class="slabel">The Excel Wedge &mdash; Haku&rsquo;s Specific Entry Point</p>
+<div class="excel-block">
+  <div class="excel-hero">
+    <div class="eh-label">The Shadow QMS Play &mdash; Confirmed by Joey Banet</div>
+    <div class="eh-headline">Don&rsquo;t Pry Excel Away. Make It Audit-Ready.</div>
+    <div class="eh-sub">
+      Joey confirmed: manual Excel sheets are the actual quality system at Haku today. In the MedTech industry, no matter how many enterprise QMS platforms are deployed upstream, engineering and QA workflows always devolve back to spreadsheets. Excel is flexible. In a regulated environment, <strong>it is a direct threat to 21 CFR Part 11 compliance</strong> — no native audit trails, no ALCOA+ data integrity, hundreds of hours of manual cross-referencing. But for a consulting play, <strong>this is the perfect wedge.</strong> Deploy an agentic overlay that translates their spreadsheets into validated compliance data. Engineers stay in Excel. Output is audit-ready.
+    </div>
+  </div>
+  <div class="excel-steps">
+    <div class="excel-step">
+      <div class="es-num" style="color:var(--slate)">01</div>
+      <div class="es-title">Ingestion Agent</div>
+      <div class="es-desc">PM drops Excel V&V test log into secure OneDrive. Agent triggers via MCP, reads .xlsx, extracts test IDs, dates, pass/fail, failure rationales. No copy-paste. No manual entry.</div>
+    </div>
+    <div class="excel-step">
+      <div class="es-num" style="color:var(--slate)">02</div>
+      <div class="es-title">Traceability Engine</div>
+      <div class="es-desc">Agent semantically maps Excel data to official PLM requirements. Cross-references live ISO 14971 Risk Management File via RAG. Flags any failure mode not accounted for in documentation.</div>
+    </div>
+    <div class="excel-step">
+      <div class="es-num" style="color:var(--slate)">03</div>
+      <div class="es-title">Gap Analysis Output</div>
+      <div class="es-desc">Generates immediate delta report. Flags which test cases are missing traceability links and which failed tests haven't had a corresponding CAPA or deviation opened in the eQMS.</div>
+    </div>
+    <div class="excel-step">
+      <div class="es-num" style="color:var(--slate)">04</div>
+      <div class="es-title">HITL Bridge to QMS</div>
+      <div class="es-desc">Agent queues draft compliance records — CAPA entries, traceability matrix updates — in the validated QMS. QA manager reviews, approves. Data locked. Engineering team never left Excel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCOVERY Q FRAMEWORK -->
+<p class="slabel">Discovery Q&A Framework &mdash; Qualifying Questions by Theme</p>
+<div class="disc-grid">
+
+  <div class="disc-theme">
+    <div class="dt-head">
+      <div class="dt-theme">Theme 01 &mdash; QMS Stack</div>
+      <div class="dt-title">Current Systems &amp; Tools</div>
+    </div>
+    <div class="dt-body">
+      <div class="dt-q">
+        <div class="dt-q-text">What does your current QMS stack look like — is it a formal platform (MasterControl, Veeva, Greenlight Guru) or is most of it living in Excel, SharePoint, or Word?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button><label class="a-tool-btn"><input type="file" accept="*/*" style="display:none" onchange="handleFile(this)">&#8613; Attach</label></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">How many systems does a single CAPA touch before it closes — and do those systems talk to each other automatically or does someone bridge them manually?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">Where does the Design History File actually live — and who's responsible for keeping it current when design changes happen?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-theme">
+    <div class="dt-head">
+      <div class="dt-theme">Theme 02 &mdash; CAPA Volume & Cycle Time</div>
+      <div class="dt-title">Operational Throughput</div>
+    </div>
+    <div class="dt-body">
+      <div class="dt-q">
+        <div class="dt-q-text">How many CAPAs do you typically have open at any given time, and what's the average time from deviation intake to closure?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">When a new CAPA opens — how long does it take before someone has a complete picture of similar historical events to inform the root cause analysis?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">Have you ever had an FDA question on a filing that required tracing back to a specific test or complaint — how long did that take and where did the friction come from?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-theme">
+    <div class="dt-head">
+      <div class="dt-theme">Theme 03 &mdash; V&V & Regression Testing</div>
+      <div class="dt-title">Validation Workflow</div>
+    </div>
+    <div class="dt-body">
+      <div class="dt-q">
+        <div class="dt-q-text">When an algorithm parameter or software component changes — what determines whether a full regression suite runs vs. a targeted subset? Is that a documented rule or a judgment call?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">On your most recent 510(k) engagement — how many bench test cycles did it take, and where did the most unbillable engineering hours go?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">How do you currently compare new device performance against your predicate — is that a manual side-by-side or is there tooling that tracks bias, SD, and LOA automatically?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc-theme">
+    <div class="dt-head">
+      <div class="dt-theme">Theme 04 &mdash; Team Structure & Regulatory History</div>
+      <div class="dt-title">Org Context &amp; FDA Experience</div>
+    </div>
+    <div class="dt-body">
+      <div class="dt-q">
+        <div class="dt-q-text">Who owns quality system compliance day-to-day — is it a dedicated QA role, or does it fall on engineering or program management alongside other responsibilities?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">Have you had an FDA 483 observation or audit finding related to CAPA documentation, traceability, or quality system management — and what was the corrective path?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+      <div class="dt-q">
+        <div class="dt-q-text">If you're running multiple client engagements concurrently — where does the quality system become the constraint on how many you can take on?</div>
+        <div class="answer-area"><textarea placeholder="Notes..."></textarea><div class="answer-tools"><button class="a-tool-btn" onclick="toggleRec(this)">&#9679; Record</button></div><div class="voice-status"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PILOT PROGRAMS -->
+<p class="slabel">Beta Pilot Entry Points &mdash; 3 Concrete Structures</p>
+<div class="pilot-grid">
+
+  <div class="pilot-card">
+    <div class="pilot-head">
+      <div class="pilot-num">Pilot 01 &mdash; Highest ROI, Lowest Risk</div>
+      <div class="pilot-title">CAPA Acceleration Overlay</div>
+      <div class="pilot-scope">4–6 weeks &middot; Read-only access to CAPA backlog</div>
+    </div>
+    <div class="pilot-body">
+      <div class="pilot-section">What Gets Built</div>
+      <ul class="pilot-items">
+        <li>Agent ingests CAPA backlog (Excel, QMS export, or both)</li>
+        <li>Clusters deviations by similarity and systemic root cause</li>
+        <li>Drafts closure plans for HITL review</li>
+        <li>Generates investigation packets in 48 hours</li>
+      </ul>
+      <div class="pilot-section">Before / After Delta</div>
+      <div class="pilot-delta">
+        <div class="pilot-delta-label">Operational Delta</div>
+        <div class="pilot-delta-text">30–60 day manual CAPA cycles &rarr; 48–72hr agent-drafted closure packages with human sign-off. No system replacement. No validation requalification of the QMS.</div>
+      </div>
+      <div class="pilot-section">Repeatability Path</div>
+      <ul class="pilot-items">
+        <li>Same agent architecture works across any client QMS</li>
+        <li>RAG layer retrains on client-specific SOPs</li>
+        <li>Becomes rinse-and-repeat consulting entry motion</li>
+      </ul>
+      <div class="pilot-price">$20K–$35K bespoke SOW &middot; No SaaS commitment to start</div>
+    </div>
+  </div>
+
+  <div class="pilot-card">
+    <div class="pilot-head">
+      <div class="pilot-num">Pilot 02 &mdash; Matt&rsquo;s World</div>
+      <div class="pilot-title">V&V Intelligence Layer</div>
+      <div class="pilot-scope">6–8 weeks &middot; Bench test archive + predicate data required</div>
+    </div>
+    <div class="pilot-body">
+      <div class="pilot-section">What Gets Built</div>
+      <ul class="pilot-items">
+        <li>Ingest historical bench test archive (CoVa 1 + 2 as scaffold)</li>
+        <li>Automated predicate delta tracking (bias, SD, LOA)</li>
+        <li>Regression scope recommendation engine</li>
+        <li>V&V traceability matrix — auto-updated on change</li>
+      </ul>
+      <div class="pilot-section">Before / After Delta</div>
+      <div class="pilot-delta">
+        <div class="pilot-delta-label">Operational Delta</div>
+        <div class="pilot-delta-text">Full regression suite run every time a parameter changes &rarr; smart flagging of exactly what requires re-testing. Engineers stop being regression machines.</div>
+      </div>
+      <div class="pilot-section">Repeatability Path</div>
+      <ul class="pilot-items">
+        <li>Archive intelligence pattern scales across new engagements</li>
+        <li>Each new 510(k) benefits from prior predicate comparison data</li>
+        <li>Matt&rsquo;s methodology automated — not replaced</li>
+      </ul>
+      <div class="pilot-price">$25K–$50K bespoke SOW &middot; Data agreement required first</div>
+    </div>
+  </div>
+
+  <div class="pilot-card">
+    <div class="pilot-head">
+      <div class="pilot-num">Pilot 03 &mdash; The Scalable Play</div>
+      <div class="pilot-title">Excel-to-QMS Pipeline</div>
+      <div class="pilot-scope">4–6 weeks &middot; Excel V&V logs + QMS export access</div>
+    </div>
+    <div class="pilot-body">
+      <div class="pilot-section">What Gets Built</div>
+      <ul class="pilot-items">
+        <li>Excel MCP ingestion agent triggered on file drop</li>
+        <li>Semantic mapping to PLM requirements via RAG</li>
+        <li>Automated gap delta report — missing traceability links</li>
+        <li>HITL bridge: draft QMS entries queued for QA approval</li>
+      </ul>
+      <div class="pilot-section">Before / After Delta</div>
+      <div class="pilot-delta">
+        <div class="pilot-delta-label">Operational Delta</div>
+        <div class="pilot-delta-text">Hours of manual copy-paste from Excel into QMS &rarr; PM drops file, agent generates audit-ready compliance records. Engineering team never leaves Excel.</div>
+      </div>
+      <div class="pilot-section">Repeatability Path</div>
+      <ul class="pilot-items">
+        <li>Works on any client using Excel as Shadow QMS</li>
+        <li>Strongest wedge for Joey and Branden&rsquo;s current workflow</li>
+        <li>Immediately relatable — no technical translation required</li>
+      </ul>
+      <div class="pilot-price">$20K–$35K bespoke SOW &middot; Fastest path to visible ROI</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- OBJECTIONS -->
+<p class="slabel">Objection & Barrier Navigation &mdash; Pre-armed Responses</p>
+<div class="obj-list">
+
+  <div class="obj-card">
+    <div class="obj-head">
+      <div class="obj-icon">⚠</div>
+      <div class="obj-title">&#8220;Any AI tool touching our quality system must be validated under 21 CFR Part 11.&#8221;</div>
+      <div class="obj-tag">Validation Rigor</div>
+    </div>
+    <div class="obj-body">
+      <div class="obj-them">
+        <div class="obj-section-lbl">Their Concern</div>
+        <div class="obj-text">Computer Software Assurance (CSA) requirements mean any tool that touches regulated records must be validated. That validation effort can cost as much as the tool itself and takes months.</div>
+      </div>
+      <div class="obj-us">
+        <div class="obj-section-lbl">The Response</div>
+        <div class="obj-text"><strong>The agent doesn't touch your validated system of record — it reads from it and queues drafts for human review.</strong> Under CSA guidelines, decision-support tools with HITL oversight have a significantly lower validation burden than automated execution tools. We're in the Safe Zone deliberately. Your QA team approves every output before it enters any Part 11-regulated record.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-head">
+      <div class="obj-icon">⚠</div>
+      <div class="obj-title">&#8220;What happens if the AI hallucinates an ISO 13485 clause or FDA guidance?&#8221;</div>
+      <div class="obj-tag">Hallucination Risk</div>
+    </div>
+    <div class="obj-body">
+      <div class="obj-them">
+        <div class="obj-section-lbl">Their Concern</div>
+        <div class="obj-text">If an AI fabricates a regulatory citation, the resulting compliance violation can halt a product launch. This is the highest trust barrier in regulated environments.</div>
+      </div>
+      <div class="obj-us">
+        <div class="obj-section-lbl">The Response</div>
+        <div class="obj-text"><strong>RAG is non-negotiable in our architecture.</strong> The agent is strictly tethered to your validated SOPs, ISO documentation, and the FDA database. It cannot cite what isn't in the approved repository. If the answer isn't there, the agent escalates to a human — it doesn't guess. This is architected specifically to solve the hallucination problem, not ignore it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-head">
+      <div class="obj-icon">⚠</div>
+      <div class="obj-title">&#8220;Our IT and security team will never allow read access to our QMS or PLM data.&#8221;</div>
+      <div class="obj-tag">Data Silos / IT Security</div>
+    </div>
+    <div class="obj-body">
+      <div class="obj-them">
+        <div class="obj-section-lbl">Their Concern</div>
+        <div class="obj-text">Engineering works in fast-moving tools. QA lives in rigid, document-heavy validated environments. Connecting them requires breaking through IT security red tape and data governance policies.</div>
+      </div>
+      <div class="obj-us">
+        <div class="obj-section-lbl">The Response</div>
+        <div class="obj-text"><strong>MCP gateways (Tyk.io, Snowflake managed MCP) enforce strict Identity and Access Management (IAM) controls natively.</strong> The agent gets read-only, scoped access — never write access to validated systems without HITL. Every data access is logged for audit. This architecture was designed to satisfy IT security and Quality teams simultaneously. We start with a sandboxed pilot — no production system access required to prove value.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-head">
+      <div class="obj-icon">⚠</div>
+      <div class="obj-title">&#8220;Change control in our QMS would require us to document and validate any new tooling.&#8221;</div>
+      <div class="obj-tag">Change Control Burden</div>
+    </div>
+    <div class="obj-body">
+      <div class="obj-them">
+        <div class="obj-section-lbl">Their Concern</div>
+        <div class="obj-text">Introducing any new tool into a regulated workflow requires going through a formal change control process — which takes time, resources, and creates risk of disruption during active product development.</div>
+      </div>
+      <div class="obj-us">
+        <div class="obj-section-lbl">The Response</div>
+        <div class="obj-text"><strong>The overlay doesn't modify your QMS — it reads from it.</strong> From a change control perspective, a read-only AI agent with HITL review is categorically different from modifying a validated system. We structure the pilot explicitly to stay outside your validated system boundary — which means no change control trigger on the QMS side. The output the agent produces is drafted content reviewed and approved by your QA team before it ever enters a regulated record.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-head">
+      <div class="obj-icon">⚠</div>
+      <div class="obj-title">&#8220;Our quality team will never trust an AI to handle anything CAPA-related.&#8221;</div>
+      <div class="obj-tag">Cultural Change Management</div>
+    </div>
+    <div class="obj-body">
+      <div class="obj-them">
+        <div class="obj-section-lbl">Their Concern</div>
+        <div class="obj-text">Quality professionals are trained to be risk-averse. Asking them to trust an autonomous agent to handle regulated compliance activities requires a profound cultural shift that takes time and evidence.</div>
+      </div>
+      <div class="obj-us">
+        <div class="obj-section-lbl">The Response</div>
+        <div class="obj-text"><strong>We're not asking anyone to trust the AI. We're asking them to review a draft that took 48 hours instead of 3 weeks to produce.</strong> The HITL model means the quality team's judgment is still the final gate — every time, without exception. Start with the lowest-risk workflow (clustering a CAPA backlog, not closing active CAPAs). Let the output speak. Trust follows demonstrated accuracy, not promises.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="fc"><strong>Oz Rosario</strong><br>Chief Growth &amp; Strategy Officer &mdash; VisLogic.AI<br>oz@vislogic.ai &nbsp;|&nbsp; 619.987.4040</div>
+  <div class="ft">QA/QMS Intelligence Brief &mdash; Internal Playbook<br>VisLogic.AI &times; Haku Technology &mdash; 2026</div>
+</div>
+
+</div>
+
+<script>
+let mediaRecorder=null,audioChunks=[],activeBtn=null;
+function toggleRec(btn){
+  const block=btn.closest('.answer-area');
+  const statusEl=block.querySelector('.voice-status');
+  if(mediaRecorder&&mediaRecorder.state==='recording'){
+    mediaRecorder.stop();btn.classList.remove('recording');btn.innerHTML='&#9679; Record';statusEl.textContent='';activeBtn=null;
+  } else {
+    if(activeBtn){if(mediaRecorder)mediaRecorder.stop();activeBtn.classList.remove('recording');activeBtn.innerHTML='&#9679; Record';activeBtn.closest('.answer-area').querySelector('.voice-status').textContent='';}
+    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+      audioChunks=[];mediaRecorder=new MediaRecorder(stream);
+      mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+      mediaRecorder.onstop=()=>{
+        const blob=new Blob(audioChunks,{type:'audio/webm'});const url=URL.createObjectURL(blob);
+        const audio=document.createElement('audio');audio.controls=true;audio.src=url;
+        audio.style.cssText='width:100%;margin-top:6px;height:28px;filter:invert(1) hue-rotate(180deg)';
+        block.appendChild(audio);stream.getTracks().forEach(t=>t.stop());
+      };
+      mediaRecorder.start();activeBtn=btn;btn.classList.add('recording');btn.innerHTML='<span class="rec-dot"></span>Stop';statusEl.textContent='Recording...';
+    }).catch(()=>{statusEl.textContent='Mic access denied';});
+  }
+}
+function handleFile(input){
+  const listEl=input.closest('.answer-area');
+  Array.from(input.files).forEach(f=>{
+    const d=document.createElement('div');d.textContent='📎 '+f.name;d.style.cssText='font-size:10px;color:#1aaa98;padding:2px 0';listEl.appendChild(d);
+  });
+}
+function collectSession(){
+  const data={version:1,timestamp:new Date().toISOString(),label:'Haku QA/QMS Intel Brief',fields:{}};
+  document.querySelectorAll('textarea').forEach((el,i)=>{if(el.value)data.fields['ta_'+i]=el.value;});
+  document.querySelectorAll('input[type="text"]').forEach((el,i)=>{if(el.value)data.fields['inp_'+i]=el.value;});
+  return data;
+}
+function applySession(data){
+  const tas=document.querySelectorAll('textarea');const inps=document.querySelectorAll('input[type="text"]');
+  Object.entries(data.fields||{}).forEach(([k,v])=>{
+    if(k.startsWith('ta_')){const el=tas[+k.slice(3)];if(el)el.value=v;}
+    else if(k.startsWith('inp_')){const el=inps[+k.slice(4)];if(el)el.value=v;}
+  });
+}
+function saveSession(){
+  const data=collectSession();const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='haku-qms-intel-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  setStatus('saved','Session saved — '+new Date().toLocaleTimeString());
+}
+function loadSession(){document.getElementById('loadFileInput').click();}
+function handleLoad(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{try{const data=JSON.parse(e.target.result);applySession(data);setStatus('saved','Loaded — '+new Date(data.timestamp).toLocaleString());}catch{setStatus('unsaved','Load failed');}}
+  reader.readAsText(file);
+}
+function setStatus(state,msg){const el=document.getElementById('saveStatus');el.textContent=msg;el.className='save-status '+state;}
+document.addEventListener('input',()=>setStatus('unsaved','Unsaved changes'));
+</script>
+</body>
+</html>
