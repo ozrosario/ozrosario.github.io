@@ -20,8 +20,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{font-size:15px;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;}
-
-/* HERO */
 .hero{background:var(--ink);padding:60px 64px 52px;position:relative;overflow:hidden;}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:42px 42px;pointer-events:none;}
 .hero-inner{position:relative;z-index:2;max-width:960px;margin:0 auto;}
@@ -36,28 +34,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
 .hs-icon{color:var(--gold);font-size:16px;}
 .hs-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--gold);}
 .hs-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;line-height:1.5;}
-
-/* STRIP */
 .strip{background:var(--paper);border-bottom:1px solid var(--rule);padding:13px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 .strip-name{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);}
 .strip-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
 .strip-contact{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mid);text-align:right;line-height:1.9;}
 .strip-contact a{color:var(--teal);text-decoration:none;}
-
-/* WRAP */
 .wrap{max-width:960px;margin:0 auto;padding:0 64px;}
 .section{padding:52px 0;border-bottom:1px solid var(--rule);}
 .section:last-child{border-bottom:none;}
 .sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;display:flex;align-items:center;gap:8px;}
 .sec-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.4vw,26px);color:var(--ink);letter-spacing:-0.01em;line-height:1.2;margin-bottom:5px;}
 .sec-sub{font-size:13px;color:var(--mid);line-height:1.72;max-width:640px;margin-bottom:28px;}
-
-/* OPERATOR BRIEF FEATURE CARD */
-.brief-card{
-  background:var(--ink);border-radius:10px;padding:36px 40px;
-  display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:center;
-  position:relative;overflow:hidden;margin-bottom:0;
-}
+.brief-card{background:var(--ink);border-radius:10px;padding:36px 40px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:center;position:relative;overflow:hidden;}
 .brief-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
 .brief-inner{position:relative;z-index:2;}
 .brief-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(184,125,26,0.12);border:1px solid rgba(184,125,26,0.35);border-radius:3px;padding:5px 12px;margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.09em;text-transform:uppercase;color:var(--gold);}
@@ -65,13 +53,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
 .brief-title{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;line-height:1.2;margin-bottom:8px;}
 .brief-title em{color:var(--gold);font-style:italic;}
 .brief-desc{font-size:12.5px;color:rgba(255,255,255,0.45);line-height:1.72;margin-bottom:20px;}
-.brief-link{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--gold);color:var(--ink);
-  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
-  padding:10px 20px;border-radius:3px;text-decoration:none;font-weight:500;
-  transition:opacity 0.18s;
-}
+.brief-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 20px;border-radius:3px;text-decoration:none;font-weight:500;transition:opacity 0.18s;}
 .brief-link:hover{opacity:0.88;}
 .brief-link i{font-size:13px;}
 .brief-chips-col{position:relative;z-index:2;}
@@ -80,14 +62,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
 .bc-item{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.45);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
 .bc-item:last-child{border-bottom:none;}
 .bc-item i{color:var(--gold);font-size:12px;flex-shrink:0;}
-
-/* ENGAGEMENT CARDS */
 .eng-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.eng-card{
-  background:var(--paper);border:1px solid var(--rule);border-radius:8px;
-  overflow:hidden;transition:border-color 0.18s,transform 0.15s;
-  display:flex;flex-direction:column;
-}
+.eng-card{background:var(--paper);border:1px solid var(--rule);border-radius:8px;overflow:hidden;transition:border-color 0.18s,transform 0.15s;display:flex;flex-direction:column;}
 .eng-card:hover{border-color:var(--gold);transform:translateY(-3px);}
 .eng-header{padding:20px 22px 16px;border-bottom:1px solid var(--rule);}
 .eng-sector-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
@@ -103,46 +79,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
 .art-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
 .art-text{font-size:11.5px;color:var(--ink3);line-height:1.45;}
 .art-text strong{font-weight:500;color:var(--ink);}
+.art-link{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);text-decoration:none;margin-top:4px;letter-spacing:0.04em;}
+.art-link:hover{opacity:0.75;}
+.art-link i{font-size:11px;}
 .eng-footer{padding:12px 22px;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;background:var(--cream);}
 .eng-tags{display:flex;gap:5px;flex-wrap:wrap;}
 .tt{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;letter-spacing:0.04em;}
 .tt-g{background:var(--gold2);color:var(--gold);border:1px solid rgba(184,125,26,0.25);}
 .tt-t{background:var(--teal2);color:var(--teal);border:1px solid rgba(16,102,104,0.25);}
-.tt-r{background:var(--red2);color:var(--red);border:1px solid rgba(168,49,42,0.25);}
 .tt-s{background:var(--slate2);color:var(--slate);border:1px solid rgba(40,69,104,0.25);}
 .tt-h{background:var(--health2);color:var(--health);border:1px solid rgba(45,106,79,0.25);}
 .tt-m{background:var(--media2);color:var(--media);border:1px solid rgba(107,63,160,0.25);}
-.eng-link{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
-.eng-link i{font-size:12px;}
-.eng-link:hover{opacity:0.75;}
-
-/* SECTOR LEGEND */
 .legend{display:flex;gap:20px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:28px;}
 .leg-item{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--mid);text-transform:uppercase;letter-spacing:0.08em;}
 .leg-item i{font-size:14px;}
-
-/* METHODOLOGY STRIP */
-.method-strip{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:24px 28px;display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+.method-strip{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:24px 28px;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr;gap:20px;}
 .ms-item{text-align:center;}
 .ms-icon{font-size:22px;margin-bottom:8px;}
 .ms-platform{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);font-weight:500;margin-bottom:3px;}
 .ms-role{font-size:11px;color:var(--mid);line-height:1.5;}
-.ms-divider{width:1px;background:var(--rule);align-self:stretch;}
-
-/* FOOTER */
+.ms-divider{background:var(--rule);align-self:stretch;}
 .footer{background:var(--ink);color:rgba(255,255,255,0.28);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.07em;}
 .footer-right{color:var(--gold);}
-
 @media(max-width:800px){
   .hero,.wrap,.strip,.footer{padding-left:24px;padding-right:24px;}
   .brief-card,.eng-grid,.method-strip{grid-template-columns:1fr;}
   .brief-chips-col{display:none;}
+  .method-strip{grid-template-columns:1fr;}
+  .ms-divider{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-grid"></div>
   <div class="hero-inner">
@@ -156,7 +125,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
       </div>
       <div class="hs-item">
         <i class="ti ti-packages hs-icon"></i>
-        <div><div class="hs-val">20+</div><div class="hs-lbl">Production artifacts</div></div>
+        <div><div class="hs-val">10+</div><div class="hs-lbl">Production artifacts</div></div>
       </div>
       <div class="hs-item">
         <i class="ti ti-cpu hs-icon"></i>
@@ -170,7 +139,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
   </div>
 </div>
 
-<!-- STRIP -->
 <div class="strip">
   <div>
     <div class="strip-name">Oz Rosario</div>
@@ -189,14 +157,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
   <div class="sec-eyebrow"><i class="ti ti-star"></i> Anchor Document</div>
   <div class="sec-title">AI Operator Brief — The Day in Full</div>
   <div class="sec-sub">The brief below documents a single working day — from discovery call to 12 production deliverables — and defines the operating model behind every engagement in this portfolio.</div>
-
   <div class="brief-card">
     <div class="brief-grid-bg"></div>
     <div class="brief-inner">
       <div class="brief-badge"><i class="ti ti-bolt"></i> Executive Brief · v6 · 2026</div>
       <div class="brief-title">One Day.<br><em>Twelve Deliverables.</em></div>
-      <div class="brief-desc">Six hours of active build time. Five AI platforms in rotation. A municipal discovery call turned into a 12-artifact intelligence program — dashboards, Python correlation engine, $694K ROI model, captain's presentation — before end of day. Written zero lines of code.</div>
-      <a class="brief-link" href="OZ_ROSARIO_AI_Operator_Brief_v6.html" target="_blank">
+      <div class="brief-desc">Six hours of active build time. Five AI platforms in rotation. A municipal discovery call turned into a 12-artifact intelligence program — dashboards, Python correlation engine, $694K ROI model, captain's presentation — before end of day. Zero lines of code written.</div>
+      <a class="brief-link" href="brief.html" target="_blank">
         <i class="ti ti-external-link"></i> Open Full Brief
       </a>
     </div>
@@ -242,16 +209,33 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
         <div class="eng-role">AI Strategy · Collaborative Session · QA/QMS/CAPA Flow</div>
       </div>
       <div class="eng-body">
-        <div class="eng-desc">Enterprise AI scoping across a regulated medical device environment — covering workflow automation, quality management systems, and FDA-adjacent compliance architecture. Three distinct artifacts spanning discovery through process design.</div>
+        <div class="eng-desc">Enterprise AI scoping across a regulated medical device environment — covering workflow automation, quality management systems, and FDA-adjacent compliance architecture.</div>
         <div class="art-list">
-          <div class="art-item"><i class="ti ti-messages" style="color:var(--health);"></i><div class="art-text"><strong>Collaboration Session</strong> — Discovery, stakeholder mapping, AI use case prioritization</div></div>
-          <div class="art-item"><i class="ti ti-presentation-analytics" style="color:var(--health);"></i><div class="art-text"><strong>Real Demo</strong> — Live platform demonstration with value framing for clinical ops</div></div>
-          <div class="art-item"><i class="ti ti-git-branch" style="color:var(--health);"></i><div class="art-text"><strong>QA + QMS + CAPA Flow</strong> — Process architecture for quality assurance and corrective action workflows</div></div>
+          <div class="art-item">
+            <i class="ti ti-messages art-icon" style="color:var(--health);"></i>
+            <div class="art-text">
+              <strong>Collaboration Session</strong> — Discovery, stakeholder mapping, AI use case prioritization<br>
+              <a class="art-link" href="haku-collab.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
+          <div class="art-item">
+            <i class="ti ti-presentation-analytics art-icon" style="color:var(--health);"></i>
+            <div class="art-text">
+              <strong>Real Demo</strong> — Live platform demonstration with value framing for clinical ops<br>
+              <a class="art-link" href="haku-demo.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
+          <div class="art-item">
+            <i class="ti ti-git-branch art-icon" style="color:var(--health);"></i>
+            <div class="art-text">
+              <strong>QA + QMS + CAPA Flow</strong> — Process architecture for quality assurance and corrective action<br>
+              <a class="art-link" href="haku-qms.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="eng-footer">
         <div class="eng-tags"><span class="tt tt-h">MedDevice</span><span class="tt tt-h">QMS</span><span class="tt tt-h">Regulated AI</span></div>
-        <a class="eng-link" href="haku-collab.html" target="_blank">View Artifacts <i class="ti ti-arrow-right"></i></a>
       </div>
     </div>
 
@@ -268,12 +252,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
       <div class="eng-body">
         <div class="eng-desc">Executive-level engagement playbook targeting Vizio's Director of Strategic Account Management role — built around platform ecosystem positioning, OEM partnership architecture, and connected device GTM strategy.</div>
         <div class="art-list">
-          <div class="art-item"><i class="ti ti-map" style="color:var(--media);"></i><div class="art-text"><strong>Engagement Playbook</strong> — Role-specific strategy brief, stakeholder map, and account entry narrative for Director SAM hiring context</div></div>
+          <div class="art-item">
+            <i class="ti ti-map art-icon" style="color:var(--media);"></i>
+            <div class="art-text">
+              <strong>Engagement Playbook</strong> — Role-specific strategy brief, stakeholder map, and account entry narrative<br>
+              <a class="art-link" href="vizio.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="eng-footer">
         <div class="eng-tags"><span class="tt tt-m">Consumer Electronics</span><span class="tt tt-m">GTM</span><span class="tt tt-m">OEM</span></div>
-        <a class="eng-link" href="vizio.html" target="_blank">View Artifacts <i class="ti ti-arrow-right"></i></a>
       </div>
     </div>
 
@@ -288,14 +277,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
         <div class="eng-role">Municipal Intelligence · Ops Command · Pentagon Model</div>
       </div>
       <div class="eng-body">
-        <div class="eng-desc">The flagship engagement documented in the Operator Brief. A full municipal AI program built in one working day — from a 10am discovery call to a 12-deliverable intelligence suite including a live data dashboard, NOAA correlation engine, and $694K ROI model.</div>
+        <div class="eng-desc">The flagship engagement. A full municipal AI program built in one working day — from a 10am discovery call to a 12-deliverable intelligence suite including a live data dashboard, NOAA correlation engine, and $694K ROI model.</div>
         <div class="art-list">
-          <div class="art-item"><i class="ti ti-pentagon" style="color:var(--slate);"></i><div class="art-text"><strong>Ops Command View / 5-Point Pentagon Model</strong> — 8-tab master intelligence dashboard with dual-audience data access matrix, staffing model, and procurement playbook</div></div>
+          <div class="art-item">
+            <i class="ti ti-pentagon art-icon" style="color:var(--slate);"></i>
+            <div class="art-text">
+              <strong>Ops Command / 5-Point Pentagon Model</strong> — 8-tab master intelligence dashboard with dual-audience data access matrix, staffing model, and procurement playbook<br>
+              <a class="art-link" href="sdlg.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="eng-footer">
         <div class="eng-tags"><span class="tt tt-s">B2G</span><span class="tt tt-s">Municipal AI</span><span class="tt tt-s">ROI Modeling</span></div>
-        <a class="eng-link" href="sdlg.html" target="_blank">View Artifacts <i class="ti ti-arrow-right"></i></a>
       </div>
     </div>
 
@@ -310,19 +304,30 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
         <div class="eng-role">AI Engagement Strategy · ROI Positioning</div>
       </div>
       <div class="eng-body">
-        <div class="eng-desc">Multi-family and commercial real estate AI scoping — covering data platform strategy, operational automation, and financial positioning for property management decision-makers. Two artifacts spanning engagement design through ROI architecture.</div>
+        <div class="eng-desc">Multi-family and commercial real estate AI scoping — covering data platform strategy, operational automation, and financial positioning for property management decision-makers.</div>
         <div class="art-list">
-          <div class="art-item"><i class="ti ti-target" style="color:var(--gold);"></i><div class="art-text"><strong>Engagement Strategy</strong> — Discovery framework, use case prioritization, and partner onboarding playbook for PropTech AI deployment</div></div>
-          <div class="art-item"><i class="ti ti-calculator" style="color:var(--gold);"></i><div class="art-text"><strong>ROI Positioning</strong> — Financial model and value narrative for property owner / operator audience</div></div>
+          <div class="art-item">
+            <i class="ti ti-target art-icon" style="color:var(--gold);"></i>
+            <div class="art-text">
+              <strong>Engagement Strategy</strong> — Discovery framework, use case prioritization, partner onboarding playbook<br>
+              <a class="art-link" href="propadv-engagement.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
+          <div class="art-item">
+            <i class="ti ti-calculator art-icon" style="color:var(--gold);"></i>
+            <div class="art-text">
+              <strong>ROI Positioning</strong> — Financial model and value narrative for property owner / operator audience<br>
+              <a class="art-link" href="propadv-roi.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="eng-footer">
         <div class="eng-tags"><span class="tt tt-g">PropTech</span><span class="tt tt-g">MDU</span><span class="tt tt-g">ROI</span></div>
-        <a class="eng-link" href="propadv-program.html" target="_blank">View Artifacts <i class="ti ti-arrow-right"></i></a>
       </div>
     </div>
 
-    <!-- CITYSIDE FIBER -->
+    <!-- CITYSIDE FIBER — full width -->
     <div class="eng-card" style="grid-column:1/-1;">
       <div class="eng-header">
         <div class="eng-sector-row">
@@ -335,12 +340,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);l
       <div class="eng-body" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
         <div class="eng-desc" style="margin-bottom:0;">Enterprise market development playbook for a fiber infrastructure operator entering new geographic markets — covering channel strategy, partner ecosystem architecture, MDU access strategy, and revenue modeling for expansion scenarios.</div>
         <div class="art-list">
-          <div class="art-item"><i class="ti ti-map-route" style="color:var(--teal);"></i><div class="art-text"><strong>Market Development Playbook</strong> — Full-cycle entry strategy covering market qualification, channel partner activation, MDU penetration tactics, and phased revenue ramp framework</div></div>
+          <div class="art-item">
+            <i class="ti ti-map-route art-icon" style="color:var(--teal);"></i>
+            <div class="art-text">
+              <strong>Market Development Playbook</strong> — Full-cycle entry strategy covering market qualification, channel partner activation, MDU penetration tactics, and phased revenue ramp framework<br>
+              <a class="art-link" href="cityside.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="eng-footer">
         <div class="eng-tags"><span class="tt tt-t">Telecom</span><span class="tt tt-t">Market Entry</span><span class="tt tt-t">MDU</span><span class="tt tt-t">Channel Strategy</span></div>
-        <a class="eng-link" href="cityside-geo.html" target="_blank">View Artifacts <i class="ti ti-arrow-right"></i></a>
       </div>
     </div>
 
