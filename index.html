@@ -1,406 +1,1179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oz Rosario · AI Co-Development Portfolio</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<style>
-:root{
-  --ink:#0c0b09;--ink3:#3d3a35;--mid:#7a7570;
-  --rule:#e2ddd8;--cream:#f9f7f3;--paper:#fff;
-  --gold:#b87d1a;--gold2:rgba(184,125,26,0.09);--goldB:rgba(184,125,26,0.32);
-  --teal:#106668;--teal2:rgba(16,102,104,0.09);
-  --red:#a8312a;--red2:rgba(168,49,42,0.09);
-  --slate:#284568;--slate2:rgba(40,69,104,0.09);
-  --health:#2d6a4f;--health2:rgba(45,106,79,0.09);
-  --media:#6b3fa0;--media2:rgba(107,63,160,0.09);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:15px;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;}
-.hero{background:var(--ink);padding:60px 64px 52px;position:relative;overflow:hidden;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:42px 42px;pointer-events:none;}
-.hero-inner{position:relative;z-index:2;max-width:960px;margin:0 auto;}
-.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);}
-.hero-name{font-family:'DM Serif Display',serif;font-size:clamp(36px,4.5vw,54px);line-height:1.08;color:#fff;margin-bottom:6px;}
-.hero-name em{color:var(--gold);font-style:italic;}
-.hero-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,0.42);max-width:580px;line-height:1.75;margin-bottom:36px;}
-.hero-sub strong{color:rgba(255,255,255,0.72);font-weight:500;}
-.hero-stats{display:flex;gap:36px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.07);padding-top:24px;}
-.hs-item{display:flex;align-items:center;gap:10px;}
-.hs-icon{color:var(--gold);font-size:16px;}
-.hs-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--gold);}
-.hs-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;line-height:1.5;}
-.strip{background:var(--paper);border-bottom:1px solid var(--rule);padding:13px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-.strip-name{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink);}
-.strip-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mid);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
-.strip-contact{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mid);text-align:right;line-height:1.9;}
-.strip-contact a{color:var(--teal);text-decoration:none;}
-.wrap{max-width:960px;margin:0 auto;padding:0 64px;}
-.section{padding:52px 0;border-bottom:1px solid var(--rule);}
-.section:last-child{border-bottom:none;}
-.sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;display:flex;align-items:center;gap:8px;}
-.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.4vw,26px);color:var(--ink);letter-spacing:-0.01em;line-height:1.2;margin-bottom:5px;}
-.sec-sub{font-size:13px;color:var(--mid);line-height:1.72;max-width:640px;margin-bottom:28px;}
-.brief-card{background:var(--ink);border-radius:10px;padding:36px 40px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:center;position:relative;overflow:hidden;}
-.brief-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
-.brief-inner{position:relative;z-index:2;}
-.brief-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(184,125,26,0.12);border:1px solid rgba(184,125,26,0.35);border-radius:3px;padding:5px 12px;margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.09em;text-transform:uppercase;color:var(--gold);}
-.brief-badge i{font-size:12px;}
-.brief-title{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;line-height:1.2;margin-bottom:8px;}
-.brief-title em{color:var(--gold);font-style:italic;}
-.brief-desc{font-size:12.5px;color:rgba(255,255,255,0.45);line-height:1.72;margin-bottom:20px;}
-.brief-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 20px;border-radius:3px;text-decoration:none;font-weight:500;transition:opacity 0.18s;}
-.brief-link:hover{opacity:0.88;}
-.brief-link i{font-size:13px;}
-.brief-chips-col{position:relative;z-index:2;}
-.bc-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.13em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:12px;}
-.bc-grid{display:flex;flex-direction:column;gap:6px;}
-.bc-item{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.45);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
-.bc-item:last-child{border-bottom:none;}
-.bc-item i{color:var(--gold);font-size:12px;flex-shrink:0;}
-.eng-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.eng-card{background:var(--paper);border:1px solid var(--rule);border-radius:8px;overflow:hidden;transition:border-color 0.18s,transform 0.15s;display:flex;flex-direction:column;}
-.eng-card:hover{border-color:var(--gold);transform:translateY(-3px);}
-.eng-header{padding:20px 22px 16px;border-bottom:1px solid var(--rule);}
-.eng-sector-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.eng-sector{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.11em;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
-.eng-sector i{font-size:12px;}
-.eng-count{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--mid);background:var(--cream);border:1px solid var(--rule);border-radius:2px;padding:2px 7px;}
-.eng-client{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);line-height:1.2;margin-bottom:4px;}
-.eng-role{font-size:11.5px;color:var(--mid);line-height:1.5;}
-.eng-body{padding:16px 22px;flex:1;}
-.eng-desc{font-size:12px;color:var(--ink3);line-height:1.65;margin-bottom:14px;}
-.art-list{display:flex;flex-direction:column;gap:6px;}
-.art-item{display:flex;align-items:flex-start;gap:8px;}
-.art-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
-.art-text{font-size:11.5px;color:var(--ink3);line-height:1.45;}
-.art-text strong{font-weight:500;color:var(--ink);}
-.art-link{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);text-decoration:none;margin-top:4px;letter-spacing:0.04em;}
-.art-link:hover{opacity:0.75;}
-.art-link i{font-size:11px;}
-.eng-footer{padding:12px 22px;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;background:var(--cream);}
-.eng-tags{display:flex;gap:5px;flex-wrap:wrap;}
-.tt{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;letter-spacing:0.04em;}
-.tt-g{background:var(--gold2);color:var(--gold);border:1px solid rgba(184,125,26,0.25);}
-.tt-t{background:var(--teal2);color:var(--teal);border:1px solid rgba(16,102,104,0.25);}
-.tt-s{background:var(--slate2);color:var(--slate);border:1px solid rgba(40,69,104,0.25);}
-.tt-h{background:var(--health2);color:var(--health);border:1px solid rgba(45,106,79,0.25);}
-.tt-m{background:var(--media2);color:var(--media);border:1px solid rgba(107,63,160,0.25);}
-.legend{display:flex;gap:20px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:28px;}
-.leg-item{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--mid);text-transform:uppercase;letter-spacing:0.08em;}
-.leg-item i{font-size:14px;}
-.method-strip{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:24px 28px;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr;gap:20px;}
-.ms-item{text-align:center;}
-.ms-icon{font-size:22px;margin-bottom:8px;}
-.ms-platform{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);font-weight:500;margin-bottom:3px;}
-.ms-role{font-size:11px;color:var(--mid);line-height:1.5;}
-.ms-divider{background:var(--rule);align-self:stretch;}
-.footer{background:var(--ink);color:rgba(255,255,255,0.28);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.07em;}
-.footer-right{color:var(--gold);}
-@media(max-width:800px){
-  .hero,.wrap,.strip,.footer{padding-left:24px;padding-right:24px;}
-  .brief-card,.eng-grid,.method-strip{grid-template-columns:1fr;}
-  .brief-chips-col{display:none;}
-  .method-strip{grid-template-columns:1fr;}
-  .ms-divider{display:none;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oz Rosario · AI Co-Development Portfolio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <style>
+    :root {
+        --ink: #0c0b09;
+        --ink3: #3d3a35;
+        --mid: #7a7570;
+        --rule: #e2ddd8;
+        --cream: #f9f7f3;
+        --paper: #fff;
+        --gold: #b87d1a;
+        --gold2: rgba(184, 125, 26, 0.09);
+        --goldB: rgba(184, 125, 26, 0.32);
+        --teal: #106668;
+        --teal2: rgba(16, 102, 104, 0.09);
+        --tealB: rgba(16, 102, 104, 0.35);
+        --red: #a8312a;
+        --red2: rgba(168, 49, 42, 0.09);
+        --slate: #284568;
+        --slate2: rgba(40, 69, 104, 0.09);
+        --health: #2d6a4f;
+        --health2: rgba(45, 106, 79, 0.09);
+        --healthB: rgba(45, 106, 79, 0.35);
+        --media: #6b3fa0;
+        --media2: rgba(107, 63, 160, 0.09);
+        --mediaB: rgba(107, 63, 160, 0.35);
+        --slateB: rgba(40, 69, 104, 0.35);
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-size: 15px;
+    }
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        line-height: 1.65;
+    }/* HERO */
+    .hero {
+        background: var(--ink);
+        padding: 60px 64px 52px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        background-size: 42px 42px;
+        pointer-events: none;
+    }
+
+    .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hero-eyebrow::before {
+        content: '';
+        width: 24px;
+        height: 1px;
+        background: var(--gold);
+    }
+
+    .hero-name {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(36px, 4.5vw, 54px);
+        line-height: 1.08;
+        color: #fff;
+        margin-bottom: 6px;
+    }
+
+    .hero-name em {
+        color: var(--gold);
+        font-style: italic;
+    }
+
+    .hero-sub {
+        font-size: 13px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.42);
+        max-width: 580px;
+        line-height: 1.75;
+        margin-bottom: 36px;
+    }
+
+    .hero-sub strong {
+        color: rgba(255, 255, 255, 0.72);
+        font-weight: 500;
+    }
+
+    .hero-stats {
+        display: flex;
+        gap: 36px;
+        flex-wrap: wrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        padding-top: 24px;
+    }
+
+    .hs-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .hs-icon {
+        color: var(--gold);
+        font-size: 16px;
+    }
+
+    .hs-val {
+        font-family: 'DM Serif Display', serif;
+        font-size: 20px;
+        color: var(--gold);
+    }
+
+    .hs-lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        line-height: 1.5;
+    }/* STRIP */
+    .strip {
+        background: var(--paper);
+        border-bottom: 1px solid var(--rule);
+        padding: 13px 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .strip-name {
+        font-family: 'DM Serif Display', serif;
+        font-size: 15px;
+        color: var(--ink);
+    }
+
+    .strip-sub {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: var(--mid);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-top: 2px;
+    }
+
+    .strip-contact {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        color: var(--mid);
+        text-align: right;
+        line-height: 1.9;
+    }
+
+    .strip-contact a {
+        color: var(--teal);
+        text-decoration: none;
+    }/* LAYOUT */
+    .wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 64px;
+    }
+
+    .section {
+        padding: 52px 0;
+        border-bottom: 1px solid var(--rule);
+    }
+
+    .section:last-child {
+        border-bottom: none;
+    }
+
+    .sec-eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sec-title {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(20px, 2.4vw, 26px);
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        margin-bottom: 5px;
+    }
+
+    .sec-sub {
+        font-size: 13px;
+        color: var(--mid);
+        line-height: 1.72;
+        max-width: 640px;
+        margin-bottom: 28px;
+    }/* BRIEF CARD */
+    .brief-card {
+        background: var(--ink);
+        border-radius: 10px;
+        padding: 36px 40px;
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 40px;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .brief-grid-bg {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+
+    .brief-inner {
+        position: relative;
+        z-index: 2;
+    }
+
+    .brief-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(184, 125, 26, 0.12);
+        border: 1px solid rgba(184, 125, 26, 0.35);
+        border-radius: 3px;
+        padding: 5px 12px;
+        margin-bottom: 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8.5px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--gold);
+    }
+
+    .brief-title {
+        font-family: 'DM Serif Display', serif;
+        font-size: 22px;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+
+    .brief-title em {
+        color: var(--gold);
+        font-style: italic;
+    }
+
+    .brief-desc {
+        font-size: 12.5px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.72;
+        margin-bottom: 20px;
+    }
+
+    .brief-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--gold);
+        color: var(--ink);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        border-radius: 3px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.18s;
+    }
+
+    .brief-link:hover {
+        opacity: 0.88;
+    }
+
+    .brief-chips-col {
+        position: relative;
+        z-index: 2;
+    }
+
+    .bc-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-bottom: 12px;
+    }
+
+    .bc-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .bc-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.45);
+        padding: 5px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .bc-item:last-child {
+        border-bottom: none;
+    }
+
+    .bc-item i {
+        color: var(--gold);
+        font-size: 12px;
+        flex-shrink: 0;
+    }/* ENGAGEMENT CARDS */
+    .eng-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .eng-card {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: border-color 0.18s, transform 0.15s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .eng-card:hover {
+        border-color: var(--gold);
+        transform: translateY(-3px);
+    }
+
+    .eng-header {
+        padding: 20px 22px 16px;
+        border-bottom: 1px solid var(--rule);
+    }
+
+    .eng-sector-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .eng-sector {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .eng-sector i {
+        font-size: 12px;
+    }
+
+    .eng-count {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: var(--mid);
+        background: var(--cream);
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        padding: 2px 7px;
+    }
+
+    .eng-client {
+        font-family: 'DM Serif Display', serif;
+        font-size: 18px;
+        color: var(--ink);
+        line-height: 1.2;
+        margin-bottom: 4px;
+    }
+
+    .eng-role {
+        font-size: 11.5px;
+        color: var(--mid);
+        line-height: 1.5;
+    }
+
+    .eng-body {
+        padding: 16px 22px;
+        flex: 1;
+    }
+
+    .eng-desc {
+        font-size: 12px;
+        color: var(--ink3);
+        line-height: 1.65;
+        margin-bottom: 16px;
+    }/* ARTIFACT ROWS — the upgrade */
+    .art-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .art-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 14px;
+        border: 1px solid var(--rule);
+        border-radius: 5px;
+        background: var(--cream);
+        transition: border-color 0.15s, background 0.15s;
+    }
+
+    .art-row:hover {
+        background: var(--paper);
+    }
+
+    .art-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .art-left i {
+        font-size: 15px;
+        flex-shrink: 0;
+    }
+
+    .art-name {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ink);
+        line-height: 1.3;
+    }
+
+    .art-type {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: var(--mid);
+        margin-top: 1px;
+    }/* COLOR-THEMED OPEN BUTTONS */
+    .art-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8.5px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 3px;
+        border: 1.5px solid;
+        text-decoration: none;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background 0.15s, color 0.15s;
+        font-weight: 500;
+    }
+
+    .art-btn i {
+        font-size: 11px;
+    }
+
+    .btn-health {
+        color: var(--health);
+        border-color: var(--healthB);
+        background: var(--health2);
+    }
+
+    .btn-health:hover {
+        background: var(--health);
+        color: #fff;
+    }
+
+    .btn-media {
+        color: var(--media);
+        border-color: var(--mediaB);
+        background: var(--media2);
+    }
+
+    .btn-media:hover {
+        background: var(--media);
+        color: #fff;
+    }
+
+    .btn-slate {
+        color: var(--slate);
+        border-color: var(--slateB);
+        background: var(--slate2);
+    }
+
+    .btn-slate:hover {
+        background: var(--slate);
+        color: #fff;
+    }
+
+    .btn-gold {
+        color: var(--gold);
+        border-color: var(--goldB);
+        background: var(--gold2);
+    }
+
+    .btn-gold:hover {
+        background: var(--gold);
+        color: #fff;
+    }
+
+    .btn-teal {
+        color: var(--teal);
+        border-color: var(--tealB);
+        background: var(--teal2);
+    }
+
+    .btn-teal:hover {
+        background: var(--teal);
+        color: #fff;
+    }
+
+    .eng-footer {
+        padding: 12px 22px;
+        border-top: 1px solid var(--rule);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        background: var(--cream);
+    }
+
+    .tt {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        padding: 2px 7px;
+        border-radius: 2px;
+        letter-spacing: 0.04em;
+    }
+
+    .tt-g {
+        background: var(--gold2);
+        color: var(--gold);
+        border: 1px solid rgba(184, 125, 26, 0.25);
+    }
+
+    .tt-t {
+        background: var(--teal2);
+        color: var(--teal);
+        border: 1px solid rgba(16, 102, 104, 0.25);
+    }
+
+    .tt-s {
+        background: var(--slate2);
+        color: var(--slate);
+        border: 1px solid rgba(40, 69, 104, 0.25);
+    }
+
+    .tt-h {
+        background: var(--health2);
+        color: var(--health);
+        border: 1px solid rgba(45, 106, 79, 0.25);
+    }
+
+    .tt-m {
+        background: var(--media2);
+        color: var(--media);
+        border: 1px solid rgba(107, 63, 160, 0.25);
+    }/* LEGEND */
+    .legend {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 20px 0;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 28px;
+    }
+
+    .leg-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8.5px;
+        color: var(--mid);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .leg-item i {
+        font-size: 14px;
+    }/* METHODOLOGY */
+    .method-strip {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 24px 28px;
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr;
+        gap: 20px;
+    }
+
+    .ms-item {
+        text-align: center;
+    }
+
+    .ms-icon {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .ms-platform {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+        font-weight: 500;
+        margin-bottom: 3px;
+    }
+
+    .ms-role {
+        font-size: 11px;
+        color: var(--mid);
+        line-height: 1.5;
+    }
+
+    .ms-divider {
+        background: var(--rule);
+        align-self: stretch;
+    }/* FOOTER */
+    .footer {
+        background: var(--ink);
+        color: rgba(255, 255, 255, 0.28);
+        padding: 20px 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.07em;
+    }
+
+    .footer-right {
+        color: var(--gold);
+    }
+
+    @media (max-width: 800px) {
+        .hero, .wrap, .strip, .footer {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .brief-card, .eng-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .brief-chips-col {
+            display: none;
+        }
+
+        .method-strip {
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .ms-divider {
+            display: none;
+        }
+
+        .art-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .art-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">AI Co-Development Portfolio · 2026</div>
-    <div class="hero-name">Oz Rosario.<br><em>Proof of Work.</em></div>
-    <div class="hero-sub">Five enterprise engagements across five verticals — each built from a live discovery call, with zero lines of code, in real time. This is what <strong>AI-augmented business development</strong> looks like in production.</div>
-    <div class="hero-stats">
-      <div class="hs-item">
-        <i class="ti ti-stack hs-icon"></i>
-        <div><div class="hs-val">5</div><div class="hs-lbl">Verticals covered</div></div>
-      </div>
-      <div class="hs-item">
-        <i class="ti ti-packages hs-icon"></i>
-        <div><div class="hs-val">9</div><div class="hs-lbl">Production artifacts</div></div>
-      </div>
-      <div class="hs-item">
-        <i class="ti ti-cpu hs-icon"></i>
-        <div><div class="hs-val">5</div><div class="hs-lbl">AI platforms in stack</div></div>
-      </div>
-      <div class="hs-item">
-        <i class="ti ti-code-off hs-icon"></i>
-        <div><div class="hs-val">0</div><div class="hs-lbl">Lines of code written</div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="strip">
-  <div>
-    <div class="strip-name">Oz Rosario</div>
-    <div class="strip-sub">Founder · AMPPED &nbsp;·&nbsp; CGSO · VisLogic.AI &nbsp;·&nbsp; Director · SASE-Experts &nbsp;·&nbsp; San Diego, CA</div>
-  </div>
-  <div class="strip-contact">
-    oz.rosario@gmail.com &nbsp;·&nbsp; 619.987.4040 &nbsp;·&nbsp;
-    <a href="https://linkedin.com/in/ozrosario">linkedin.com/in/ozrosario</a>
-  </div>
-</div>
-
-<div class="wrap">
-
-<!-- OPERATOR BRIEF -->
-<div class="section">
-  <div class="sec-eyebrow"><i class="ti ti-star"></i> Anchor Document</div>
-  <div class="sec-title">AI Operator Brief — The Day in Full</div>
-  <div class="sec-sub">The brief below documents a single working day — from discovery call to 12 production deliverables — and defines the operating model behind every engagement in this portfolio.</div>
-  <div class="brief-card">
-    <div class="brief-grid-bg"></div>
-    <div class="brief-inner">
-      <div class="brief-badge"><i class="ti ti-bolt"></i> Executive Brief · v6 · 2026</div>
-      <div class="brief-title">One Day.<br><em>Twelve Deliverables.</em></div>
-      <div class="brief-desc">Six hours of active build time. Five AI platforms in rotation. A municipal discovery call turned into a 12-artifact intelligence program — dashboards, Python correlation engine, $694K ROI model, captain's presentation — before end of day. Zero lines of code written.</div>
-      <a class="brief-link" href="brief.html" target="_blank">
-        <i class="ti ti-external-link"></i> Open Full Brief
-      </a>
-    </div>
-    <div class="brief-chips-col">
-      <div class="bc-label">What's inside</div>
-      <div class="bc-grid">
-        <div class="bc-item"><i class="ti ti-user-check"></i> AI Operator Classification</div>
-        <div class="bc-item"><i class="ti ti-timeline"></i> Sprint Timeline — Hour by Hour</div>
-        <div class="bc-item"><i class="ti ti-packages"></i> 12 Production Deliverables</div>
-        <div class="bc-item"><i class="ti ti-brain"></i> Skills Inventory with Proof</div>
-        <div class="bc-item"><i class="ti ti-bulb"></i> Ozolosophy — Directed Dev Framework</div>
-        <div class="bc-item"><i class="ti ti-map-2"></i> Growth Map — Next Unlocks</div>
-        <div class="bc-item"><i class="ti ti-quote"></i> In His Own Words</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ENGAGEMENTS -->
-<div class="section">
-  <div class="sec-eyebrow"><i class="ti ti-briefcase"></i> Client Engagements</div>
-  <div class="sec-title">Five Verticals. Five Proof Points.</div>
-  <div class="sec-sub">Each engagement below was built co-operatively with AI — scoped from a live client context, structured for enterprise decision-makers, and delivered as production-grade artifacts.</div>
-
-  <div class="legend">
-    <div class="leg-item" style="color:var(--health);"><i class="ti ti-heart-rate-monitor"></i> Healthcare / MedDevices</div>
-    <div class="leg-item" style="color:var(--media);"><i class="ti ti-device-tv"></i> Consumer Electronics / Media Tech</div>
-    <div class="leg-item" style="color:var(--slate);"><i class="ti ti-shield"></i> Government / GSA</div>
-    <div class="leg-item" style="color:var(--gold);"><i class="ti ti-building"></i> Real Estate / PropTech</div>
-    <div class="leg-item" style="color:var(--teal);"><i class="ti ti-wifi"></i> Telecommunications</div>
-  </div>
-
-  <div class="eng-grid">
-
-    <!-- HAKU TECHNOLOGIES -->
-    <div class="eng-card">
-      <div class="eng-header">
-        <div class="eng-sector-row">
-          <div class="eng-sector" style="color:var(--health);"><i class="ti ti-heart-rate-monitor"></i> Healthcare / MedDevices</div>
-          <div class="eng-count">3 artifacts</div>
-        </div>
-        <div class="eng-client">Haku Technologies</div>
-        <div class="eng-role">AI Strategy · Collaborative Session · QA/QMS/CAPA Flow</div>
-      </div>
-      <div class="eng-body">
-        <div class="eng-desc">Enterprise AI scoping across a regulated medical device environment — covering workflow automation, quality management systems, and FDA-adjacent compliance architecture.</div>
-        <div class="art-list">
-          <div class="art-item">
-            <i class="ti ti-messages art-icon" style="color:var(--health);"></i>
-            <div class="art-text">
-              <strong>Collaboration Session</strong> — Discovery, stakeholder mapping, AI use case prioritization<br>
-              <a class="art-link" href="haku-collab.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+    <div class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-inner">
+            <div class="hero-eyebrow">AI Co-Development Portfolio · 2026</div>
+            <div class="hero-name">
+                Oz Rosario.
+                <br>
+                <em>Proof of Work.</em>
             </div>
-          </div>
-          <div class="art-item">
-            <i class="ti ti-presentation-analytics art-icon" style="color:var(--health);"></i>
-            <div class="art-text">
-              <strong>Real Demo</strong> — Live platform demonstration with value framing for clinical ops<br>
-              <a class="art-link" href="haku-demo.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            <div class="hero-sub">
+                Five enterprise engagements across five verticals — each built from a live discovery call, with zero lines of code, in real time. This is what 
+                <strong>AI-augmented business development</strong>
+                 looks like in production.
             </div>
-          </div>
-          <div class="art-item">
-            <i class="ti ti-git-branch art-icon" style="color:var(--health);"></i>
-            <div class="art-text">
-              <strong>QA + QMS + CAPA Flow</strong> — Process architecture for quality assurance and corrective action<br>
-              <a class="art-link" href="haku-qms.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            <div class="hero-stats">
+                <div class="hs-item">
+                    <i class="ti ti-stack hs-icon"></i>
+                    <div>
+                        <div class="hs-val">5</div>
+                        <div class="hs-lbl">Verticals covered</div>
+                    </div>
+                </div>
+                <div class="hs-item">
+                    <i class="ti ti-packages hs-icon"></i>
+                    <div>
+                        <div class="hs-val">9</div>
+                        <div class="hs-lbl">Production artifacts</div>
+                    </div>
+                </div>
+                <div class="hs-item">
+                    <i class="ti ti-cpu hs-icon"></i>
+                    <div>
+                        <div class="hs-val">5</div>
+                        <div class="hs-lbl">AI platforms in stack</div>
+                    </div>
+                </div>
+                <div class="hs-item">
+                    <i class="ti ti-code-off hs-icon"></i>
+                    <div>
+                        <div class="hs-val">0</div>
+                        <div class="hs-lbl">Lines of code written</div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="eng-footer">
-        <div class="eng-tags"><span class="tt tt-h">MedDevice</span><span class="tt tt-h">QMS</span><span class="tt tt-h">Regulated AI</span></div>
-      </div>
     </div>
 
-    <!-- VIZIO -->
-    <div class="eng-card">
-      <div class="eng-header">
-        <div class="eng-sector-row">
-          <div class="eng-sector" style="color:var(--media);"><i class="ti ti-device-tv"></i> Consumer Electronics / Media Tech</div>
-          <div class="eng-count">1 artifact</div>
+    <div class="strip">
+        <div>
+            <div class="strip-name">Oz Rosario</div>
+            <div class="strip-sub">Founder · AMPPED &nbsp;·&nbsp; CGSO · VisLogic.AI &nbsp;·&nbsp; Director · SASE-Experts &nbsp;·&nbsp; San Diego, CA</div>
         </div>
-        <div class="eng-client">Vizio</div>
-        <div class="eng-role">Strategic Account Management · Director-Level Engagement</div>
-      </div>
-      <div class="eng-body">
-        <div class="eng-desc">Executive-level engagement playbook targeting Vizio's Director of Strategic Account Management role — built around platform ecosystem positioning, OEM partnership architecture, and connected device GTM strategy.</div>
-        <div class="art-list">
-          <div class="art-item">
-            <i class="ti ti-map art-icon" style="color:var(--media);"></i>
-            <div class="art-text">
-              <strong>Engagement Playbook</strong> — Role-specific strategy brief, stakeholder map, and account entry narrative<br>
-              <a class="art-link" href="vizio.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+        <div class="strip-contact">
+
+                oz.rosario@gmail.com &nbsp;·&nbsp; 619.987.4040 &nbsp;·&nbsp;
+                
+            <a href="https://linkedin.com/in/ozrosario">linkedin.com/in/ozrosario</a>
+        </div>
+    </div>
+
+    <div class="wrap">
+
+        <!-- BRIEF -->
+        <div class="section">
+            <div class="sec-eyebrow">
+                <i class="ti ti-star"></i>
+                 Anchor Document
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="eng-footer">
-        <div class="eng-tags"><span class="tt tt-m">Consumer Electronics</span><span class="tt tt-m">GTM</span><span class="tt tt-m">OEM</span></div>
-      </div>
-    </div>
-
-    <!-- SD LIFEGUARD -->
-    <div class="eng-card">
-      <div class="eng-header">
-        <div class="eng-sector-row">
-          <div class="eng-sector" style="color:var(--slate);"><i class="ti ti-shield"></i> Government / GSA</div>
-          <div class="eng-count">1 artifact</div>
-        </div>
-        <div class="eng-client">San Diego Lifeguard Association</div>
-        <div class="eng-role">Municipal Intelligence · Ops Command · Pentagon Model</div>
-      </div>
-      <div class="eng-body">
-        <div class="eng-desc">The flagship engagement. A full municipal AI program built in one working day — from a 10am discovery call to a 12-deliverable intelligence suite including a live data dashboard, NOAA correlation engine, and $694K ROI model.</div>
-        <div class="art-list">
-          <div class="art-item">
-            <i class="ti ti-pentagon art-icon" style="color:var(--slate);"></i>
-            <div class="art-text">
-              <strong>Ops Command / 5-Point Pentagon Model</strong> — 8-tab master intelligence dashboard with dual-audience data access matrix, staffing model, and procurement playbook<br>
-              <a class="art-link" href="sdlg.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            <div class="sec-title">AI Operator Brief — The Day in Full</div>
+            <div class="sec-sub">The brief below documents a single working day — from discovery call to 12 production deliverables — and defines the operating model behind every engagement in this portfolio.</div>
+            <div class="brief-card">
+                <div class="brief-grid-bg"></div>
+                <div class="brief-inner">
+                    <div class="brief-badge">
+                        <i class="ti ti-bolt"></i>
+                         Executive Brief · v6 · 2026
+                    </div>
+                    <div class="brief-title">
+                        One Day.
+                        <br>
+                        <em>Twelve Deliverables.</em>
+                    </div>
+                    <div class="brief-desc">Six hours of active build time. Five AI platforms in rotation. A municipal discovery call turned into a 12-artifact intelligence program — dashboards, Python correlation engine, $694K ROI model, captain's presentation — before end of day. Zero lines of code written.</div>
+                    <a class="brief-link" href="brief.html" target="_blank">
+                        <i class="ti ti-external-link"></i>
+                         Open Full Brief
+                    </a>
+                </div>
+                <div class="brief-chips-col">
+                    <div class="bc-label">What's inside</div>
+                    <div class="bc-grid">
+                        <div class="bc-item">
+                            <i class="ti ti-user-check"></i>
+                             AI Operator Classification
+                        </div>
+                        <div class="bc-item">
+                            <i class="ti ti-timeline"></i>
+                             Sprint Timeline — Hour by Hour
+                        </div>
+                        <div class="bc-item">
+                            <i class="ti ti-packages"></i>
+                             12 Production Deliverables
+                        </div>
+                        <div class="bc-item">
+                            <i class="ti ti-brain"></i>
+                             Skills Inventory with Proof
+                        </div>
+                        <div class="bc-item">
+                            <i class="ti ti-bulb"></i>
+                             Ozolosophy — Directed Dev Framework
+                        </div>
+                        <div class="bc-item">
+                            <i class="ti ti-map-2"></i>
+                             Growth Map — Next Unlocks
+                        </div>
+                        <div class="bc-item">
+                            <i class="ti ti-quote"></i>
+                             In His Own Words
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="eng-footer">
-        <div class="eng-tags"><span class="tt tt-s">B2G</span><span class="tt tt-s">Municipal AI</span><span class="tt tt-s">ROI Modeling</span></div>
-      </div>
-    </div>
 
-    <!-- PROPERTY ADVANTAGE -->
-    <div class="eng-card">
-      <div class="eng-header">
-        <div class="eng-sector-row">
-          <div class="eng-sector" style="color:var(--gold);"><i class="ti ti-building"></i> Real Estate / PropTech</div>
-          <div class="eng-count">2 artifacts</div>
-        </div>
-        <div class="eng-client">Property Advantage</div>
-        <div class="eng-role">AI Engagement Strategy · ROI Positioning</div>
-      </div>
-      <div class="eng-body">
-        <div class="eng-desc">Multi-family and commercial real estate AI scoping — covering data platform strategy, operational automation, and financial positioning for property management decision-makers.</div>
-        <div class="art-list">
-          <div class="art-item">
-            <i class="ti ti-target art-icon" style="color:var(--gold);"></i>
-            <div class="art-text">
-              <strong>Engagement Strategy</strong> — Discovery framework, use case prioritization, partner onboarding playbook<br>
-              <a class="art-link" href="propadv-engagement.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+        <!-- ENGAGEMENTS -->
+        <div class="section">
+            <div class="sec-eyebrow">
+                <i class="ti ti-briefcase"></i>
+                 Client Engagements
             </div>
-          </div>
-          <div class="art-item">
-            <i class="ti ti-calculator art-icon" style="color:var(--gold);"></i>
-            <div class="art-text">
-              <strong>ROI Positioning</strong> — Financial model and value narrative for property owner / operator audience<br>
-              <a class="art-link" href="propadv-roi.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            <div class="sec-title">Five Verticals. Five Proof Points.</div>
+            <div class="sec-sub">Each engagement below was built co-operatively with AI — scoped from a live client context, structured for enterprise decision-makers, and delivered as production-grade artifacts.</div>
+
+            <div class="legend">
+                <div class="leg-item" style="color:var(--health);">
+                    <i class="ti ti-heart-rate-monitor"></i>
+                     Healthcare / MedDevices
+                </div>
+                <div class="leg-item" style="color:var(--media);">
+                    <i class="ti ti-device-tv"></i>
+                     Consumer Electronics
+                </div>
+                <div class="leg-item" style="color:var(--slate);">
+                    <i class="ti ti-shield"></i>
+                     Government / GSA
+                </div>
+                <div class="leg-item" style="color:var(--gold);">
+                    <i class="ti ti-building"></i>
+                     Real Estate / PropTech
+                </div>
+                <div class="leg-item" style="color:var(--teal);">
+                    <i class="ti ti-wifi"></i>
+                     Telecommunications
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="eng-footer">
-        <div class="eng-tags"><span class="tt tt-g">PropTech</span><span class="tt tt-g">MDU</span><span class="tt tt-g">ROI</span></div>
-      </div>
-    </div>
 
-    <!-- CITYSIDE FIBER — full width -->
-    <div class="eng-card" style="grid-column:1/-1;">
-      <div class="eng-header">
-        <div class="eng-sector-row">
-          <div class="eng-sector" style="color:var(--teal);"><i class="ti ti-wifi"></i> Telecommunications / Market Development</div>
-          <div class="eng-count">1 artifact</div>
-        </div>
-        <div class="eng-client">Cityside Fiber</div>
-        <div class="eng-role">Market Development Playbook · New Market Entry Strategy</div>
-      </div>
-      <div class="eng-body" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-        <div class="eng-desc" style="margin-bottom:0;">Enterprise market development playbook for a fiber infrastructure operator entering new geographic markets — covering channel strategy, partner ecosystem architecture, MDU access strategy, and revenue modeling for expansion scenarios.</div>
-        <div class="art-list">
-          <div class="art-item">
-            <i class="ti ti-map-route art-icon" style="color:var(--teal);"></i>
-            <div class="art-text">
-              <strong>Market Development Playbook</strong> — Full-cycle entry strategy covering market qualification, channel partner activation, MDU penetration tactics, and phased revenue ramp framework<br>
-              <a class="art-link" href="cityside.html" target="_blank"><i class="ti ti-external-link"></i> View artifact</a>
+            <div class="eng-grid">
+
+                <!-- HAKU -->
+                <div class="eng-card">
+                    <div class="eng-header">
+                        <div class="eng-sector-row">
+                            <div class="eng-sector" style="color:var(--health);">
+                                <i class="ti ti-heart-rate-monitor"></i>
+                                 Healthcare / MedDevices
+                            </div>
+                            <div class="eng-count">3 artifacts</div>
+                        </div>
+                        <div class="eng-client">Haku Technologies</div>
+                        <div class="eng-role">AI Strategy · Collaborative Session · QA/QMS/CAPA Flow</div>
+                    </div>
+                    <div class="eng-body">
+                        <div class="eng-desc">Enterprise AI scoping across a regulated medical device environment — workflow automation, quality management systems, and FDA-adjacent compliance architecture.</div>
+                        <div class="art-list">
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-messages" style="color:var(--health);"></i>
+                                    <div>
+                                        <div class="art-name">Collaboration Session</div>
+                                        <div class="art-type">Discovery · Stakeholder Mapping · Use Cases</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-health" href="haku-collab.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-presentation-analytics" style="color:var(--health);"></i>
+                                    <div>
+                                        <div class="art-name">Real Demo</div>
+                                        <div class="art-type">Live Platform Demo · Clinical Ops Value Framing</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-health" href="haku-demo.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-git-branch" style="color:var(--health);"></i>
+                                    <div>
+                                        <div class="art-name">QA + QMS + CAPA Flow</div>
+                                        <div class="art-type">Process Architecture · Corrective Action</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-health" href="haku-qms.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eng-footer">
+                        <span class="tt tt-h">MedDevice</span>
+                        <span class="tt tt-h">QMS</span>
+                        <span class="tt tt-h">Regulated AI</span>
+                    </div>
+                </div>
+
+                <!-- VIZIO -->
+                <div class="eng-card">
+                    <div class="eng-header">
+                        <div class="eng-sector-row">
+                            <div class="eng-sector" style="color:var(--media);">
+                                <i class="ti ti-device-tv"></i>
+                                 Consumer Electronics / Media Tech
+                            </div>
+                            <div class="eng-count">1 artifact</div>
+                        </div>
+                        <div class="eng-client">Vizio</div>
+                        <div class="eng-role">Strategic Account Management · Director-Level Engagement</div>
+                    </div>
+                    <div class="eng-body">
+                        <div class="eng-desc">Executive-level engagement playbook targeting Vizio's Director of Strategic Account Management role — platform ecosystem positioning, OEM partnership architecture, and connected device GTM strategy.</div>
+                        <div class="art-list">
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-map" style="color:var(--media);"></i>
+                                    <div>
+                                        <div class="art-name">Engagement Playbook</div>
+                                        <div class="art-type">Strategy Brief · Stakeholder Map · Account Entry</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-media" href="vizio.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eng-footer">
+                        <span class="tt tt-m">Consumer Electronics</span>
+                        <span class="tt tt-m">GTM</span>
+                        <span class="tt tt-m">OEM</span>
+                    </div>
+                </div>
+
+                <!-- SDLG -->
+                <div class="eng-card">
+                    <div class="eng-header">
+                        <div class="eng-sector-row">
+                            <div class="eng-sector" style="color:var(--slate);">
+                                <i class="ti ti-shield"></i>
+                                 Government / GSA
+                            </div>
+                            <div class="eng-count">1 artifact</div>
+                        </div>
+                        <div class="eng-client">San Diego Lifeguard Association</div>
+                        <div class="eng-role">Municipal Intelligence · Ops Command · Pentagon Model</div>
+                    </div>
+                    <div class="eng-body">
+                        <div class="eng-desc">The flagship engagement. A full municipal AI program built in one working day — 10am discovery call to 12-deliverable intelligence suite with live data dashboard, NOAA correlation engine, and $694K ROI model.</div>
+                        <div class="art-list">
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-pentagon" style="color:var(--slate);"></i>
+                                    <div>
+                                        <div class="art-name">Ops Command / Pentagon Model</div>
+                                        <div class="art-type">8-Tab Dashboard · Staffing Model · ROI · Data Matrix</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-slate" href="sdlg.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eng-footer">
+                        <span class="tt tt-s">B2G</span>
+                        <span class="tt tt-s">Municipal AI</span>
+                        <span class="tt tt-s">ROI Modeling</span>
+                    </div>
+                </div>
+
+                <!-- PROPERTY ADVANTAGE -->
+                <div class="eng-card">
+                    <div class="eng-header">
+                        <div class="eng-sector-row">
+                            <div class="eng-sector" style="color:var(--gold);">
+                                <i class="ti ti-building"></i>
+                                 Real Estate / PropTech
+                            </div>
+                            <div class="eng-count">2 artifacts</div>
+                        </div>
+                        <div class="eng-client">Property Advantage</div>
+                        <div class="eng-role">AI Engagement Strategy · ROI Positioning</div>
+                    </div>
+                    <div class="eng-body">
+                        <div class="eng-desc">Multi-family and commercial real estate AI scoping — data platform strategy, operational automation, and financial positioning for property management decision-makers.</div>
+                        <div class="art-list">
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-target" style="color:var(--gold);"></i>
+                                    <div>
+                                        <div class="art-name">Engagement Strategy</div>
+                                        <div class="art-type">Discovery · Use Case Prioritization · Onboarding</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-gold" href="propadv-engagement.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-calculator" style="color:var(--gold);"></i>
+                                    <div>
+                                        <div class="art-name">ROI Positioning</div>
+                                        <div class="art-type">Financial Model · Value Narrative · Owner Audience</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-gold" href="propadv-roi.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eng-footer">
+                        <span class="tt tt-g">PropTech</span>
+                        <span class="tt tt-g">MDU</span>
+                        <span class="tt tt-g">ROI</span>
+                    </div>
+                </div>
+
+                <!-- CITYSIDE — full width -->
+                <div class="eng-card" style="grid-column:1/-1;">
+                    <div class="eng-header">
+                        <div class="eng-sector-row">
+                            <div class="eng-sector" style="color:var(--teal);">
+                                <i class="ti ti-wifi"></i>
+                                 Telecommunications / Market Development
+                            </div>
+                            <div class="eng-count">1 artifact</div>
+                        </div>
+                        <div class="eng-client">Cityside Fiber</div>
+                        <div class="eng-role">Market Development Playbook · New Market Entry Strategy</div>
+                    </div>
+                    <div class="eng-body" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;">
+                        <div class="eng-desc" style="margin-bottom:0;">Enterprise market development playbook for a fiber infrastructure operator entering new geographic markets — channel strategy, partner ecosystem architecture, MDU access strategy, and revenue modeling for expansion scenarios.</div>
+                        <div class="art-list">
+                            <div class="art-row">
+                                <div class="art-left">
+                                    <i class="ti ti-map-route" style="color:var(--teal);"></i>
+                                    <div>
+                                        <div class="art-name">Market Development Playbook</div>
+                                        <div class="art-type">Market Entry · Channel Activation · MDU · Revenue Ramp</div>
+                                    </div>
+                                </div>
+                                <a class="art-btn btn-teal" href="cityside.html" target="_blank">
+                                    <i class="ti ti-external-link"></i>
+                                     Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eng-footer">
+                        <span class="tt tt-t">Telecom</span>
+                        <span class="tt tt-t">Market Entry</span>
+                        <span class="tt tt-t">MDU</span>
+                        <span class="tt tt-t">Channel Strategy</span>
+                    </div>
+                </div>
+
             </div>
-          </div>
         </div>
-      </div>
-      <div class="eng-footer">
-        <div class="eng-tags"><span class="tt tt-t">Telecom</span><span class="tt tt-t">Market Entry</span><span class="tt tt-t">MDU</span><span class="tt tt-t">Channel Strategy</span></div>
-      </div>
+
+        <!-- METHODOLOGY -->
+        <div class="section">
+            <div class="sec-eyebrow">
+                <i class="ti ti-layers-subtract"></i>
+                 Operating Methodology
+            </div>
+            <div class="sec-title">The Five-Platform AI Stack</div>
+            <div class="sec-sub">Every engagement in this portfolio was produced using the same deliberate multi-model workflow — each platform selected for what it does best.</div>
+            <div class="method-strip">
+                <div class="ms-item">
+                    <div class="ms-icon" style="color:var(--gold);">
+                        <i class="ti ti-wand"></i>
+                    </div>
+                    <div class="ms-platform">PromptCowboy</div>
+                    <div class="ms-role">Prompt refinement before deployment</div>
+                </div>
+                <div class="ms-divider"></div>
+                <div class="ms-item">
+                    <div class="ms-icon" style="color:var(--teal);">
+                        <i class="ti ti-bolt"></i>
+                    </div>
+                    <div class="ms-platform">Gemini</div>
+                    <div class="ms-role">Fast directional sanity check</div>
+                </div>
+                <div class="ms-divider"></div>
+                <div class="ms-item">
+                    <div class="ms-icon" style="color:var(--slate);">
+                        <i class="ti ti-message-dots"></i>
+                    </div>
+                    <div class="ms-platform">ChatGPT</div>
+                    <div class="ms-role">Depth + narrative consistency</div>
+                </div>
+                <div class="ms-divider"></div>
+                <div class="ms-item">
+                    <div class="ms-icon" style="color:var(--red);">
+                        <i class="ti ti-cpu"></i>
+                    </div>
+                    <div class="ms-platform">Claude</div>
+                    <div class="ms-role">Production asset assembly</div>
+                </div>
+                <div class="ms-divider"></div>
+                <div class="ms-item">
+                    <div class="ms-icon" style="color:var(--gold);">
+                        <i class="ti ti-shield-search"></i>
+                    </div>
+                    <div class="ms-platform">Perplexity</div>
+                    <div class="ms-role">Adversarial blind-spot analysis</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-  </div>
-</div>
-
-<!-- METHODOLOGY -->
-<div class="section">
-  <div class="sec-eyebrow"><i class="ti ti-layers-subtract"></i> Operating Methodology</div>
-  <div class="sec-title">The Five-Platform AI Stack</div>
-  <div class="sec-sub">Every engagement in this portfolio was produced using the same deliberate multi-model workflow — each platform selected for what it does best.</div>
-  <div class="method-strip">
-    <div class="ms-item">
-      <div class="ms-icon" style="color:var(--gold);"><i class="ti ti-wand"></i></div>
-      <div class="ms-platform">PromptCowboy</div>
-      <div class="ms-role">Prompt refinement before deployment</div>
+    <div class="footer">
+        <span>Oz Rosario · oz.rosario@gmail.com · 619.987.4040 · VisLogic.AI</span>
+        <span class="footer-right">AI Co-Development Portfolio · 2026</span>
     </div>
-    <div class="ms-divider"></div>
-    <div class="ms-item">
-      <div class="ms-icon" style="color:var(--teal);"><i class="ti ti-bolt"></i></div>
-      <div class="ms-platform">Gemini</div>
-      <div class="ms-role">Fast directional sanity check</div>
-    </div>
-    <div class="ms-divider"></div>
-    <div class="ms-item">
-      <div class="ms-icon" style="color:var(--slate);"><i class="ti ti-message-dots"></i></div>
-      <div class="ms-platform">ChatGPT</div>
-      <div class="ms-role">Depth + narrative consistency</div>
-    </div>
-    <div class="ms-divider"></div>
-    <div class="ms-item">
-      <div class="ms-icon" style="color:var(--red);"><i class="ti ti-cpu"></i></div>
-      <div class="ms-platform">Claude</div>
-      <div class="ms-role">Production asset assembly</div>
-    </div>
-    <div class="ms-divider"></div>
-    <div class="ms-item">
-      <div class="ms-icon" style="color:var(--gold);"><i class="ti ti-shield-search"></i></div>
-      <div class="ms-platform">Perplexity</div>
-      <div class="ms-role">Adversarial blind-spot analysis</div>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="footer">
-  <span>Oz Rosario · oz.rosario@gmail.com · 619.987.4040 · VisLogic.AI</span>
-  <span class="footer-right">AI Co-Development Portfolio · 2026</span>
-</div>
 
 </body>
 </html>
