@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Management Revenue Projections — Oz Rosario</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1C2C;
+    --navy-mid: #132235;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-pale: #F5E9C8;
+    --cream: #F8F5EE;
+    --white: #FFFFFF;
+    --muted: #7A8FA0;
+    --border: #D4C9A8;
+    --text: #1A2B38;
+    --green: #3DD68C;
+    --green-dk: #1A7A4A;
+    --amber: #E8A838;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); font-size: 15px; line-height: 1.7; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: var(--navy); padding: 0 48px; display: flex; align-items: center; border-bottom: 2px solid var(--gold); }
+  .nav-brand { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; padding: 14px 0; margin-right: 32px; white-space: nowrap; }
+  .nav-links { display: flex; overflow-x: auto; }
+  .nav-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 16px 13px; white-space: nowrap; transition: color 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .cover { background: var(--navy); padding: 64px 80px; position: relative; overflow: hidden; border-bottom: 3px solid var(--gold); }
+  .cover::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 80% 50%, rgba(201,168,76,0.07) 0%, transparent 70%); }
+  .cover-inner { position: relative; z-index: 2; }
+  .cover-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .cover-title { font-family: 'Playfair Display', serif; font-size: clamp(28px,3.5vw,48px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 12px; }
+  .cover-title span { color: var(--gold); }
+  .cover-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 720px; }
+
+  .sec { padding: 64px 80px; }
+  .sec-white { background: var(--white); }
+  .sec-cream { background: var(--cream); }
+  .sec-navy { background: var(--navy); }
+  .section-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 12px; }
+  h2.title { font-family: 'Playfair Display', serif; font-size: clamp(22px,2.8vw,36px); font-weight: 900; color: var(--navy); line-height: 1.15; margin-bottom: 8px; }
+  h2.title-light { color: var(--white); }
+  .lead { font-size: 15px; font-weight: 300; color: var(--muted); max-width: 720px; margin-bottom: 36px; }
+  .lead-light { color: rgba(255,255,255,0.55); }
+  .gold-rule { height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin: 24px 0; }
+
+  /* ASSUMPTION BOX */
+  .assumption-box { background: rgba(232,168,56,0.08); border: 1px solid rgba(232,168,56,0.4); padding: 20px 24px; margin-bottom: 32px; }
+  .assumption-box .ab-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+  .assumption-box ul { list-style: none; padding: 0; }
+  .assumption-box li { font-size: 13px; color: var(--text); padding: 4px 0 4px 18px; position: relative; border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .assumption-box li:last-child { border-bottom: none; }
+  .assumption-box li::before { content: '↳'; position: absolute; left: 0; color: var(--amber); font-size: 11px; top: 5px; }
+
+  /* CONTEXT BLOCKS */
+  .context-block { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 18px 20px; margin-bottom: 18px; }
+  .context-block .cb-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .context-block p { font-size: 13px; color: var(--text); line-height: 1.6; }
+
+  /* MODEL TABLE */
+  .model-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+  .model-table thead tr { background: var(--navy); }
+  .model-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); padding: 11px 14px; text-align: left; }
+  .model-table th.right { text-align: right; }
+  .model-table td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .model-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+  .model-table td.total-row { background: var(--navy-mid) !important; font-weight: 700; color: var(--white); }
+  .model-table td.total-row.gold { color: var(--gold-light); font-family: 'DM Mono', monospace; text-align: right; }
+  .model-table td.pa-share { font-family: 'DM Mono', monospace; font-weight: 700; color: var(--green-dk); text-align: right; font-size: 14px; }
+  .model-table td.ecosystem { font-family: 'DM Mono', monospace; color: var(--muted); text-align: right; }
+  .model-table td.vertical-name { padding-left: 10px; }
+  .model-table .section-header td { background: rgba(201,168,76,0.08) !important; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 700; border-top: 2px solid rgba(201,168,76,0.3); }
+
+  /* STAT STRIP */
+  .stat-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+  .stat-block { background: var(--navy); padding: 20px 18px; }
+  .stat-block.accent { background: rgba(201,168,76,0.1); border: 1px solid var(--gold); }
+  .stat-block.green-accent { background: rgba(61,214,140,0.07); border: 1px solid rgba(61,214,140,0.4); }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .stat-block.green-accent .stat-label { color: var(--green); }
+  .stat-value { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 4px; }
+  .stat-block.green-accent .stat-value { color: var(--green); }
+  .stat-desc { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+
+  /* SCALE TABLE */
+  .scale-table { width: 100%; border-collapse: collapse; }
+  .scale-table thead tr { background: var(--navy); }
+  .scale-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); padding: 11px 14px; text-align: left; }
+  .scale-table th.right { text-align: right; }
+  .scale-table td { padding: 11px 14px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .scale-table td.mono { font-family: 'DM Mono', monospace; text-align: right; }
+  .scale-table td.green { color: var(--green-dk); font-weight: 700; font-family: 'DM Mono', monospace; text-align: right; }
+  .scale-table td.gold-val { color: var(--gold); font-weight: 700; font-family: 'DM Mono', monospace; text-align: right; }
+  .scale-table tr.highlight td { background: rgba(201,168,76,0.06); }
+  .scale-table tr.reach td { background: rgba(61,214,140,0.05); border-left: 3px solid var(--green); }
+  .scale-table td.label { font-weight: 600; color: var(--navy); }
+
+  /* CAP RATE TABLE */
+  .cap-table { width: 100%; border-collapse: collapse; }
+  .cap-table thead tr { background: var(--navy); }
+  .cap-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); padding: 11px 14px; text-align: right; }
+  .cap-table th:first-child { text-align: left; }
+  .cap-table td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--border); text-align: right; font-family: 'DM Mono', monospace; }
+  .cap-table td:first-child { text-align: left; font-family: 'DM Sans', sans-serif; font-weight: 600; color: var(--navy); }
+  .cap-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+  .cap-table td.highlight { color: var(--green-dk); font-weight: 700; font-size: 14px; }
+  .cap-table tr.subtotal td { background: rgba(201,168,76,0.06); font-weight: 700; }
+  .cap-table tr.grandtotal td { background: var(--navy); color: var(--gold-light); font-weight: 700; font-size: 14px; }
+  .cap-table tr.grandtotal td:first-child { color: var(--white); }
+
+  .footnote { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 10px; line-height: 1.5; }
+
+  /* NARRATIVE PULL */
+  .narrative { background: var(--navy); padding: 28px 32px; border-left: 4px solid var(--gold); margin-top: 32px; }
+  .narrative .n-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .narrative p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; }
+  .narrative strong { color: var(--white); }
+  .narrative .gold { color: var(--gold-light); }
+
+  /* VELOCITY NOTE */
+  .velocity-note { background: rgba(61,214,140,0.06); border: 1px solid rgba(61,214,140,0.3); border-left: 4px solid var(--green); padding: 16px 20px; margin-top: 16px; }
+  .velocity-note .vn-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 6px; }
+  .velocity-note p { font-size: 13px; color: var(--text); }
+
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+  .footer { background: var(--navy); padding: 28px 80px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--gold); }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--gold); }
+  .footer-meta { font-size: 11px; color: var(--muted); text-align: right; }
+  .footer-meta strong { color: var(--white); }
+
+  @media (max-width: 900px) {
+    .sec { padding: 44px 24px; }
+    .cover { padding: 44px 24px; }
+    .stat-strip, .g2, .g3 { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 12px; padding: 20px 24px; }
+  }
+  @media print {
+    .nav { display: none; }
+    .sec, .cover { padding: 36px; }
+    @page { margin: 0.45in; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">Property Management Revenue Projections</div>
+  <div class="nav-links">
+    <a href="#assumptions">Model Assumptions</a>
+    <a href="#property-model">3-Property Model</a>
+    <a href="#scale">Portfolio Scale</a>
+    <a href="#asset-value">Asset Value Uplift</a>
+    <a href="#roi">Engagement ROI</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-eyebrow">Financial Model — Revenue Participation by Participant</div>
+    <h1 class="cover-title">Property Management<br><span>Revenue Projections.</span></h1>
+    <p class="cover-sub">This model disaggregates the managed services revenue stack by participant — Service Operator, HOA Community, Vendor/Provider, and the firm's direct program management income — then projects across the full HOA portfolio to frame the scale opportunity and engagement return. All assumptions are documented, defensible, and grounded in market-standard infrastructure program economics.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 1: MODEL ASSUMPTIONS ═══ -->
+<div id="assumptions" class="sec sec-white">
+  <span class="section-tag">Model Assumptions</span>
+  <h2 class="title">How This Model Is Built —<br>And Why It Holds Up.</h2>
+  <p class="lead">The projections in this model are designed to be conservative, defensible, and grounded in how managed services program economics actually work in residential property management. The key distinction throughout: the firm is the management company and program operator — not the property owner. PA's direct revenue is modeled accordingly.</p>
+
+  <div class="g3" style="margin-bottom:28px;">
+    <div class="context-block">
+      <div class="cb-label">Revenue Participant Structure</div>
+      <p>Each infrastructure vertical generates gross ecosystem revenue split across four parties: <strong>Service Operator</strong> (PA's white-label managed services division), <strong>HOA Community</strong> (the collective ownership body), <strong>Vendor/Provider</strong> (the infrastructure operator), and <strong>PA Program Management</strong> (earned facilitation fee). The Service Operator designation reflects a future-state structure where the firm operates managed services verticals under its own brand — similar in model to the in-house insurance product, but designed for infrastructure.</p>
+    </div>
+    <div class="context-block">
+      <div class="cb-label">PA's Direct Revenue Mechanism</div>
+      <p>the firm's direct earned income from this program flows through two sources: (1) a <strong>15% program management fee</strong> on the total gross vertical revenue generated per property — industry standard for managed services facilitation at PM firms operating infrastructure programs — and (2) a <strong>management contract repricing uplift</strong> of $6/unit/year, modeled conservatively once infrastructure verticals are live and delivering measurable community value.</p>
+    </div>
+    <div class="context-block">
+      <div class="cb-label">Portfolio Scale &amp; Activation Realism</div>
+      <p>The full portfolio baseline is modeled at <strong>100 HOAs × 130 avg. units = 13,000 units</strong>, excluding 2025–2026 acquisitions. Activation projections are deliberately throttled to reflect real HOA adoption dynamics: boards are slow to move, decisions require community votes, and this program requires a dedicated sales driver. <strong>25% portfolio activation by end of 2026</strong> is the reach goal — not 50%. Scale projections above 50% are shown as multi-year targets, not near-term commitments.</p>
+    </div>
+  </div>
+
+  <div class="assumption-box">
+    <div class="ab-label">Model Assumptions — Applied Throughout</div>
+    <ul>
+      <li>PA direct revenue = <strong>Program Management Fee at 15% of total gross vertical revenue</strong> per property — reflects industry standard for infrastructure program facilitation at residential PM firms operating white-label managed services</li>
+      <li>PA additional revenue = <strong>Management Contract Uplift at $6/unit/year</strong> — conservative repricing premium once infrastructure verticals are active, demonstrable, and delivering measurable NOI to the community; modeled as $0.50/unit/month</li>
+      <li>Revenue splits by vertical use midpoint values from the Revenue Participation Model: EV Charging — Service Operator 25%, HOA 7.5%; Solar/BESS — Service Operator 45%, HOA 5%; Telecom TEM — Service Operator 60%, HOA 0%; Connectivity — Service Operator 50%, HOA 15%; IoT SaaS — Service Operator 30%, HOA 20%</li>
+      <li>HOA share flows through the HOA board's independent governance process — PA does not capture HOA revenue directly, but earns on the program facilitation that makes it possible</li>
+      <li>Asset value uplift from NOI growth accrues to property owners and HOA communities — PA's benefit is indirect through mandate retention, enterprise valuation re-rate, and competitive positioning</li>
+      <li>Activation projections: <strong>Reach goal 25% by end of 2026</strong>; 35–40% by mid-2027; 40–50% by end of 2027 — calibrated to single-driver sales velocity with HOA board adoption realities</li>
+      <li>To accelerate toward the upper activation range, a dedicated sales team of 1–2 reps would be required to expand portfolio penetration velocity</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2: 3-PROPERTY REVENUE MODEL ═══ -->
+<div id="property-model" class="sec sec-cream">
+  <span class="section-tag">3-Property Revenue Model</span>
+  <h2 class="title">Disaggregated Revenue Stack —<br>Who Receives What.</h2>
+  <p class="lead">This model uses the same three reference properties and the same gross vertical revenue figures from the Strategic Plan. The revenue is now disaggregated by participant — Service Operator, HOA Community, Vendor/Provider, and the firm's actual earned program income — using the exact participation splits from the Revenue Participation Model.</p>
+
+  <!-- PROFILE A -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--navy); margin-bottom:14px;">Profile A — Vista Del Sol · 48 Units · Chula Vista</h3>
+  <table class="model-table" style="margin-bottom:32px;">
+    <thead>
+      <tr>
+        <th>Vertical</th>
+        <th>Gross Ecosystem NOI</th>
+        <th class="right">Service Operator Share</th>
+        <th class="right">HOA Community Share</th>
+        <th class="right">Vendor/Provider Share</th>
+        <th class="right">PA Program Mgmt (15%)</th>
+        <th class="right">PA Mgmt Uplift ($6/unit)</th>
+        <th class="right"><strong>PA Total Earned</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="vertical-name">⚡ EV Charging (IaaS)</td>
+        <td class="ecosystem">$14,400</td>
+        <td class="ecosystem">$3,600 (25%)</td>
+        <td class="ecosystem">$1,080 (7.5%)</td>
+        <td class="ecosystem">$9,720 (67.5%)</td>
+        <td class="pa-share">$2,160</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$2,160</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">📡 Telecom TEM</td>
+        <td class="ecosystem">$3,200</td>
+        <td class="ecosystem">$1,920 (60%)</td>
+        <td class="ecosystem">$0 (0%)</td>
+        <td class="ecosystem">$1,280 (40%)</td>
+        <td class="pa-share">$480</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$480</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">🌐 Connectivity (Bulk ISP)</td>
+        <td class="ecosystem">$5,760</td>
+        <td class="ecosystem">$2,880 (50%)</td>
+        <td class="ecosystem">$864 (15%)</td>
+        <td class="ecosystem">$2,016 (35%)</td>
+        <td class="pa-share">$864</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$864</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">🔒 IoT SaaS</td>
+        <td class="ecosystem">$2,880</td>
+        <td class="ecosystem">$864 (30%)</td>
+        <td class="ecosystem">$576 (20%)</td>
+        <td class="ecosystem">$1,440 (50%)</td>
+        <td class="pa-share">$432</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$432</td>
+      </tr>
+      <tr class="section-header">
+        <td colspan="8">Management Contract Uplift — $6/unit/year across all activated units</td>
+      </tr>
+      <tr>
+        <td class="vertical-name" colspan="6">Contract Uplift · 48 units × $6/yr</td>
+        <td class="ecosystem">$288</td>
+        <td class="pa-share">$288</td>
+      </tr>
+      <tr>
+        <td class="total-row">Profile A — Total</td>
+        <td class="total-row gold">$26,240 gross</td>
+        <td class="total-row gold">$9,264</td>
+        <td class="total-row gold">$2,520</td>
+        <td class="total-row gold">$14,456</td>
+        <td class="total-row gold">$3,936</td>
+        <td class="total-row gold">$288</td>
+        <td class="total-row gold">$4,224</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PROFILE B -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--navy); margin-bottom:14px;">Profile B — Pacific Heights Commons · 124 Units · Escondido</h3>
+  <table class="model-table" style="margin-bottom:32px;">
+    <thead>
+      <tr>
+        <th>Vertical</th>
+        <th>Gross Ecosystem NOI</th>
+        <th class="right">Service Operator Share</th>
+        <th class="right">HOA Community Share</th>
+        <th class="right">Vendor/Provider Share</th>
+        <th class="right">PA Program Mgmt (15%)</th>
+        <th class="right">PA Mgmt Uplift ($6/unit)</th>
+        <th class="right"><strong>PA Total Earned</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="vertical-name">⚡ EV Charging + VPP</td>
+        <td class="ecosystem">$41,600</td>
+        <td class="ecosystem">$10,400 (25%)</td>
+        <td class="ecosystem">$3,120 (7.5%)</td>
+        <td class="ecosystem">$28,080 (67.5%)</td>
+        <td class="pa-share">$6,240</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$6,240</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">📡 Telecom (Wholesale)</td>
+        <td class="ecosystem">$8,928</td>
+        <td class="ecosystem">$5,357 (60%)</td>
+        <td class="ecosystem">$0 (0%)</td>
+        <td class="ecosystem">$3,571 (40%)</td>
+        <td class="pa-share">$1,339</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$1,339</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">🌐 Managed WiFi Revenue</td>
+        <td class="ecosystem">$17,856</td>
+        <td class="ecosystem">$8,928 (50%)</td>
+        <td class="ecosystem">$2,678 (15%)</td>
+        <td class="ecosystem">$6,250 (35%)</td>
+        <td class="pa-share">$2,678</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$2,678</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">🔒 Access + CCTV SaaS</td>
+        <td class="ecosystem">$7,440</td>
+        <td class="ecosystem">$2,232 (30%)</td>
+        <td class="ecosystem">$1,488 (20%)</td>
+        <td class="ecosystem">$3,720 (50%)</td>
+        <td class="pa-share">$1,116</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$1,116</td>
+      </tr>
+      <tr class="section-header">
+        <td colspan="8">Management Contract Uplift</td>
+      </tr>
+      <tr>
+        <td class="vertical-name" colspan="6">Contract Uplift · 124 units × $6/yr</td>
+        <td class="ecosystem">$744</td>
+        <td class="pa-share">$744</td>
+      </tr>
+      <tr>
+        <td class="total-row">Profile B — Total</td>
+        <td class="total-row gold">$75,824 gross</td>
+        <td class="total-row gold">$26,917</td>
+        <td class="total-row gold">$7,286</td>
+        <td class="total-row gold">$41,621</td>
+        <td class="total-row gold">$11,373</td>
+        <td class="total-row gold">$744</td>
+        <td class="total-row gold">$12,117</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PROFILE C -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--navy); margin-bottom:14px;">Profile C — Rancho Cienega Portfolio · 218 Units · Santee + El Cajon</h3>
+  <table class="model-table" style="margin-bottom:32px;">
+    <thead>
+      <tr>
+        <th>Vertical</th>
+        <th>Gross Ecosystem NOI</th>
+        <th class="right">Service Operator Share</th>
+        <th class="right">HOA Community Share</th>
+        <th class="right">Vendor/Provider Share</th>
+        <th class="right">PA Program Mgmt (15%)</th>
+        <th class="right">PA Mgmt Uplift ($6/unit)</th>
+        <th class="right"><strong>PA Total Earned</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="vertical-name">⚡ Energy (Phased IaaS)</td>
+        <td class="ecosystem">$52,800</td>
+        <td class="ecosystem">$13,200 (25%)</td>
+        <td class="ecosystem">$3,960 (7.5%)</td>
+        <td class="ecosystem">$35,640 (67.5%)</td>
+        <td class="pa-share">$7,920</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$7,920</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">📡 Multi-site TEM</td>
+        <td class="ecosystem">$14,400</td>
+        <td class="ecosystem">$8,640 (60%)</td>
+        <td class="ecosystem">$0 (0%)</td>
+        <td class="ecosystem">$5,760 (40%)</td>
+        <td class="pa-share">$2,160</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$2,160</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">🌐 Bulk ISP + Rooftop</td>
+        <td class="ecosystem">$28,320</td>
+        <td class="ecosystem">$14,160 (50%)</td>
+        <td class="ecosystem">$4,248 (15%)</td>
+        <td class="ecosystem">$9,912 (35%)</td>
+        <td class="pa-share">$4,248</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$4,248</td>
+      </tr>
+      <tr>
+        <td class="vertical-name">🔒 Full IoT Stack</td>
+        <td class="ecosystem">$15,600</td>
+        <td class="ecosystem">$4,680 (30%)</td>
+        <td class="ecosystem">$3,120 (20%)</td>
+        <td class="ecosystem">$7,800 (50%)</td>
+        <td class="pa-share">$2,340</td>
+        <td class="ecosystem">—</td>
+        <td class="pa-share">$2,340</td>
+      </tr>
+      <tr class="section-header">
+        <td colspan="8">Management Contract Uplift</td>
+      </tr>
+      <tr>
+        <td class="vertical-name" colspan="6">Contract Uplift · 218 units × $6/yr</td>
+        <td class="ecosystem">$1,308</td>
+        <td class="pa-share">$1,308</td>
+      </tr>
+      <tr>
+        <td class="total-row">Profile C — Total</td>
+        <td class="total-row gold">$111,120 gross</td>
+        <td class="total-row gold">$40,680</td>
+        <td class="total-row gold">$11,328</td>
+        <td class="total-row gold">$59,112</td>
+        <td class="total-row gold">$16,668</td>
+        <td class="total-row gold">$1,308</td>
+        <td class="total-row gold">$17,976</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 3-Property Summary Banner -->
+  <div style="background:var(--navy); padding:28px 32px; border:2px solid var(--gold); margin-top:8px;">
+    <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:20px;">3-Property Summary — 390 Units</div>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px;">
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">Gross Ecosystem NOI</div>
+        <div style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:rgba(255,255,255,0.4);">$213,184</div>
+        <div style="font-size:11px; color:var(--muted);">Total NOI generated across all parties</div>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">Service Operator Receives</div>
+        <div style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:rgba(255,255,255,0.55);">$76,861</div>
+        <div style="font-size:11px; color:var(--muted);">36% of gross — PA's white-label service division</div>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">HOA Communities Receive</div>
+        <div style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:rgba(255,255,255,0.55);">$21,134</div>
+        <div style="font-size:11px; color:var(--muted);">10% of gross — community reserves / dues offset</div>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">PA Program Mgmt Fee</div>
+        <div style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:var(--gold-light);">$31,977</div>
+        <div style="font-size:11px; color:var(--muted);">$31,977 + $2,340 uplift = <strong style="color:var(--gold-light);">$34,317</strong> total PA income</div>
+      </div>
+      <div style="background:rgba(61,214,140,0.08); border:1px solid rgba(61,214,140,0.3); padding:12px;">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--green); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:4px;">PA per Unit per Year</div>
+        <div style="font-family:'Playfair Display',serif; font-size:26px; font-weight:900; color:var(--green);">$88</div>
+        <div style="font-size:11px; color:var(--muted);">$34,317 ÷ 390 units — net new income per unit to PA</div>
+      </div>
+    </div>
+  </div>
+  <p class="footnote" style="margin-top:12px;">* Program management fee of 15% is applied to total gross vertical revenue per property as PA's facilitation and program management income. Management contract uplift of $6/unit/year is a conservative repricing premium once infrastructure verticals are active and delivering measurable community value. HOA share flows through the HOA board's independent governance process — PA facilitates this value creation through its management relationship.</p>
+</div>
+
+<!-- ═══ SECTION 3: PORTFOLIO SCALE ═══ -->
+<div id="scale" class="sec sec-white">
+  <span class="section-tag">Portfolio Scale — 100+ HOAs</span>
+  <h2 class="title">The Scale Opportunity —<br>At the firm's Actual Portfolio.</h2>
+  <p class="lead">The 3-property model is a proof of concept. The firm manages over 100 HOAs — conservatively estimated at 130 avg. units each = 13,000+ units baseline, before 2025 and 2026 acquisitions. At $88/unit/year to PA, the math scales linearly — but the pace of activation is the variable that matters most.</p>
+
+  <table class="scale-table" style="margin-bottom:12px;">
+    <thead>
+      <tr>
+        <th>Activation Scenario</th>
+        <th class="right">HOAs</th>
+        <th class="right">Est. Units</th>
+        <th class="right">Gross Ecosystem NOI/yr</th>
+        <th class="right">PA Program Mgmt (15%)</th>
+        <th class="right">PA Contract Uplift ($6/unit)</th>
+        <th class="right">PA Total New Income/yr</th>
+        <th class="right">Timeline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">3 Reference Properties<br><span style="font-size:11px;color:var(--muted);">Proof-of-concept baseline</span></td>
+        <td class="mono">3</td>
+        <td class="mono">390</td>
+        <td class="mono">$213,184</td>
+        <td class="mono">$31,977</td>
+        <td class="mono">$2,340</td>
+        <td class="green">$34,317</td>
+        <td style="font-size:12px; color:var(--muted);">Pilot (Q2 2026)</td>
+      </tr>
+      <tr class="highlight">
+        <td class="label">~8% Activation — Pilot Live<br><span style="font-size:11px;color:var(--muted);">8–10 HOAs under contract</span></td>
+        <td class="mono">8–10</td>
+        <td class="mono">1,040–1,300</td>
+        <td class="mono">$568–$710K</td>
+        <td class="mono">$85–$107K</td>
+        <td class="mono">$6–$8K</td>
+        <td class="green">$91–$115K</td>
+        <td style="font-size:12px; color:var(--muted);">End of Phase 2 (Q3 2026)</td>
+      </tr>
+      <tr>
+        <td class="label">~15% Activation<br><span style="font-size:11px;color:var(--muted);">~15 HOAs — early traction</span></td>
+        <td class="mono">15</td>
+        <td class="mono">1,950</td>
+        <td class="mono">$1,064K</td>
+        <td class="mono">$159,600</td>
+        <td class="mono">$11,700</td>
+        <td class="green">$171,300</td>
+        <td style="font-size:12px; color:var(--muted);">End of Phase 3 (Q4 2026)</td>
+      </tr>
+      <tr class="reach">
+        <td class="label">25% Activation — Reach Goal 2026<br><span style="font-size:11px;color:var(--green-dk); font-weight:600;">Best-case end-of-year target</span></td>
+        <td class="mono">25</td>
+        <td class="mono">3,250</td>
+        <td class="mono">$1,776,533</td>
+        <td class="mono">$266,480</td>
+        <td class="mono">$19,500</td>
+        <td class="green">$285,980</td>
+        <td style="font-size:12px; color:var(--green-dk); font-weight:600;">Dec 2026 (reach)</td>
+      </tr>
+      <tr class="highlight">
+        <td class="label">35–40% Activation<br><span style="font-size:11px;color:var(--muted);">35–40 HOAs — sustained momentum</span></td>
+        <td class="mono">35–40</td>
+        <td class="mono">4,550–5,200</td>
+        <td class="mono">$2.5–$2.8M</td>
+        <td class="mono">$373–$426K</td>
+        <td class="mono">$27–$31K</td>
+        <td class="green">$400–$457K</td>
+        <td style="font-size:12px; color:var(--muted);">Mid-2027</td>
+      </tr>
+      <tr class="reach">
+        <td class="label">50% Activation — Upper Range<br><span style="font-size:11px;color:var(--green-dk); font-weight:600;">Top-end projection — requires sales team support</span></td>
+        <td class="mono">50</td>
+        <td class="mono">6,500</td>
+        <td class="mono">$3,553,067</td>
+        <td class="mono">$532,960</td>
+        <td class="mono">$39,000</td>
+        <td class="green">$571,960</td>
+        <td style="font-size:12px; color:var(--green-dk); font-weight:600;">End of 2027 (with sales team)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footnote">* Per-unit economics are linear at $88/unit/yr to PA. Gross ecosystem NOI per-unit blended average = $546/yr across reference properties. All activation scenarios assume comparable vertical mix across activated HOAs. Portfolio scale of 100 HOAs at 130 avg. units = 13,000 baseline units excludes 2025–2026 acquisitions. Insurance product revenue recovery not included in this model — modeled separately.</p>
+
+  <div class="velocity-note">
+    <div class="vn-label">Activation Velocity — A Candid Note</div>
+    <p>HOA boards are notoriously deliberate. Each activation requires a board presentation, a community vote, vendor coordination, and contract execution. With a single program driver, reaching 15% by end of 2026 is a realistic operational target — 25% is a stretch goal that requires everything to go right. Reaching 35–50% by end of 2027 is achievable, but meaningfully accelerated by adding 1–2 dedicated sales representatives to the program. That decision point is worth a separate discussion.</p>
+  </div>
+
+  <div class="narrative" style="margin-top:28px;">
+    <div class="n-label">Scale Narrative</div>
+    <p>The 3-property proof of concept generates <strong>$34,317 in direct PA income annually</strong> — $88 per unit. That's the unit economics. What makes this engagement compelling is the portfolio behind it: <strong>100+ HOAs, 13,000+ units</strong>. At 15% activation by end of 2026, the firm is generating over <strong class="gold">$171K per year in new program income</strong>. At the 2026 reach goal of 25% activation, that grows to <strong class="gold">nearly $286K annually</strong>. At 50% activation — which requires a sales team and takes through end of 2027 — the program generates <strong class="gold">$572K per year</strong>. These are defensible, grounded projections. Not a ceiling — a floor for what gets built with the right execution.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: ASSET VALUE UPLIFT ATTRIBUTION ═══ -->
+<div id="asset-value" class="sec sec-cream">
+  <span class="section-tag">Asset Value Uplift Attribution</span>
+  <h2 class="title">The $4.2M —<br>Who It Belongs To, and Why PA Still Benefits.</h2>
+  <p class="lead">The aggregate asset value uplift from NOI growth accrues primarily to property owners and HOA communities — not directly to the firm. That's the point of the model. PA's benefit from this value creation is indirect, structural, and meaningful — and it compounds over time.</p>
+
+  <div class="g2" style="margin-bottom:32px;">
+    <!-- Left: Owner/HOA benefit -->
+    <div>
+      <h3 style="font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:var(--navy); margin-bottom:12px; border-bottom:2px solid var(--gold); padding-bottom:8px; display:inline-block;">Asset Value Uplift — Community Benefit</h3>
+      <p style="font-size:14px; color:var(--muted); margin-bottom:16px;">The $213,184/yr gross ecosystem NOI growth, capitalized at a 5.0–5.5% cap rate, creates approximately $4.2M in aggregate asset value uplift across the 3 reference properties. At 25% portfolio activation — the 2026 reach goal — that scales to approximately <strong>$65–$70M</strong> in community asset value created.</p>
+
+      <table class="cap-table">
+        <thead>
+          <tr><th>Property / Scenario</th><th>Gross NOI Added/yr</th><th>Cap Rate</th><th>Asset Value Uplift</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vista Del Sol (48u)</td>
+            <td>$26,240</td>
+            <td>5.5%</td>
+            <td>$477,091</td>
+          </tr>
+          <tr>
+            <td>Pacific Heights Commons (124u)</td>
+            <td>$75,824</td>
+            <td>5.0%</td>
+            <td>$1,516,480</td>
+          </tr>
+          <tr>
+            <td>Rancho Cienega (218u)</td>
+            <td>$111,120</td>
+            <td>5.0%</td>
+            <td>$2,222,400</td>
+          </tr>
+          <tr class="subtotal">
+            <td>3-Property Total (390 units)</td>
+            <td>$213,184</td>
+            <td>blended ~5.1%</td>
+            <td class="highlight">$4,215,971</td>
+          </tr>
+          <tr class="grandtotal">
+            <td>25% Portfolio Activation (3,250 units · reach goal)</td>
+            <td>$1,776,533</td>
+            <td>5.0–5.5%</td>
+            <td class="highlight">~$65–$70M</td>
+          </tr>
+          <tr class="grandtotal">
+            <td>50% Portfolio Activation (6,500 units · upper range)</td>
+            <td>$3,553,067</td>
+            <td>5.0–5.5%</td>
+            <td class="highlight">~$130–$142M</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="footnote">* Portfolio-scale uplift modeled at 5.0–5.5% blended cap rate applied to gross ecosystem NOI. This value accrues to property owners and HOA communities — it represents the tangible financial benefit delivered by the managed services program. PA's direct cash benefit is the program management income modeled separately above.</p>
+    </div>
+
+    <!-- Right: PA's indirect benefit -->
+    <div>
+      <h3 style="font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:var(--navy); margin-bottom:12px; border-bottom:2px solid var(--gold); padding-bottom:8px; display:inline-block;">How the firm Benefits Indirectly — Three Mechanisms</h3>
+
+      <div style="display:grid; gap:14px;">
+        <div style="background:var(--white); border:1px solid var(--border); border-left:4px solid var(--gold); padding:18px 20px;">
+          <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Mechanism 1 — Mandate Retention</div>
+          <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:6px;">Higher community value = stickier management contracts</div>
+          <p style="font-size:13px; color:var(--muted);">When a management company demonstrably increases a community's asset value by $477K–$2.2M, the HOA board has a quantified reason to renew and expand the management contract. Churn cost drops and renewal pricing improves — a real financial benefit even if it doesn't show up as direct revenue.</p>
+          <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--green-dk); font-weight:700; margin-top:8px;">Conservative value at 25% activation: $8K–$20K/yr in reduced re-acquisition cost</div>
+        </div>
+        <div style="background:var(--white); border:1px solid var(--border); border-left:4px solid var(--gold); padding:18px 20px;">
+          <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Mechanism 2 — Enterprise Valuation Re-Rate</div>
+          <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:6px;">Managed services income commands a higher multiple</div>
+          <p style="font-size:13px; color:var(--muted);">Traditional property management firms trade at 4–6× EBITDA. Firms with managed services recurring revenue streams — especially infrastructure-linked — trade at 7–12× EBITDA. Adding $171K–$286K in new managed services income by end of 2026 directly re-rates enterprise value at a meaningful spread.</p>
+          <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--green-dk); font-weight:700; margin-top:8px;">At 25% activation + 8× vs. 5× on $286K new EBITDA: approximately +$857K on enterprise value by end of 2026</div>
+        </div>
+        <div style="background:var(--white); border:1px solid var(--border); border-left:4px solid var(--gold); padding:18px 20px;">
+          <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:6px;">Mechanism 3 — Competitive Mandate Wins</div>
+          <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:6px;">Infrastructure value prop wins new management contracts</div>
+          <p style="font-size:13px; color:var(--muted);">A management company that can demonstrably add $88/unit/year in new income to a community — with zero capital required from the HOA — wins RFPs against competitors who cannot make that offer. The pitch shifts from "we manage your community" to "we monetize it." That's a differentiated competitive position.</p>
+          <div style="font-family:'DM Mono',monospace; font-size:12px; color:var(--green-dk); font-weight:700; margin-top:8px;">Each new HOA won at 130 avg. units: $11,440/yr new PA program income. Two incremental wins per year = $22,880 compounding annually</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: ENGAGEMENT ROI ═══ -->
+<div id="roi" class="sec sec-navy">
+  <span class="section-tag">Engagement Return on Investment</span>
+  <h2 class="title title-light">The Investment Thesis —<br>Grounded in Real Numbers.</h2>
+  <p class="lead lead-light" style="margin-bottom:36px;">This model is built to be defensible — not aspirational. Every figure is derived from the participation splits in the Revenue Participation Model, applied to the actual portfolio scale, and calibrated to realistic HOA adoption timelines. The engagement still produces an exceptional return at realistic activation velocity.</p>
+
+  <div class="stat-strip" style="margin-bottom:32px;">
+    <div class="stat-block">
+      <div class="stat-label">PA Direct Income — 3 Reference Properties</div>
+      <div class="stat-value">$34,317</div>
+      <div class="stat-desc">390 units — program management fee + contract uplift · proof-of-concept baseline</div>
+    </div>
+    <div class="stat-block accent">
+      <div class="stat-label">PA Income — 2026 Reach Goal (25%)</div>
+      <div class="stat-value" style="color:var(--gold);">$286K/yr</div>
+      <div class="stat-desc">25 HOAs · 3,250 units · best-case end-of-2026 target</div>
+    </div>
+    <div class="stat-block green-accent">
+      <div class="stat-label">PA Income — Upper Range (50%)</div>
+      <div class="stat-value">$572K/yr</div>
+      <div class="stat-desc">50 HOAs · 6,500 units · end of 2027 with sales team support</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-label">Engagement Cost — Pillars 1 &amp; 2</div>
+      <div class="stat-value" style="color:rgba(255,255,255,0.5);">$75,000</div>
+      <div class="stat-desc">Apr through Dec 2026 · $15K mobilization + 8 × $7,500</div>
+    </div>
+  </div>
+
+  <!-- ROI summary table -->
+  <table class="scale-table" style="margin-bottom:28px;">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th class="right">Value</th>
+        <th class="right">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">PA Direct Income — 3 Properties (390 units)</td>
+        <td class="green">$34,317/yr</td>
+        <td style="font-size:12px; color:var(--muted);">Program mgmt fee (15%) + $6/unit contract uplift · proof of concept</td>
+      </tr>
+      <tr>
+        <td class="label">PA Income Per Unit Per Year</td>
+        <td class="green">$88/unit</td>
+        <td style="font-size:12px; color:var(--muted);">Linear unit economics — scales directly with activated units</td>
+      </tr>
+      <tr>
+        <td class="label">2026 Realistic Target (~15% activation)</td>
+        <td class="green">$171,300/yr</td>
+        <td style="font-size:12px; color:var(--muted);">15 HOAs · 1,950 units · operational by Q4 2026</td>
+      </tr>
+      <tr>
+        <td class="label">2026 Reach Goal (25% activation)</td>
+        <td class="green">$285,980/yr</td>
+        <td style="font-size:12px; color:var(--muted);">25 HOAs · 3,250 units · best-case Dec 2026</td>
+      </tr>
+      <tr>
+        <td class="label">2027 Upper Range (50% activation)</td>
+        <td class="green">$571,960/yr</td>
+        <td style="font-size:12px; color:var(--muted);">50 HOAs · 6,500 units · requires dedicated sales team</td>
+      </tr>
+      <tr>
+        <td class="label">Asset Value Uplift — Community Benefit</td>
+        <td class="gold-val">$4.2M (3 props) → ~$65–70M (25% activation)</td>
+        <td style="font-size:12px; color:var(--muted);">Accrues to property owners and HOA communities — PA benefits indirectly</td>
+      </tr>
+      <tr>
+        <td class="label">PA Enterprise Valuation Re-Rate (25% activation)</td>
+        <td class="green">+~$857K</td>
+        <td style="font-size:12px; color:var(--muted);">8× vs. 5× multiple on $286K new managed services EBITDA</td>
+      </tr>
+      <tr>
+        <td class="label">Engagement Payback — 2026 Realistic Target</td>
+        <td class="green">~5.2 months</td>
+        <td style="font-size:12px; color:var(--muted);">$75K recovered at $171K/yr run rate once 15% activation is live</td>
+      </tr>
+      <tr>
+        <td class="label">ROI on $75K Engagement — 2026 Reach Goal</td>
+        <td class="green">~281%</td>
+        <td style="font-size:12px; color:var(--muted);">$285,980 annual income ÷ $75,000 engagement cost</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.3); padding:28px 32px;">
+    <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:14px;">Framing the Opportunity</div>
+    <p style="font-size:15px; color:rgba(255,255,255,0.75); line-height:1.9; max-width:820px;">
+      The $213K figure from the Strategic Plan represents the total gross NOI the ecosystem generates across all participants — the communities, the service operators, and the vendors. The firm's direct program income is a different number: approximately <strong style="color:var(--white);">$88 per unit per year</strong> through program management fees and contract repricing. On the 3 reference properties, that's $34K. <strong style="color:var(--gold-light);">The real story is what that unit rate becomes at portfolio scale.</strong> the firm manages over 100 HOAs. At a realistic 15% activation by end of 2026, the program generates <strong style="color:var(--gold-light);">$171K per year</strong> in new direct income. At the 2026 reach goal of 25%, that grows to <strong style="color:var(--gold-light);">nearly $286K annually</strong>. The $75,000 engagement investment is recovered in approximately <strong style="color:var(--gold-light);">five months</strong> at that run rate. The asset value uplift — $65–70M across 25% of the portfolio — belongs to the communities the firm serves. That's the proof of value that wins mandates and keeps them.
+    </p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-brand">Property Management Revenue Projections</div>
+  <div class="footer-meta">
+    <strong>Engagement Investment Model — April 2026</strong><br>
+    Revenue Participation Adjusted · Service Operator Framework · Oz Rosario
+  </div>
+</footer>
+
+</body>
+</html>

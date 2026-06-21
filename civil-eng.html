@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operations & Agentic OS Engagement Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFBFC;
+  --ink:#16222E;
+  --ink-soft:#3D4F5F;
+  --blue:#1B5FAA;
+  --blue-bright:#2E7CD6;
+  --blue-wash:#EAF1F9;
+  --amber:#C7791B;
+  --amber-wash:#FBF3E6;
+  --line:#D4DCE3;
+  --line-soft:#E6EBEF;
+  --green:#1E7A4D;
+  --green-wash:#E9F4EE;
+  --red:#B23A3A;
+  --mono:'IBM Plex Mono',monospace;
+  --display:'Archivo',sans-serif;
+  --body:'Public Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;}
+.frame{max-width:1080px;margin:0 auto;padding:0 28px 80px;}
+
+/* ---------- title block / cover ---------- */
+.titleblock{border:2px solid var(--ink);margin-top:36px;background:#fff;}
+.tb-row{display:grid;grid-template-columns:1fr 220px 160px;border-bottom:1px solid var(--ink);}
+.tb-row:last-child{border-bottom:none}
+.tb-cell{padding:10px 16px;border-right:1px solid var(--ink);}
+.tb-cell:last-child{border-right:none}
+.tb-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:2px;}
+.tb-value{font-family:var(--display);font-weight:700;font-size:15px;}
+.tb-main{padding:38px 32px 30px;border-bottom:1px solid var(--ink);}
+.tb-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.4vw,46px);line-height:1.08;letter-spacing:-.01em;max-width:21ch;}
+.tb-sub{margin-top:16px;font-size:17px;color:var(--ink-soft);max-width:62ch;}
+.rev-tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;border:1.5px solid var(--amber);color:var(--amber);padding:3px 10px;border-radius:2px;margin-top:18px;font-weight:600;}
+
+/* ---------- nav ---------- */
+.sheetnav{position:sticky;top:0;background:rgba(250,251,252,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:50;margin:0 -28px;padding:0 28px;}
+.sheetnav-inner{display:flex;gap:2px;overflow-x:auto;max-width:1080px;margin:0 auto;}
+.sheetnav a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;padding:13px 13px;white-space:nowrap;border-bottom:2px solid transparent;}
+.sheetnav a:hover{color:var(--blue);border-bottom-color:var(--blue-bright);}
+.sheetnav a:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;}
+
+/* ---------- sheets ---------- */
+section.sheet{margin-top:72px;}
+.sheet-head{display:flex;align-items:baseline;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:28px;}
+.sheet-no{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--blue);border:1.5px solid var(--blue);padding:3px 9px;border-radius:2px;white-space:nowrap;}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,30px);letter-spacing:-.01em;}
+h3{font-family:var(--display);font-weight:700;font-size:19px;margin:28px 0 10px;}
+p{margin-bottom:14px;max-width:74ch;}
+p.lede{font-size:18px;color:var(--ink-soft);max-width:68ch;}
+strong{font-weight:700}
+.callout{border-left:4px solid var(--blue);background:var(--blue-wash);padding:16px 20px;margin:20px 0;max-width:74ch;}
+.callout.amber{border-left-color:var(--amber);background:var(--amber-wash);}
+.callout.green{border-left-color:var(--green);background:var(--green-wash);}
+.callout p:last-child{margin-bottom:0}
+.fig-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:26px 0 8px;}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;background:#fff;border:1.5px solid var(--ink);font-size:14.5px;margin-bottom:8px;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:left;background:var(--ink);color:#fff;padding:10px 14px;font-weight:600;}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13.5px;}
+.t-total td{background:var(--blue-wash);font-weight:700;border-top:2px solid var(--ink);}
+.t-win td{background:var(--green-wash);}
+.scrollx{overflow-x:auto;margin:0 0 8px;}
+.scrollx table{min-width:720px;}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:2px 8px;border-radius:2px;font-weight:600;text-transform:uppercase;white-space:nowrap;}
+.tag.f{background:var(--blue-wash);color:var(--blue);border:1px solid var(--blue);}
+.tag.a{background:var(--amber-wash);color:var(--amber);border:1px solid var(--amber);}
+.tag.s{background:var(--green-wash);color:var(--green);border:1px solid var(--green);}
+.tag.hi{background:#FDECEC;color:var(--red);border:1px solid var(--red);}
+.tag.med{background:var(--amber-wash);color:var(--amber);border:1px solid var(--amber);}
+.tag.lo{background:var(--line-soft);color:var(--ink-soft);border:1px solid var(--line);}
+
+/* ---------- layer cards ---------- */
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0;}
+.layer{border:1.5px solid var(--ink);background:#fff;padding:22px 20px;position:relative;display:flex;flex-direction:column;}
+.layer .phase{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.layer h4{font-family:var(--display);font-weight:800;font-size:18px;margin-bottom:6px;}
+.layer .price{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--blue);margin-bottom:10px;}
+.layer p{font-size:14px;margin-bottom:0;color:var(--ink-soft);}
+.layer.l1{border-top:6px solid var(--blue);}
+.layer.l2{border-top:6px solid var(--amber);}
+.layer.l3{border-top:6px solid var(--green);}
+.layer .gate{margin-top:auto;padding-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);border-top:1px dashed var(--line);}
+
+/* ---------- timeline ---------- */
+.timeline{border-left:2px solid var(--ink);margin:24px 0 8px 8px;padding-left:26px;}
+.t-item{position:relative;padding-bottom:26px;}
+.t-item:last-child{padding-bottom:0}
+.t-item::before{content:'';position:absolute;left:-33px;top:5px;width:12px;height:12px;background:var(--paper);border:2.5px solid var(--blue);border-radius:50%;}
+.t-item .t-when{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:600;}
+.t-item h4{font-family:var(--display);font-weight:700;font-size:17px;margin:3px 0 5px;}
+.t-item p{font-size:14.5px;color:var(--ink-soft);margin-bottom:6px;}
+.t-deliv{font-size:13.5px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--green);padding:8px 12px;display:inline-block;}
+.t-deliv b{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:block;}
+
+/* ---------- agents accordion ---------- */
+.agent{border:1px solid var(--line);background:#fff;margin-bottom:8px;}
+.agent summary{cursor:pointer;padding:13px 16px;display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;font-size:15px;list-style:none;}
+.agent summary::-webkit-details-marker{display:none}
+.agent summary::after{content:'+';margin-left:auto;font-family:var(--mono);color:var(--blue);font-size:18px;}
+.agent[open] summary::after{content:'–'}
+.agent summary:hover{background:var(--blue-wash);}
+.agent .a-no{font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:600;white-space:nowrap;}
+.agent .a-body{padding:4px 16px 16px;font-size:14.5px;color:var(--ink-soft);}
+.agent .a-body ul{margin:6px 0 10px 18px;}
+.agent .a-body li{margin-bottom:4px;}
+.hitl{font-size:13px;background:var(--amber-wash);border:1px solid var(--amber);padding:7px 11px;border-radius:2px;}
+.hitl b{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);}
+
+/* ---------- internal section ---------- */
+.internal-toggle{display:flex;justify-content:center;margin:80px 0 0;}
+.internal-toggle button{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:#fff;border:2px solid var(--amber);color:var(--amber);padding:13px 26px;cursor:pointer;font-weight:600;}
+.internal-toggle button:hover{background:var(--amber);color:#fff;}
+.internal-toggle button:focus-visible{outline:3px solid var(--ink);outline-offset:2px;}
+#internal{display:none;margin-top:36px;border:2px solid var(--amber);background:repeating-linear-gradient(-45deg,#fff,#fff 14px,var(--amber-wash) 14px,var(--amber-wash) 16px);padding:8px;}
+#internal.open{display:block}
+.internal-inner{background:#fff;padding:34px 34px 44px;border:1px solid var(--amber);}
+.internal-banner{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);border:1.5px solid var(--amber);display:inline-block;padding:5px 14px;margin-bottom:24px;font-weight:600;}
+.decision{border:1px solid var(--line);background:var(--paper);padding:14px 18px;margin-bottom:12px;}
+.decision b{font-family:var(--display);}
+.decision .d-status{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;}
+
+footer{margin-top:90px;border-top:2px solid var(--ink);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.08em;}
+
+@media(max-width:860px){
+  .layers{grid-template-columns:1fr;}
+  .tb-row{grid-template-columns:1fr 1fr;}
+  .tb-row .tb-cell:nth-child(3){border-top:1px solid var(--ink);grid-column:1/-1;border-right:none;}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{
+  .sheetnav,.internal-toggle{display:none}
+  #internal{display:none !important}
+  body{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+<div class="frame">
+
+<!-- ============ TITLE BLOCK ============ -->
+<div class="titleblock">
+  <div class="tb-main">
+    <div class="tb-eyebrow">Engagement Plan · Operations &amp; Agentic OS</div>
+    <h1>Operations Support &amp; the Agentic Operating System</h1>
+    <p class="tb-sub">A staged plan to staff the firm's accounting &amp; administrative function below the fully&#8209;loaded cost of a traditional hire — while building the intelligent operations layer that compounds as the firm grows.</p>
+    <span class="rev-tag">METHOD &amp; APPROACH SHOWCASE</span>
+  </div>
+  <div class="tb-row">
+    <div class="tb-cell"><span class="tb-label">Prepared For</span><span class="tb-value">Regional Civil/Environmental Engineering Firm · California</span></div>
+    <div class="tb-cell"><span class="tb-label">Prepared By</span><span class="tb-value">Oz Rosario</span></div>
+    <div class="tb-cell"><span class="tb-label">Sheet</span><span class="tb-value">G-001</span></div>
+  </div>
+  <div class="tb-row">
+    <div class="tb-cell"><span class="tb-label">Scope</span><span class="tb-value">Accounting &amp; Admin Support → Agentic OS</span></div>
+    <div class="tb-cell"><span class="tb-label">Status</span><span class="tb-value">Engagement Design</span></div>
+    <div class="tb-cell"><span class="tb-label">Rev / Date</span><span class="tb-value">B · June 2026</span></div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="sheetnav" aria-label="Sheet navigation">
+  <div class="sheetnav-inner">
+    <a href="#s01">01 Thesis</a>
+    <a href="#s02">02 Cost Math</a>
+    <a href="#s03">03 Architecture</a>
+    <a href="#s04">04 The Platform</a>
+    <a href="#s05">05 30/60/90</a>
+    <a href="#s06">06 Agents &amp; Sequencing</a>
+    <a href="#s07">07 Path-to-Market</a>
+    <a href="#s08">08 Operating Leverage</a>
+    <a href="#s09">09 Risks</a>
+    <a href="#s10">10 Governance</a>
+  </div>
+</nav>
+
+
+<!-- ============ SHEET 01: THESIS ============ -->
+<section class="sheet" id="s01">
+  <div class="sheet-head"><span class="sheet-no">SHT 01</span><h2>The Thesis: Staff the Role. Earn the Build.</h2></div>
+  <p class="lede">The firm has budgeted for an Accounting &amp; Administrative Support hire. This plan fills that role for less than a traditional employee actually costs — and uses the role itself as the discovery engine for an Agentic Operating System that the firm owns outright.</p>
+
+  <p>The firm is a California-based civil and environmental engineering firm with national project experience: <strong>$250M+ in total constructed value</strong>, <strong>$250M+ in client funding secured</strong>, and <strong>200+ completed projects</strong>, with deep public works exposure that makes California prevailing wage (DIR) compliance a live, recurring operational burden. The back office supporting that work runs on QuickBooks Online, Microsoft 365, Teams, and SharePoint — held together by manual process, spreadsheets, and institutional memory.</p>
+
+  <div class="callout amber">
+    <p><strong>A sizing note that matters.</strong> The $250M figures are <em>cumulative constructed value and funding secured across the firm's history</em> — not annual revenue. The firm operates as a lean, sophisticated firm (roughly 25–35 people). Every cost, ROI, and staffing assumption in this plan is calibrated to that reality, not to an enterprise. The right solution is a compliance-aware operating layer sized for a firm this size — not an enterprise transformation.</p>
+  </div>
+
+  <p>The conventional move is to hire an admin/accounting specialist and absorb the manual work. This plan proposes a different sequence, in three commitments — each gated by evidence from the one before it:</p>
+
+  <div class="callout">
+    <p><strong>1. The role funds the discovery.</strong> An embedded B2B specialist performs the full accounting &amp; admin function at a cost <em>below</em> the fully-loaded cost of the budgeted hire. While doing the work, every workflow gets documented, timed, and baselined.</p>
+    <p><strong>2. The discovery de-risks the build.</strong> At Day 60, the firm receives a data-backed proposal for an Agentic OS layer — grounded in measured hours, error rates, and friction points from inside its own operation. Not vendor projections. The firm's own numbers.</p>
+    <p><strong>3. The build pays for itself out of measured savings.</strong> Automation pilots launch only where evidence supports them, with human review gates on every action and the firm retaining permanent ownership of everything built.</p>
+  </div>
+
+  <p>At no point does the firm take a leap of faith larger than one month's invoice. That gating is not just elegant — it is necessary: no firm this size signs a six-figure AI build cold. The role-funded discovery is what makes a serious build digestible.</p>
+</section>
+
+<!-- ============ SHEET 02: COST MATH ============ -->
+<section class="sheet" id="s02">
+  <div class="sheet-head"><span class="sheet-no">SHT 02</span><h2>The Cost Math: B2B Beats the Budgeted Hire</h2></div>
+  <p class="lede">An $80,000 salary does not cost $80,000. Employer taxes, benefits, insurance, paid time off, equipment, and recruiting take the true Year-1 cost of the budgeted hire to roughly $105K–$119K. The embedded B2B structure comes in under it — with a skillset the job description never asked for.</p>
+
+  <div class="fig-label">Fig. 02-A — Fully-loaded Year 1 cost: budgeted hire vs. embedded B2B specialist (1099)</div>
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Cost Component</th><th class="num">W-2 Hire @ $80K</th><th class="num">B2B / 1099 @ $8K/mo</th></tr></thead>
+    <tbody>
+      <tr><td>Base compensation</td><td class="num">$80,000</td><td class="num">$96,000</td></tr>
+      <tr><td>Employer payroll taxes (FICA, FUTA, SUI ~9%)</td><td class="num">$7,200</td><td class="num">$0</td></tr>
+      <tr><td>Health &amp; ancillary benefits</td><td class="num">$8,000–$12,000</td><td class="num">$0</td></tr>
+      <tr><td>Retirement match, workers' comp, PTO coverage</td><td class="num">$4,000–$7,000</td><td class="num">$0</td></tr>
+      <tr><td>Equipment, software seats, onboarding overhead</td><td class="num">$2,000–$3,000</td><td class="num">$0</td></tr>
+      <tr><td>Recruiting cost (agency fee or internal time, amortized)</td><td class="num">$4,000–$10,000</td><td class="num">$0</td></tr>
+      <tr class="t-total"><td>True Year 1 cost</td><td class="num">≈ $105,000–$119,000</td><td class="num">$96,000</td></tr>
+      <tr class="t-win"><td><strong>Year 1 advantage to the firm</strong></td><td class="num">—</td><td class="num"><strong>$9,000–$23,000 saved</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-family:var(--mono);font-size:12px;color:var(--ink-soft);">Ranges reflect standard 1.25×–1.4× fully-loaded multipliers for professional roles. At $7,500/mo ($90K/yr) the advantage widens to $15,000–$29,000. The 1099 / B2B structure is month-to-month: no severance exposure, no benefits administration, no recruiting cycle if needs change.</p>
+
+  <div class="callout green">
+    <p><strong>And the comparison understates it.</strong> The budgeted hire performs the role. The B2B structure performs the role <em>and</em> conducts the operational discovery, workflow documentation, and automation-readiness assessment that firms typically buy separately as a consulting diagnostic — commonly priced at $7,500–$30,000 standalone in the current market.</p>
+  </div>
+</section>
+
+<!-- ============ SHEET 03: ENGAGEMENT ARCHITECTURE ============ -->
+<section class="sheet" id="s03">
+  <div class="sheet-head"><span class="sheet-no">SHT 03</span><h2>Engagement Architecture: Three Layers, Three Gates</h2></div>
+  <p class="lede">The engagement maps to a three-phase Intelligence Journey — <strong>Foundation → Activation → Simulation</strong> — with a commercial gate between each layer. The firm decides to proceed only when the prior layer has produced evidence.</p>
+
+  <div class="layers">
+    <div class="layer l1">
+      <div class="phase" style="color:var(--blue)">Phase 1 · Intelligence Foundation</div>
+      <h4>Layer 1 — The Embedded Role</h4>
+      <div class="price">$7.5–8K / month · 1099 / B2B · month-to-month</div>
+      <p>Full performance of the accounting &amp; admin function. Simultaneously: workflow documentation, data landscape mapping (QuickBooks Online, SharePoint, Teams), and baseline capture of hours and error rates. This <em>is</em> the data consolidation and foundation work — paid for by the role itself.</p>
+      <div class="gate">GATE → Day 60 evidence review</div>
+    </div>
+    <div class="layer l2">
+      <div class="phase" style="color:var(--amber)">Phase 2 · Intelligence Activation</div>
+      <h4>Layer 2 — The Agentic OS Build</h4>
+      <div class="price">Scoped &amp; priced at Day 60 · separate SOW</div>
+      <p>Deployment of the agent suite against the validated priority stack, in sequenced sprints — low-risk workflows first, compliance-critical workflows last. Built with an AI-accelerated implementation partner network. The firm owns all code, data, prompts, schemas, and documentation.</p>
+      <div class="gate">GATE → Sprint performance vs. baseline</div>
+    </div>
+    <div class="layer l3">
+      <div class="phase" style="color:var(--green)">Phase 3 · Simulation &amp; Forecasting</div>
+      <h4>Layer 3 — Operating Leverage</h4>
+      <div class="price">Success-fee earn-out · tied to validated savings</div>
+      <p>Efficiency measurement against the Layer-1 baseline, scale modeling at 2×/5×/10× project volume, and a declining human-in-the-loop burden absorbable by a junior operations associate. Compensation here is contingent on documented gains — aligned incentives by design.</p>
+      <div class="gate">Continuous · reviewed quarterly</div>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <p><strong>Why gated?</strong> Most AI engagements ask the client to fund a build on projections. This structure inverts it: the build is proposed only after sixty days of living inside the operation, and the success fee is paid only on savings the firm can verify against a baseline captured by the same person who did the manual work. The "before" picture cannot be disputed — it was lived, not estimated.</p>
+  </div>
+</section>
+
+<!-- ============ SHEET 04: THE PLATFORM ============ -->
+<section class="sheet" id="s04">
+  <div class="sheet-head"><span class="sheet-no">SHT 04</span><h2>The Platform: One Operating Layer, Not Ten Bots</h2></div>
+  <p class="lede">The most common — and most expensive — mistake is to build ten disconnected AI agents. The right design is one operating layer that the ten agent workflows sit on top of: a single data model, one rules engine, one human-review queue, one audit trail. Build the foundation once; expose capabilities on top of it.</p>
+
+  <div class="fig-label">Fig. 04-A — Layered architecture (shared infrastructure, then agent workflows)</div>
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Layer</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1 · Intake</strong></td><td>Pulls data from SharePoint, Excel, email, QuickBooks Online, timekeeping/payroll, COIs, and project folders</td></tr>
+      <tr><td><strong>2 · Document Intelligence</strong></td><td>OCR / vision layer (e.g., Azure Document Intelligence) extracts project names, vendors, wage classifications, invoices, receipts, COIs, and expiration dates from unstructured PDFs into structured data</td></tr>
+      <tr><td><strong>3 · Project Data Model</strong></td><td>Canonical records for project, client, contract, employee, subconsultant, invoice, pay period, and funding source</td></tr>
+      <tr><td><strong>4 · Rules Engine</strong></td><td>Applies project rules, DIR / prevailing-wage flags, approval thresholds, insurance requirements, and billing logic — deterministically</td></tr>
+      <tr><td><strong>5 · Agent Orchestration</strong></td><td>Routes each task to the correct agent workflow with role-based permissions</td></tr>
+      <tr><td><strong>6 · HITL Work Queue</strong></td><td>Presents exceptions and approvals to management, PMs, accounting, or a junior operations associate</td></tr>
+      <tr><td><strong>7 · Audit &amp; Reporting</strong></td><td>Maintains logs, evidence trails, reconciliation reports, dashboards, and export packages</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout">
+    <p><strong>The non-negotiable design rule — the "deterministic sandbox."</strong> An AI model must <em>never</em> calculate a prevailing wage, an apprentice ratio, or a fringe benefit. On a public works project a single wrong wage tier is a zero-tolerance compliance event with real financial and legal exposure. The model's only job is to <em>read and extract</em> (hours from a timesheet, a classification from a contract). The math is then handed to a hard-coded, versioned, human-auditable rules engine. Understanding is AI; calculation is deterministic code. This separation is the heart of doing this safely for an engineering firm with public works exposure.</p>
+  </div>
+
+  <p>Because the firm already runs <strong>QuickBooks Online</strong> (not the desktop edition), the financial integration uses native OAuth REST APIs rather than a brittle on-premise bridge — removing roughly 20–30% of the build complexity and the need for dedicated middleware. The unstructured-document pipeline (Layer 2) remains the real engineering lift, because the operational truth currently lives in SharePoint PDFs and Excel files.</p>
+</section>
+
+<!-- ============ SHEET 05: 30/60/90 ============ -->
+<section class="sheet" id="s05">
+  <div class="sheet-head"><span class="sheet-no">SHT 05</span><h2>The First 90 Days: Listen, Map, Pilot</h2></div>
+  <p class="lede">Guiding principle: before automating anything, understand how it actually works. Automation proposals come only after operational credibility is earned. The 90-day window governs the <em>role and discovery</em> — the Agentic OS build runs on its own gated, sprint-based timeline and is not bound to this calendar.</p>
+
+  <div class="timeline">
+    <div class="t-item">
+      <div class="t-when">Days 1–30 · Listen, Learn, Deliver</div>
+      <h4>Orient. Perform. Build trust.</h4>
+      <p>Shadow and execute existing workflows end-to-end — QuickBooks Online configuration, timesheet routing, payroll schedule, invoice formats, prevailing wage / certified payroll tracking. Meet every stakeholder; identify who is most process-burdened. Inventory all file systems (Teams, SharePoint, local), naming conventions, and version control. Map the certificate-of-insurance tracking process and its gaps.</p>
+      <div class="t-deliv"><b>Day 30 Deliverable</b>Internal operations snapshot — current state, workflow dependencies, initial observations.</div>
+    </div>
+    <div class="t-item">
+      <div class="t-when">Days 31–60 · Map, Model, Propose</div>
+      <h4>Audit workflows. Draft the architecture. Validate before building.</h4>
+      <p>Catalog tasks by frequency, time cost, and error rate; score each for automation readiness. Sketch the layered platform — intake, document intelligence, data model, rules engine, orchestration, HITL queue. Map the tool stack to existing the firm infrastructure: QuickBooks Online API, Microsoft Graph / SharePoint, document AI, email classification. Present to leadership; refine scope to what is achievable and genuinely useful.</p>
+      <div class="t-deliv"><b>Day 60 Deliverable · Layer 2 Gate</b>Agentic OS Proposal: workflow priority matrix, layered architecture, tooling requirements, measured manual-hour savings per workflow — and the build SOW, priced against the firm's own data.</div>
+    </div>
+    <div class="t-item">
+      <div class="t-when">Days 61–90 · Build, Pilot, Document</div>
+      <h4>Two pilots. Full playbooks. The firm owns everything.</h4>
+      <p><strong>Pilot 1 — Insurance tracking:</strong> automated COI monitor that ingests certificates, extracts expiration dates, flags renewals 30 days out, and drafts follow-up emails to subs and brokers. <strong>Pilot 2 — Invoice drafting:</strong> agent pulls timesheet and expense data, populates invoice templates, routes drafts to the PM for single-click review. Every automation includes a human review gate. Each pilot ships with a full playbook: trigger conditions, agent logic, failure modes, override procedures, and a handoff protocol.</p>
+      <div class="t-deliv"><b>Day 90 Deliverable</b>Implementation Playbook v1.0 — live pilots, performance baseline (hours saved, error reduction), expansion roadmap.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 06: AGENT STACK & SEQUENCING ============ -->
+<section class="sheet" id="s06">
+  <div class="sheet-head"><span class="sheet-no">SHT 06</span><h2>The Agent Stack &amp; Build Sequencing</h2></div>
+  <p class="lede">The full Agentic OS spans ten agent workflows across accounting and administrative support. They deploy in sequenced sprints set by the Day-60 audit — not by ambition — with the lowest-risk, highest-repetition work first and the compliance-critical work last, after the system has earned trust.</p>
+
+  <div class="fig-label">Fig. 06-A — Build sequence: three sprints, de-risked</div>
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Sprint</th><th>Agents</th><th>Why this order</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Sprint 1 — Quick wins</strong></td><td>AR/AP (03), Meetings (08), Correspondence (09)</td><td>Pure LLM + QuickBooks / Microsoft Graph API plays. Easy to build, immediate time savings, low risk. Builds momentum and trust.</td></tr>
+      <tr><td><strong>Sprint 2 — Data heavy lift</strong></td><td>Recordkeeping (04), Insurance/COI (07), File Systems (10)</td><td>Requires the document-intelligence (OCR) pipeline to ingest SharePoint PDFs. The real engineering investment, but still low compliance risk.</td></tr>
+      <tr><td><strong>Sprint 3 — Compliance tier</strong></td><td>Payroll (01), Prevailing Wage (02), Audit (05)</td><td>The deterministic rules engine for CA DIR comes last. Only after the system has proven it handles standard documents and accounting do you introduce zero-tolerance compliance math.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout amber">
+    <p><strong>Sequencing is a risk control, not just a schedule.</strong> Prevailing wage and certified payroll are the highest-stakes workflows in the firm. Automating them first would mean betting trust you haven't yet earned on the workflow least tolerant of error. Doing them last means the rules engine ships into a system that has already demonstrated reliability — and into a team that already trusts the human-review gates.</p>
+  </div>
+
+  <h3>Accounting Support Agents</h3>
+  <details class="agent"><summary><span class="a-no">AGT-01</span>Payroll</summary><div class="a-body">
+    <ul><li>Timesheet validation, pay-period prep, reimbursement checks, payroll reports; support status, compensation, direct deposit, and withholding updates</li></ul>
+    <div class="hitl"><b>HITL</b> Final payroll approval; resolve discrepancies with supervisors and staff.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-02</span>Prevailing Wage / Certified Payroll</summary><div class="a-body">
+    <ul><li>Project wage flagging, classification tracking, certified payroll packet prep for public works; prepares and validates data that flows into DIR / LCPtracker — it does not replace those systems</li></ul>
+    <div class="hitl"><b>HITL</b> Wage classification and certified-submission approval. <strong>Deterministic sandbox: the model extracts; a hard-coded rules engine calculates.</strong></div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-03</span>AR / AP Support</summary><div class="a-body">
+    <ul><li>Invoice draft creation, payment matching, expense packeting; maintain QuickBooks Online and budget reconciliation</li></ul>
+    <div class="hitl"><b>HITL</b> Invoice / payment approval; point of contact for accounting inquiries.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-04</span>Recordkeeping &amp; Documentation</summary><div class="a-body">
+    <ul><li>Folder structure, naming, metadata, filing, retrieval; ensure data integrity across financial records</li></ul>
+    <div class="hitl"><b>HITL</b> Exception handling.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-05</span>Audit Support</summary><div class="a-body">
+    <ul><li>Evidence collection and audit-package creation for internal and external audits</li></ul>
+    <div class="hitl"><b>HITL</b> Final audit response.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-06</span>Additional Accounting Support</summary><div class="a-body">
+    <ul><li>Monthly / quarterly financial reporting, budget and expense tracking; document organization in Teams and SharePoint</li></ul>
+    <div class="hitl"><b>HITL</b> Management review.</div>
+  </div></details>
+
+  <h3>Administrative Support Agents</h3>
+  <details class="agent"><summary><span class="a-no">AGT-07</span>Insurance Tracking (Project &amp; Subconsultant)</summary><div class="a-body">
+    <ul><li>COI / endorsement tracking, expiration reminders, compliance status by project; audit-ready documentation</li></ul>
+    <div class="hitl"><b>HITL</b> Review documents for completeness; coordinate with PMs, subs, brokers, and carriers on noncompliant items.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-08</span>Meeting &amp; Appointment Coordination</summary><div class="a-body">
+    <ul><li>Scheduling, agenda prep, document routing; manage team calendar to avoid conflicts</li></ul>
+    <div class="hitl"><b>HITL</b> Sensitive calendar conflicts.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-09</span>Routine Correspondence</summary><div class="a-body">
+    <ul><li>Draft routine emails, notices, and follow-ups; route inquiries to stakeholders; maintain a complete record</li></ul>
+    <div class="hitl"><b>HITL</b> External-send approval where needed.</div>
+  </div></details>
+  <details class="agent"><summary><span class="a-no">AGT-10</span>Document &amp; File System Maintenance</summary><div class="a-body">
+    <ul><li>SharePoint taxonomy, document tagging, database updates; preserve confidentiality of sensitive information</li></ul>
+    <div class="hitl"><b>HITL</b> Physical-file handling and confidential exceptions.</div>
+  </div></details>
+</section>
+
+<!-- ============ SHEET 07: PATH TO MARKET ============ -->
+<section class="sheet" id="s07">
+  <div class="sheet-head"><span class="sheet-no">SHT 07</span><h2>Path-to-Market: Six Ways to Build This</h2></div>
+  <p class="lede">A firm of the firm's profile has six realistic delivery paths. They differ less in technology than in cost structure, ownership, and who carries the risk. The numbers below reflect the the firm-specific reality: QuickBooks Online (modern APIs), unstructured documents, and CA DIR compliance.</p>
+
+  <div class="fig-label">Fig. 07-A — Six-tier comparison (the firm-calibrated, 2026 market)</div>
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Tier</th><th class="num">Build (Yr 0/1)</th><th class="num">Annual Run</th><th>Fit for the firm</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1 · Off-the-shelf suite</strong><br><span style="font-size:12px;color:var(--ink-soft)">Copilot Studio, Zapier, Make, n8n</span></td><td class="num">$15–40K</td><td class="num">$25–50K</td><td>Good for pilots; cannot handle deterministic CA DIR math or heavy OCR. Not the backbone.</td></tr>
+      <tr><td><strong>2 · Enterprise platform OS</strong><br><span style="font-size:12px;color:var(--ink-soft)">Agentforce, ServiceNow, Dynamics</span></td><td class="num">$150–350K</td><td class="num">$80–150K</td><td>Overbuilt. Per-seat economics punish a 27-person firm; year-long deploys.</td></tr>
+      <tr><td><strong>3 · Big 3 / major consulting</strong></td><td class="num">$750K–$1.5M+</td><td class="num">$150–300K</td><td>Not economically rational at this scale. Partner margins erase ROI.</td></tr>
+      <tr><td><strong>4 · Workflow automation firm</strong></td><td class="num">$90–180K</td><td class="num">$30–60K</td><td>Strong delivery partner once the architecture is defined.</td></tr>
+      <tr><td><strong>5 · Bespoke AI boutique</strong></td><td class="num">$150–250K</td><td class="num">$40–70K</td><td>Capable but costlier; "orphan code" risk if undocumented.</td></tr>
+      <tr class="t-win"><td><strong>6 · Embedded architect + partner (this plan)</strong></td><td class="num">Role pre-budgeted; build gated &amp; evidence-priced (~$90–150K)</td><td class="num">$15–40K + junior associate</td><td><strong>The quarterback model: embedded architect owns context, relationship &amp; baseline; AI-accelerated partner builds. The firm owns everything; lowest lock-in.</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout">
+    <p><strong>The recommendation is a hybrid that answers the usual objection to going independent.</strong> The standard knock on the independent-builder path is key-person risk — one person holding the whole system. This structure removes it: the embedded architect (Tier 6) owns process design, the data model, the relationship, and the baseline, while an AI-accelerated implementation partner network (Tier 4/5 capability) carries the engineering — the OCR pipeline, the deterministic rules engine, the integrations — with documentation and ownership assigned to the firm from day one. Pilots run on lightweight tooling inside the firm's existing Microsoft 365 estate. No single point of failure, no enterprise overbuild.</p>
+  </div>
+</section>
+
+<!-- ============ SHEET 08: OPERATING LEVERAGE ============ -->
+<section class="sheet" id="s08">
+  <div class="sheet-head"><span class="sheet-no">SHT 08</span><h2>Operating Leverage: Phase A → B → C</h2></div>
+  <p class="lede">The strategic payoff is not Year-1 savings — it is what happens to the cost curve as project volume grows. A human-staffed back office scales almost linearly. An agentic back office scales sublinearly, because the data model, rules engine, and document pipelines are reused.</p>
+
+  <h3>Phase A — Today (the senior operator as bottleneck)</h3>
+  <p>One senior generalist performs the consolidated PM / office / accounting function manually, while also driving any systems work. Capacity is capped by hours; every new project adds linear administrative load — more certified payroll runs, more COIs to chase, more invoices to assemble. Operational truth lives in SharePoint PDFs, Excel, and people's heads, which means low audit readiness and total key-person risk. <em>Exact baseline hours and error rates are captured live during Days 1–60; the figures here update with measured data at the Day-60 gate.</em></p>
+
+  <h3>Phase B — Agentic OS live (agents handle 75–90% of repetitive volume)</h3>
+  <p>The system drafts, reconciles, routes, files, flags, summarizes, and reports; humans hold the review gates. The residual HITL burden — confirmations, exception handling, relationship touchpoints — is structurally absorbable by a <strong>junior operations associate</strong> at a far lower fully-loaded cost than the senior role. Senior capacity redirects to higher-leverage work: project delivery support, the next funding round, growth.</p>
+
+  <div class="fig-label">Fig. 08-A — Full back-office comparison: human team vs. AgOS + junior associate (to be validated at Day 60)</div>
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Model</th><th>Composition</th><th class="num">Fully-loaded annual</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Manual human team</strong></td><td>4–5.5 FTE: accounting manager, payroll/prevailing-wage specialist, AR/AP, project/insurance admin, doc control, partial oversight</td><td class="num">$460K–$725K</td></tr>
+      <tr class="t-win"><td><strong>AgOS + junior associate</strong></td><td>Platform run cost + 1 junior ops associate + light senior/partner oversight</td><td class="num">$175K–$300K</td></tr>
+      <tr class="t-total"><td><strong>Expected annual savings</strong></td><td>At the firm's current volume</td><td class="num">≈ $250K–$350K</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-family:var(--mono);font-size:12px;color:var(--ink-soft);">The manual-team figure is the cost to perform <em>all ten functions</em> at scale — not the single budgeted role. It is the comparison that justifies the build (Layers 2–3); the Sheet 02 role comparison is the comparison that wins the entry (Layer 1).</p>
+
+  <h3>Phase C — Steady state &amp; scale</h3>
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Volume</th><th class="num">Manual human model</th><th class="num">AgOS model</th><th class="num">Annual savings</th></tr></thead>
+    <tbody>
+      <tr><td>Current (1×)</td><td class="num">~$525K</td><td class="num">~$195K</td><td class="num">~$330K</td></tr>
+      <tr><td>2× project volume</td><td class="num">~$900K</td><td class="num">~$285K</td><td class="num">~$615K</td></tr>
+      <tr><td>5× project volume</td><td class="num">~$2.25M</td><td class="num">~$525K</td><td class="num">~$1.73M</td></tr>
+      <tr><td>10× project volume</td><td class="num">~$4.5M</td><td class="num">~$950K</td><td class="num">~$3.55M</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-family:var(--mono);font-size:12px;color:var(--ink-soft);">Illustrative ranges pending baseline validation. The honest version of these tables — the one with the firm's actual numbers — is the Day-60 deliverable.</p>
+
+  <div class="callout green">
+    <p><strong>The value case in one line:</strong> the AgOS lets the firm grow project volume without proportionally growing back-office headcount. Manual admin scales with projects, vendors, invoices, timesheets, audits, and documents. The platform scales sublinearly because its foundation is reused.</p>
+  </div>
+</section>
+
+<!-- ============ SHEET 09: RISKS ============ -->
+<section class="sheet" id="s09">
+  <div class="sheet-head"><span class="sheet-no">SHT 09</span><h2>Risks &amp; Compliance Constraints</h2></div>
+  <p class="lede">A plan this size lives or dies on a short list of failure modes. Naming them up front is part of earning the engagement — and most are mitigated by the gated, evidence-first structure itself.</p>
+
+  <div class="scrollx">
+  <table>
+    <thead><tr><th>Risk</th><th>Why it matters</th><th>Mitigation</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Compliance hallucination</strong></td><td>An AI miscalculating a CA DIR wage tier or apprentice ratio is a zero-tolerance event with real fines</td><td>The deterministic sandbox: the model extracts, a hard-coded versioned rules engine calculates; human approval on every certified submission</td></tr>
+      <tr><td><strong>CA DIR rule changes</strong></td><td>Prevailing wage determinations update on a recurring basis</td><td>Rules engine designed so an admin can update wage data — not hard-coded such that an engineer is needed to change a rate</td></tr>
+      <tr><td><strong>OCR fidelity on complex docs</strong></td><td>Engineering submittals and multi-page tables can defeat standard OCR</td><td>Scope document types explicitly in Sprint 2; human review on low-confidence extractions; don't promise 100%</td></tr>
+      <tr><td><strong>Change management</strong></td><td>Subs and staff may ignore automated emails that feel robotic, or resist new workflows</td><td>Human-reviewed tone on external correspondence; trust built through the embedded role before automation lands</td></tr>
+      <tr><td><strong>Timekeeping input quality</strong></td><td>If field hours arrive as Excel/PDF rather than an app with an API, extraction is harder and costlier</td><td>Identified as a Day-30 discovery item; influences Sprint-2/3 scope and cost</td></tr>
+      <tr><td><strong>Key-person dependency</strong></td><td>Both the manual today and a solo-builder approach concentrate risk in one person</td><td>Architect + partner structure; everything documented and owned by the firm; designed for junior-associate handoff</td></tr>
+      <tr><td><strong>Capacity / role split</strong></td><td>Running the live back office while architecting the system is a real load a buyer will probe</td><td>B2B structure buys defined outcomes, not presence; 30/60/90 deliverables are the accountability mechanism</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ SHEET 10: GOVERNANCE ============ -->
+<section class="sheet" id="s10">
+  <div class="sheet-head"><span class="sheet-no">SHT 10</span><h2>Governance: Trust Before Autonomy. Ownership Always.</h2></div>
+  <div class="layers">
+    <div class="layer l1">
+      <div class="phase" style="color:var(--blue)">Principle 01</div>
+      <h4>Human review on every action</h4>
+      <p>No agent sends, files, pays, or invoices without staff confirmation. Autonomy is granted gradually, per-workflow, only after a sustained accuracy record — and can be revoked instantly.</p>
+    </div>
+    <div class="layer l2">
+      <div class="phase" style="color:var(--amber)">Principle 02</div>
+      <h4>Compliance-sensitive workflows last</h4>
+      <p>Prevailing wage and certified payroll deploy only after lower-risk agents prove the pattern, and only through the deterministic rules engine. Public works exposure is a hard constraint, not an optimization target.</p>
+    </div>
+    <div class="layer l3">
+      <div class="phase" style="color:var(--green)">Principle 03</div>
+      <h4>The firm owns everything</h4>
+      <p>Every agent ships with a full playbook: trigger conditions, logic, failure modes, override procedures, and a departure-proof handoff. The goal is organizational capability — not dependency on any consultant or vendor.</p>
+    </div>
+  </div>
+  <p>Data security follows the firm's existing Microsoft 365 perimeter — agents operate inside the tenant wherever possible, with role-based access control (payroll PII restricted from correspondence workflows), encryption for sensitive project and payroll data, and audit logs on every agent decision. The AgOS prepares, validates, and packages data for compliance systems like DIR and LCPtracker where those are required; it does not replace them.</p>
+</section>
+
+<!-- ============ INTERNAL SECTION ============ -->
+<div class="internal-toggle">
+  <button type="button" onclick="document.getElementById('internal').classList.toggle('open');this.textContent=document.getElementById('internal').classList.contains('open')?'Hide Internal Strategy Section':'Show Internal Strategy Section — Oz Only';">Show Internal Strategy Section — Oz Only</button>
+</div>
+
+<div id="internal">
+<div class="internal-inner">
+  <span class="internal-banner">Method &amp; approach showcase · client details intentionally redacted</span>
+
+  <h2 style="font-family:var(--display);font-weight:800;font-size:26px;margin-bottom:18px;">Decision-Grade Strategy Notes</h2>
+
+  <h3>1 · Fee Architecture &amp; Margin Logic</h3>
+  <p><strong>Ask $7.5–8K/month on a 1099 / B2B structure; lead with the fully-loaded math; do not negotiate against yourself.</strong> At $8K you are still $9–23K cheaper than the budgeted hire; at $7.5K, $15–29K cheaper. The anchor is their own JD. The 1099 framing is now confirmed and is cleaner than W-2 — no benefits, month-to-month, you're still cheaper. Do not present the AgOS as a monthly premium (the $1.5–2K bolt-on was killed): it prices an unvalidated build at $24K/yr of vague scope and invites friction. The role is the role; the build is a gated, separately-priced SOW backed by Day-60 evidence.</p>
+  <div class="callout green"><p><strong>Negotiation floor:</strong> $7K/mo. Below that, the discovery work is being given away. If pushed under $7.5K, trade price for term (6-month initial commitment) or for an explicit Day-60 review-meeting commitment from the decision maker.</p></div>
+
+  <h3>2 · Build Cost Model (Layer 2 — internal reference only)</h3>
+  <p>Two external models (Gemini, ChatGPT) independently priced the the firm build. With QuickBooks Online confirmed (the "QBO discount" — no legacy desktop bridge), the credible range converges on <strong>~$90–150K for a production MVP</strong> via the architect + AI-accelerated partner path, then <strong>$15–40K/yr run + the junior associate</strong>. Phase breakdown for internal scoping:</p>
+  <table>
+    <thead><tr><th>Phase</th><th class="num">Target budget</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Discovery / control map</td><td class="num">$15–30K</td><td>Largely covered by the embedded role's Days 1–60 — margin opportunity</td></tr>
+      <tr><td>Operating data layer + SharePoint taxonomy</td><td class="num">$35–60K</td><td>The heart of the system; without it, agents are wrappers around bad data</td></tr>
+      <tr><td>MVP agent clusters (3 sprints)</td><td class="num">$60–120K</td><td>Sprint 1 cheap; Sprint 2 (OCR) is the lift; Sprint 3 (DIR) most sensitive</td></tr>
+      <tr><td>Hardening &amp; governance</td><td class="num">$35–60K</td><td>Approval gates, logging, RBAC, exit/export</td></tr>
+      <tr class="t-total"><td>Total initial build</td><td class="num">~$90–225K</td><td>QBO + phased delivery keeps it toward the low end</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Go/no-go for the build:</strong> proceed if Day-60 data validates ≥$250K/yr of addressable labor, rework, delay, compliance, or senior-capacity burden. Below ~$150K/yr, recommend a narrower pilot instead. Note: at a 27-person firm this is real money — which is exactly why the role-funded, gated entry is mandatory. You are not selling a $150K build cold; you are earning the right to propose it.</p>
+
+  <h3>3 · Implementation Partner Economics (Aries Consulting Group)</h3>
+  <p><strong>Spelling: ARIES, not Aires.</strong> Adam's published pricing (ariesconsultinggroup.com): AI Readiness Audit $7,500 fixed · Fractional ops from $8,500/mo · Custom platform builds from $25K + monthly Growth Retainer · 4–8 week build timelines · Invenio case study = 12+ agent custom platform (closest public comp to the firm's 10-agent scope). AriesOS stack: Claude + Lovable.dev, Supabase, MCP-ready — exactly the modern-API profile the build needs.</p>
+  <p><strong>Do not name Aries in the client-facing asset yet.</strong> Aries publishes transparent pricing and the firm sits squarely in their stated ICP ($2–50M, founder-led professional services). Naming them before you've chosen to is unnecessary disintermediation risk. Use "AI-accelerated implementation partner network" until you decide to bring Aries in by name — a timing call you control, not a contract gate.</p>
+  <table>
+    <thead><tr><th>Teaming structure</th><th>Mechanics</th><th>Your margin</th><th>Risk</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Prime contractor (preferred)</strong></td><td>The firm pays Oz; Oz subs Aries for the build</td><td class="num">15–20% markup on build + retainer</td><td>You carry delivery risk; need back-to-back SOW terms</td></tr>
+      <tr><td>Transparent teaming</td><td>The firm contracts both; you hold architecture/QB fee</td><td class="num">Flat $1–1.5K/mo during build</td><td>Lower margin; Aries pricing becomes visible</td></tr>
+      <tr><td>Referral</td><td>Hand to Aries, collect referral fee</td><td class="num">~10–15% one-time</td><td>Loses the quarterback position — avoid</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4 · Earn-Out Mechanics (Layer 3)</h3>
+  <p>Proposed: <strong>20–25% of Year-1 validated efficiency gains, capped</strong> (suggest $20–25K cap to keep total engagement well under the cost of a second hire — easy yes). Validation: hours-per-task baseline captured personally during Days 1–60 vs. post-automation measurement, signed off quarterly. Because you perform the manual work yourself, the baseline is undisputable — the single strongest negotiating asset in the structure. Document obsessively from Day 1.</p>
+
+  <h3>5 · What Gemini &amp; ChatGPT Got Right — and What They Missed</h3>
+  <p><strong>Both beat the first draft on technical depth:</strong> the deterministic sandbox (LLM never does DIR math), the "one platform not 10 bots" layered architecture, the OCR/document-intelligence pipeline, sprint sequencing with compliance last, the QBD-vs-QBO cost swing, and CA DIR specifics (PWC-100, LCPtracker, fringe-benefit logic, bi-annual updates). <strong>All of that is now folded into Sheets 04, 06, 09, and 10.</strong></p>
+  <div class="callout amber"><p><strong>But both missed your actual go-to-market — and it would have cost you the deal.</strong> Each answered the literal prompt: "design a $50–275K bespoke AI build," and recommended Path 6 (independent builder) while flagging key-person risk as its top weakness. Neither registered that the firm budgeted <em>$60–80K for a person</em>, not six figures of AI CapEx. Walking in to a 27-person firm pitching a $150K build cold is how you lose. Your wedge — take the role, fund the discovery, gate the build, quarterback an AI-accelerated partner — is both the entry strategy they lacked <em>and</em> the structural answer to the key-person risk they flagged. Keep the technical depth from them; keep the commercial architecture from you.</p></div>
+
+  <h3>6 · Procurement &amp; Contracting Clauses (bake into any build SOW)</h3>
+  <table>
+    <thead><tr><th>Clause</th><th>Requirement</th></tr></thead>
+    <tbody>
+      <tr><td>Work-product ownership</td><td>The firm owns prompts, schemas, workflows, source code, documentation, data model</td></tr>
+      <tr><td>Data handling</td><td>No training on the firm data without written approval</td></tr>
+      <tr><td>Security</td><td>RBAC, audit logs, least-privilege credentials</td></tr>
+      <tr><td>Compliance disclaimer</td><td>Agents prepare and validate; humans approve all payroll / compliance filings</td></tr>
+      <tr><td>Documentation</td><td>Admin guide, architecture diagram, runbook, SOPs</td></tr>
+      <tr><td>Exit rights</td><td>Export all data, workflows, indexes, logs, configs in portable format</td></tr>
+      <tr><td>Support SLA</td><td>Defined response times for payroll-cycle and compliance-critical issues</td></tr>
+      <tr><td>Vendor neutrality</td><td>Avoid black-box frameworks unless source/export is guaranteed</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7 · Open Decisions</h3>
+  <div class="decision"><span class="d-status" style="color:var(--amber)">● ALIGN</span> — <b>Teaming with Adam/Aries — flexible:</b> shared goal is getting reps into the pipeline to build the pricing-and-motion playbook, so no contract needed pre-the firm. Confirm just three things on a short call: (1) Oz holds the client relationship, (2) rough split logic so margin isn't improvised in front of the firm, (3) Aries stays unnamed until Oz chooses to bring them in. <em>Quick alignment, not a blocker.</em></div>
+  <div class="decision"><span class="d-status" style="color:var(--red)">● OPEN</span> — <b>Final monthly ask:</b> $7.5K vs $8K, 1099. Open at $8K with the fully-loaded table on screen; $7.5K planned concession; $7K floor.</div>
+  <div class="decision"><span class="d-status" style="color:var(--amber)">● PENDING</span> — <b>Day-30 discovery items that move the build cost:</b> timekeeping input format (app-with-API vs Excel/PDF), CA DIR fringe handling (trust vs cash), subconsultant invoice standardization, SharePoint folder discipline.</div>
+  <div class="decision"><span class="d-status" style="color:var(--amber)">● PENDING</span> — <b>Earn-out cap &amp; cadence:</b> finalize after Day-60 baseline quality is known.</div>
+  <div class="decision"><span class="d-status" style="color:var(--green)">● RESOLVED</span> — <b>Bolt-on monthly AgOS fee:</b> killed; build gated and separately priced.</div>
+  <div class="decision"><span class="d-status" style="color:var(--green)">● RESOLVED</span> — <b>Aries naming:</b> anonymized until Oz chooses to introduce them — a timing call Oz controls.</div>
+  <div class="decision"><span class="d-status" style="color:var(--green)">● RESOLVED</span> — <b>W-2 vs 1099:</b> 1099 / B2B confirmed; cleaner and still cheaper than the budgeted W-2.</div>
+
+  <h3>8 · What Not to Say at the firm</h3>
+  <p>No partner names. No VisLogic cross-references — this is independent, and the public record already separates the ventures. No build pricing before Day 60 — "scoped and priced when we have your data, not projections." No guarantee on the 75–90% automation target — it is a per-workflow design target. Do not improvise the capacity answer; rehearse it: the B2B structure buys defined outcomes, the deliverables are the accountability mechanism, and the automation makes the role more reliable over time, not less.</p>
+</div>
+</div>
+
+<footer>
+  <span>OZ ROSARIO · INDEPENDENT ENGAGEMENT · CIVIL / ENVIRONMENTAL ENGINEERING</span>
+  <span>SHEET SET G-001 → SHT-10 · REV B · JUNE 2026</span>
+</footer>
+
+</div>
+</body>
+</html>

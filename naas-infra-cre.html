@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaaS Market Approach | SoCal & NorCal Complete Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-light: #2c5282;
+            --accent: #38b2ac;
+            --sd-teal: #319795;
+            --oc-orange: #dd6b20;
+            --la-purple: #805ad5;
+            --sf-red: #c53030;
+            --peninsula-blue: #3182ce;
+            --southbay-green: #38a169;
+            --success: #276749;
+            --success-light: #c6f6d5;
+            --warning: #d69e2e;
+            --warning-light: #fef3c7;
+            --bg-light: #f7fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding: 48px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .header h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 12px; }
+        .header p { font-size: 1rem; opacity: 0.9; margin-bottom: 24px; }
+
+        .region-tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .region-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .market-tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .market-tab {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+        }
+
+        .market-tab:hover { background: rgba(255,255,255,0.15); }
+        .market-tab.active { background: white; color: var(--primary); border-color: white; }
+
+        /* Market Sections */
+        .market-section { display: none; animation: fadeIn 0.4s ease; }
+        .market-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Market Header Cards */
+        .market-header-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 6px solid var(--accent);
+        }
+
+        .market-header-card h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .market-header-card .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 16px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .question-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 6px; opacity: 0.9; }
+        .question-card .question-text { font-size: 1.25rem; font-weight: 700; font-style: italic; }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--accent);
+        }
+
+        .stat-box .value { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .stat-box .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .info-card h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-list { list-style: none; }
+
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .info-list li:last-child { border-bottom: none; }
+        .info-list .bullet { color: var(--accent); font-weight: bold; }
+        .info-list .highlight { font-weight: 600; color: var(--text-primary); }
+
+        /* Submarket Cards */
+        .submarket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .submarket-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submarket-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .submarket-card h5 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 6px; }
+
+        .submarket-card .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .tag.tech { background: #ebf8ff; color: #2b6cb0; }
+        .tag.ai { background: #faf5ff; color: #6b46c1; }
+        .tag.life-sciences { background: #f0fff4; color: #276749; }
+        .tag.office { background: #fff5f5; color: #c53030; }
+        .tag.media { background: #fffaf0; color: #c05621; }
+        .tag.creative { background: #fefcbf; color: #975a16; }
+        .tag.high-vacancy { background: #fed7d7; color: #c53030; }
+        .tag.prime-target { background: #c6f6d5; color: #276749; }
+
+        .submarket-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+        .submarket-card .vacancy { font-weight: 700; color: var(--sf-red); }
+
+        /* Response Card */
+        .response-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+
+        .response-card h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .response-content {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-left: 4px solid var(--success);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .response-content p { margin-bottom: 14px; }
+        .response-content p:last-child { margin-bottom: 0; }
+        .response-content strong { color: var(--text-primary); }
+
+        /* Approach Section */
+        .approach-section {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 2px solid var(--accent);
+        }
+
+        .approach-section h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .approach-steps { display: flex; flex-direction: column; gap: 14px; }
+
+        .approach-step { display: flex; gap: 14px; align-items: flex-start; }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h5 { font-size: 0.9rem; color: var(--text-primary); margin-bottom: 3px; }
+        .step-content p { font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* Targeting Framework */
+        .targeting-framework {
+            background: var(--warning-light);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 2px solid var(--warning);
+        }
+
+        .targeting-framework h4 {
+            color: #92400e;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .targeting-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .targeting-cell {
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        .targeting-cell.prime {
+            background: var(--success-light);
+            border: 2px solid var(--success);
+        }
+
+        .targeting-cell.caution {
+            background: #fff5f5;
+            border: 2px solid #feb2b2;
+        }
+
+        .targeting-cell.future {
+            background: #ebf8ff;
+            border: 2px solid #90cdf4;
+        }
+
+        .targeting-cell.skip {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+        }
+
+        .targeting-cell h5 { font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; }
+
+        /* Copy Button */
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 12px;
+        }
+
+        .copy-btn:hover { background: #2c9a8e; }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table .category { font-weight: 600; color: var(--text-primary); background: var(--bg-light); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .market-tabs { flex-direction: column; align-items: center; }
+            .info-grid { grid-template-columns: 1fr; }
+            .submarket-grid { grid-template-columns: 1fr; }
+            .targeting-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 NaaS Market Approach Guide</h1>
+            <p>Complete Market Playbook: Southern & Northern California</p>
+            
+            <div class="region-label">Southern California</div>
+            <div class="market-tabs" style="margin-bottom: 16px;">
+                <button class="market-tab active" onclick="showMarket('sd')">🏖️ San Diego</button>
+                <button class="market-tab" onclick="showMarket('oc')">🍊 Orange County</button>
+                <button class="market-tab" onclick="showMarket('la')">🎬 Los Angeles</button>
+            </div>
+            
+            <div class="region-label">Northern California</div>
+            <div class="market-tabs">
+                <button class="market-tab" onclick="showMarket('sf')">🌉 San Francisco</button>
+                <button class="market-tab" onclick="showMarket('peninsula')">🏔️ Peninsula</button>
+                <button class="market-tab" onclick="showMarket('southbay')">💻 South Bay</button>
+            </div>
+        </header>
+
+        <!-- REFINED TARGETING FRAMEWORK -->
+        <div class="targeting-framework">
+            <h4>🎯 Refined Targeting Strategy: High-Vacancy Quality Buildings</h4>
+            <p style="font-size: 0.85rem; color: #92400e; margin-bottom: 14px;">the provider's model requires vacancy for pre-installation. Target motivated landlords with quality assets.</p>
+            <div class="targeting-grid">
+                <div class="targeting-cell prime">
+                    <h5>🎯 PRIME TARGET: High Vacancy + Quality</h5>
+                    <p>Motivated landlords seeking differentiation. Installation access in empty spaces. Faster sales cycles. The provider = competitive weapon.</p>
+                </div>
+                <div class="targeting-cell caution">
+                    <h5>⚠️ CAUTION: High Vacancy + Low Quality</h5>
+                    <p>May never lease regardless of the provider. Distressed ownership could default. Poor reference customer potential.</p>
+                </div>
+                <div class="targeting-cell future">
+                    <h5>📋 FUTURE: Low Vacancy + Quality</h5>
+                    <p>No immediate installation opportunity. Build relationships for lease expirations and expansions.</p>
+                </div>
+                <div class="targeting-cell skip">
+                    <h5>❌ SKIP: Low Vacancy + Low Quality</h5>
+                    <p>No need, no upside. Deprioritize entirely.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAN DIEGO SECTION -->
+        <section id="sd-section" class="market-section active">
+            <div class="market-header-card" style="border-left-color: var(--sd-teal);">
+                <h2>🏖️ San Diego Market</h2>
+                <p class="subtitle">Life Sciences Hub • Biotech Innovation Center • Defense & Tech</p>
+            </div>
+
+            <div class="question-card">
+                <h3>Strategic Question:</h3>
+                <p class="question-text">"How would you approach the San Diego market?"</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><div class="value">~18%</div><div class="label">Office Vacancy</div></div>
+                <div class="stat-box"><div class="value">30%+</div><div class="label">Life Sciences Vacancy</div></div>
+                <div class="stat-box"><div class="value">4.4M</div><div class="label">SF Lab in Pipeline</div></div>
+                <div class="stat-box"><div class="value">$4.50</div><div class="label">Class A Rent/SF</div></div>
+            </div>
+
+            <h3 class="section-title">Key Submarkets</h3>
+            <div class="submarket-grid">
+                <div class="submarket-card" style="border-top-color: var(--sd-teal);">
+                    <h5>UTC / Torrey Pines</h5>
+                    <span class="tag life-sciences">Life Sciences</span>
+                    <span class="tag prime-target">Prime Target</span>
+                    <p>UC San Diego proximity, Alexandria presence. <span class="vacancy">High vacancy</span> in newer spec labs = motivated landlords seeking differentiation.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--sd-teal);">
+                    <h5>Sorrento Valley / Mesa</h5>
+                    <span class="tag tech">Tech</span>
+                    <span class="tag life-sciences">Biotech</span>
+                    <p>Qualcomm country + biotech R&D. Data-intensive tenants need enterprise bandwidth. Quality Class A with elevated vacancy.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--sd-teal);">
+                    <h5>Downtown / Gaslamp</h5>
+                    <span class="tag office">Office</span>
+                    <p>Mixed opportunity. Target quality repositioned buildings, avoid aging commodity stock. Campus at Horton shows distress risks.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--sd-teal);">
+                    <h5>Carlsbad / North County</h5>
+                    <span class="tag tech">Tech Corridor</span>
+                    <p>Life sciences expansion north. ViaSat, Thermo Fisher presence. Lower rents attracting tenants from La Jolla.</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏢 Major Property Owners</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">Alexandria Real Estate</span> — Dominant life sciences, Torrey Pines clusters</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Kilroy Realty</span> — Del Mar Heights, One Paseo</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Irvine Company</span> — UTC, Mission Valley portfolios</li>
+                        <li><span class="bullet">▸</span><span class="highlight">BioMed Realty</span> — Lab and R&D specialist</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>🤝 Major Brokerages</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">CBRE</span> — Life sciences specialty</li>
+                        <li><span class="bullet">▸</span><span class="highlight">JLL</span> — UTC/Sorrento coverage</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Cushman & Wakefield</span> — Market research</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Colliers</span> — North County strength</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="approach-section">
+                <h4>🚀 Strategic Approach</h4>
+                <div class="approach-steps">
+                    <div class="approach-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Target High-Vacancy Life Sciences (30%+ vacancy = opportunity)</h5>
+                            <p>Landlords with 4.4M SF in pipeline desperately need differentiation. The provider helps them attract biotech tenants who demand reliable connectivity for R&D.</p>
+                        </div>
+                    </div>
+                    <div class="approach-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Build Alexandria Relationship Early</h5>
+                            <p>They dominate Torrey Pines and are under pressure to fill spec lab space. A portfolio conversation could unlock massive scale.</p>
+                        </div>
+                    </div>
+                    <div class="approach-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Leverage Local Knowledge from AMPPED</h5>
+                            <p>Existing San Diego relationships and regulatory familiarity accelerate deal cycles vs. out-of-market competitor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="response-card">
+                <h4>💬 Strategic Response</h4>
+                <div class="response-content" id="sd-response">
+                    <p>"San Diego is actually a perfect market for the provider right now because of its elevated vacancy — especially in life sciences where 30%+ availability and 4.4M SF in the pipeline means landlords are desperate to differentiate.</p>
+                    
+                    <p><strong>Key Submarkets:</strong></p>
+                    <p>• <strong>UTC/Torrey Pines</strong> — Life sciences epicenter near UCSD with Alexandria's dominant presence. High vacancy in spec labs = motivated landlords who need the provider to attract biotech tenants demanding enterprise connectivity for data-intensive R&D.</p>
+                    <p>• <strong>Sorrento Valley</strong> — Qualcomm country plus biotech clusters. Quality buildings with elevated vacancy — ideal for pre-installation.</p>
+                    <p>• <strong>Carlsbad</strong> — North County tech corridor absorbing overflow from expensive La Jolla. Growing life sciences presence.</p>
+
+                    <p><strong>Why High Vacancy = Opportunity:</strong></p>
+                    <p>the provider's model requires vacant space for pre-installation. A landlord at 25-30% vacancy is actively seeking differentiation. The provider becomes their competitive weapon to attract quality tenants. The sales cycle is faster because urgency drives decisions.</p>
+
+                    <p><strong>My Approach:</strong></p>
+                    <p>Start with Alexandria Real Estate — they're under pressure to fill spec lab space and a portfolio relationship could unlock scale quickly. Target quality Class A buildings with temporary market-driven vacancy, not structurally obsolete assets. Build case studies in Torrey Pines that resonate with biotech tenants, then expand to tech-focused Sorrento Valley. My existing San Diego relationships from AMPPED mean I can hit the ground running."</p>
+                </div>
+                <button class="copy-btn" onclick="copyResponse('sd-response')">📋 Copy Response</button>
+            </div>
+        </section>
+
+        <!-- ORANGE COUNTY SECTION -->
+        <section id="oc-section" class="market-section">
+            <div class="market-header-card" style="border-left-color: var(--oc-orange);">
+                <h2>🍊 Orange County Market</h2>
+                <p class="subtitle">Tech Coast • Medical Device Capital • Life Sciences Hub</p>
+            </div>
+
+            <div class="question-card">
+                <h3>Strategic Question:</h3>
+                <p class="question-text">"How would you approach the Orange County market?"</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><div class="value">11.8%</div><div class="label">Office Vacancy</div></div>
+                <div class="stat-box"><div class="value">19.1%</div><div class="label">Class A Vacancy</div></div>
+                <div class="stat-box"><div class="value">65K+</div><div class="label">Life Sci Employees</div></div>
+                <div class="stat-box"><div class="value">$3.20</div><div class="label">Class A Rent/SF</div></div>
+            </div>
+
+            <h3 class="section-title">Key Submarkets</h3>
+            <div class="submarket-grid">
+                <div class="submarket-card" style="border-top-color: var(--oc-orange);">
+                    <h5>Irvine Spectrum</h5>
+                    <span class="tag tech">Tech Hub</span>
+                    <p>County's tallest buildings, Mazda/Blizzard HQs. Class A trophy assets 93% leased but repositioning opportunities in B buildings.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--oc-orange);">
+                    <h5>North County (Anaheim/Brea)</h5>
+                    <span class="tag high-vacancy">High Vacancy</span>
+                    <span class="tag prime-target">Prime Target</span>
+                    <p>215K SF negative absorption Q1 2025. Quality Class B buildings need differentiation to compete with Spectrum.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--oc-orange);">
+                    <h5>Costa Mesa / South Coast</h5>
+                    <span class="tag creative">Creative Office</span>
+                    <p>Arts district, WeWork expansion, near South Coast Plaza. Repositioning opportunities in older buildings.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--oc-orange);">
+                    <h5>UCI Area / Irvine</h5>
+                    <span class="tag life-sciences">Life Sciences</span>
+                    <p>"Medical Device Capital" with Allergan, Applied Medical. 65K+ employees need enterprise bandwidth for R&D.</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏢 Major Property Owners</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">Irvine Company</span> — Dominant owner, 150+ properties</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Kilroy Realty</span> — Recent OC expansion</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Greenlaw Partners</span> — Active Irvine investors</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Hines</span> — Class A development</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>🤝 Major Brokerages</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">CBRE</span> — Newport Beach flagship</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Hughes Marino</span> — Biotech specialist</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Lee & Associates</span> — Local market depth</li>
+                        <li><span class="bullet">▸</span><span class="highlight">JLL</span> — Life sciences practice</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="response-card">
+                <h4>💬 Strategic Response</h4>
+                <div class="response-content" id="oc-response">
+                    <p>"Orange County has interesting dynamics for the provider. While Irvine Spectrum trophy assets are well-leased, there's significant vacancy in Class A (19.1%) and especially in North County submarkets that need differentiation.</p>
+
+                    <p><strong>Target Priorities:</strong></p>
+                    <p>• <strong>North County (Anaheim/Brea/Fullerton)</strong> — 215K SF negative absorption in Q1 2025 means motivated landlords. Quality Class B buildings competing against Spectrum amenities need the provider as a differentiator.</p>
+                    <p>• <strong>UCI Life Sciences Clusters</strong> — "Medical Device Capital" with 65K+ employees. Bandwidth-intensive R&D creates strong value prop.</p>
+                    <p>• <strong>Costa Mesa Repositioning</strong> — Older buildings converting to creative office need infrastructure upgrades.</p>
+
+                    <p><strong>Irvine Company Strategy:</strong></p>
+                    <p>They're the elephant — 150+ properties. Start with a single high-vacancy building as proof point, then leverage success into portfolio conversation. Even their well-leased properties have upcoming lease expirations where the provider could be positioned.</p>
+
+                    <p><strong>My Approach:</strong></p>
+                    <p>Target the 19.1% Class A vacancy where landlords are offering steep concessions to attract tenants. The provider becomes a better investment than TI allowances — permanent differentiation vs. one-time spend. Build life sciences case studies near UCI, then scale across Irvine Company portfolio."</p>
+                </div>
+                <button class="copy-btn" onclick="copyResponse('oc-response')">📋 Copy Response</button>
+            </div>
+        </section>
+
+        <!-- LOS ANGELES SECTION -->
+        <section id="la-section" class="market-section">
+            <div class="market-header-card" style="border-left-color: var(--la-purple);">
+                <h2>🎬 Los Angeles Market</h2>
+                <p class="subtitle">Silicon Beach • Entertainment Capital • Creative Economy</p>
+            </div>
+
+            <div class="question-card">
+                <h3>Strategic Question:</h3>
+                <p class="question-text">"How would you approach the Los Angeles market?"</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><div class="value">23.4%</div><div class="label">Office Vacancy</div></div>
+                <div class="stat-box"><div class="value">31%+</div><div class="label">DTLA Vacancy</div></div>
+                <div class="stat-box"><div class="value">500+</div><div class="label">Silicon Beach Cos</div></div>
+                <div class="stat-box"><div class="value">$3.48</div><div class="label">Avg Rent/SF</div></div>
+            </div>
+
+            <h3 class="section-title">Key Submarkets</h3>
+            <div class="submarket-grid">
+                <div class="submarket-card" style="border-top-color: var(--la-purple);">
+                    <h5>Arts District / DTLA Creative</h5>
+                    <span class="tag high-vacancy">31%+ Vacancy</span>
+                    <span class="tag prime-target">Selective Target</span>
+                    <p>Quality conversions (Spotify, Warner) are different from commodity high-rises. Target repositioned creative buildings, not aging towers.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--la-purple);">
+                    <h5>Playa Vista / Culver City</h5>
+                    <span class="tag tech">Silicon Beach</span>
+                    <p>Google, Amazon, YouTube. The Bluffs traded at $375/SF after distress. Motivated owners competing for tech tenants.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--la-purple);">
+                    <h5>Century City</h5>
+                    <span class="tag office">Only Growth Market</span>
+                    <p>LA's only submarket with rent growth. Trophy assets command premium. Build relationships for new developments.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--la-purple);">
+                    <h5>Santa Monica</h5>
+                    <span class="tag tech">Original Silicon Beach</span>
+                    <p>Snap 467K SF, Google presence. High-value despite vacancy as tech tenants demand premium infrastructure.</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏢 Major Property Owners</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">Kilroy Realty</span> — Columbia Square, Beverly Hills</li>
+                        <li><span class="bullet">▸</span><span class="highlight">BXP</span> — Santa Monica Business Park</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Tishman Speyer</span> — Brickyard, Westside</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Lincoln Property</span> — Entrada, Playa Vista</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>🎯 DTLA Targeting Nuance</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">✅</span><span class="highlight">Target:</span> Arts District conversions, ROW DTLA, quality mixed-use</li>
+                        <li><span class="bullet">❌</span><span class="highlight">Avoid:</span> 1970s high-rises with no modernization path</li>
+                        <li><span class="bullet">❌</span><span class="highlight">Avoid:</span> Buildings with ownership in default</li>
+                        <li><span class="bullet">✅</span><span class="highlight">Target:</span> Strong sponsors repositioning assets</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="response-card">
+                <h4>💬 Strategic Response</h4>
+                <div class="response-content" id="la-response">
+                    <p>"LA's 23.4% vacancy — and DTLA's 31%+ — is actually opportunity if you're selective. The key is distinguishing between temporary market-driven vacancy in quality assets versus structural obsolescence.</p>
+
+                    <p><strong>Where High Vacancy = Opportunity:</strong></p>
+                    <p>• <strong>Arts District Creative Conversions</strong> — Buildings like where Spotify and Warner signed 100K+ SF deals. These command premium rents despite DTLA vacancy because they're differentiated product.</p>
+                    <p>• <strong>Playa Vista Campus</strong> — The Bluffs traded at $375/SF after prior owner's default. New owners need to compete for tech tenants — the provider is their weapon.</p>
+                    <p>• <strong>Culver City</strong> — Amazon's $620M expansion is attracting creative tenants. Buildings nearby need to differentiate.</p>
+
+                    <p><strong>Where to Avoid:</strong></p>
+                    <p>• Commodity DTLA high-rises from the 1970s with no modernization path</p>
+                    <p>• Buildings with distressed ownership likely to default</p>
+                    <p>• Properties that won't attract tenants regardless of the provider</p>
+
+                    <p><strong>My Approach:</strong></p>
+                    <p>Target motivated landlords with quality repositioned assets. Build a Kilroy relationship — they just paid $205M for Maple Plaza in Beverly Hills and focus on tech/creative tenants who value infrastructure. Silicon Beach landlords are fighting for the same tech tenants — the provider becomes their differentiation story."</p>
+                </div>
+                <button class="copy-btn" onclick="copyResponse('la-response')">📋 Copy Response</button>
+            </div>
+        </section>
+
+        <!-- SAN FRANCISCO SECTION -->
+        <section id="sf-section" class="market-section">
+            <div class="market-header-card" style="border-left-color: var(--sf-red);">
+                <h2>🌉 San Francisco Market</h2>
+                <p class="subtitle">AI Epicenter • Financial District • SoMa Tech Hub</p>
+            </div>
+
+            <div class="question-card">
+                <h3>Strategic Question:</h3>
+                <p class="question-text">"How would you approach the San Francisco market?"</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><div class="value">30.1%</div><div class="label">Office Vacancy</div></div>
+                <div class="stat-box"><div class="value">47%</div><div class="label">SoMa Vacancy</div></div>
+                <div class="stat-box"><div class="value">8.1M</div><div class="label">SF Leased 2024</div></div>
+                <div class="stat-box"><div class="value">$67</div><div class="label">Avg Rent/SF</div></div>
+            </div>
+
+            <h3 class="section-title">Key Submarkets</h3>
+            <div class="submarket-grid">
+                <div class="submarket-card" style="border-top-color: var(--sf-red);">
+                    <h5>SoMa / Central SoMa</h5>
+                    <span class="tag high-vacancy">47% Vacancy</span>
+                    <span class="tag ai">AI Hub</span>
+                    <span class="tag prime-target">Prime Target</span>
+                    <p>Highest vacancy BUT where AI companies are clustering. Kilroy Flower Mart, Tishman Speyer, Boston Properties all have major projects. VCs want to be near the AI action.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--sf-red);">
+                    <h5>Financial District</h5>
+                    <span class="tag high-vacancy">32-34% Vacancy</span>
+                    <span class="tag office">Traditional Office</span>
+                    <p>Improving with return-to-office (Salesforce, Uber, Wells Fargo). Trophy Class A at $65+/SF has lower vacancy than Class B/C.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--sf-red);">
+                    <h5>Mission / Showplace Square</h5>
+                    <span class="tag creative">Creative Office</span>
+                    <span class="tag prime-target">Prime Target</span>
+                    <p>Led 2025 absorption with 150K+ SF positive. Adobe at 100 Hooper (Kilroy). Quality creative converting to AI use.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--sf-red);">
+                    <h5>Presidio Heights</h5>
+                    <span class="tag office">Low Vacancy</span>
+                    <p>Only 4.8% vacancy — future pipeline. Limited opportunity for pre-installation but build relationships.</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏢 Major Property Owners</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">Kilroy Realty</span> — Flower Mart (2M+ SF), 100 Hooper (Adobe)</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Boston Properties</span> — Salesforce Tower, major FiDi presence</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Tishman Speyer</span> — 725 Harrison, Central SoMa development</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Shorenstein</span> — Major Class A portfolio</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Alexandria</span> — 88 Bluxome life sciences</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>📈 Market Dynamics</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span>AI driving renewed demand — VCs clustering in SoMa</li>
+                        <li><span class="bullet">▸</span>8.1M SF leased 2024 — highest since 2019</li>
+                        <li><span class="bullet">▸</span>Sublease vacancy down to 6.1% (2-year low)</li>
+                        <li><span class="bullet">▸</span>Trophy Class A ($65+/SF) outperforming dramatically</li>
+                        <li><span class="bullet">▸</span>Early stabilization signs: first positive absorption since 2019</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="approach-section">
+                <h4>🚀 Strategic Approach</h4>
+                <div class="approach-steps">
+                    <div class="approach-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Target SoMa AI Cluster (47% vacancy = massive opportunity)</h5>
+                            <p>VCs and AI startups are clustering despite overall vacancy. Kilroy's Flower Mart, Tishman's 725 Harrison need differentiation. AI companies demand enterprise bandwidth.</p>
+                        </div>
+                    </div>
+                    <div class="approach-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Build Kilroy Relationship (They're Everywhere)</h5>
+                            <p>Flower Mart (2M+ SF in SoMa), 100 Hooper (Adobe), plus LA and San Diego presence. A Kilroy relationship spans all your markets.</p>
+                        </div>
+                    </div>
+                    <div class="approach-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Avoid Commodity Class B/C Without Repositioning Plan</h5>
+                            <p>Class B rents fallen to $48/SF, Class C to $30/SF. Only target if strong sponsor is investing in modernization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="response-card">
+                <h4>💬 Strategic Response</h4>
+                <div class="response-content" id="sf-response">
+                    <p>"San Francisco's 30% vacancy sounds dire, but there's a critical nuance: AI is creating concentrated demand in specific submarkets, and that's exactly where the provider should target.</p>
+
+                    <p><strong>Key Opportunity: SoMa AI Cluster (47% vacancy)</strong></p>
+                    <p>Despite having the highest vacancy, SoMa is where AI companies are clustering. VCs, law firms, and startups all want to be near the AI action. Kilroy's Flower Mart (2M+ SF), Tishman's 725 Harrison, Boston Properties — these major developers have significant Central SoMa projects and need differentiation to attract the next OpenAI or Anthropic.</p>
+
+                    <p><strong>Why High Vacancy = Opportunity Here:</strong></p>
+                    <p>• 8.1M SF leased in 2024 — highest since 2019</p>
+                    <p>• AI companies have intensive bandwidth needs for training and inference</p>
+                    <p>• Landlords competing for same pool of well-funded AI tenants</p>
+                    <p>• Sublease vacancy down to 6.1% — tenants are committing again</p>
+
+                    <p><strong>Major Players to Engage:</strong></p>
+                    <p>• <strong>Kilroy</strong> — Flower Mart in SoMa, 100 Hooper (Adobe), plus they're in all my SoCal markets. Single relationship, multiple markets.</p>
+                    <p>• <strong>Boston Properties</strong> — Salesforce Tower landlord, major FiDi presence</p>
+                    <p>• <strong>Tishman Speyer</strong> — Central SoMa development, existing the provider investor relationship</p>
+
+                    <p><strong>What to Avoid:</strong></p>
+                    <p>Commodity Class B/C without modernization plans. Class B rents have fallen to $48/SF, Class C to $30/SF. Only target these if a strong sponsor is actively repositioning.</p>
+
+                    <p><strong>My Approach:</strong></p>
+                    <p>Target the SoMa AI cluster where landlords are desperate to attract the next wave of well-funded AI companies. The provider becomes the infrastructure story that differentiates their buildings. Build Kilroy relationship early — they span SF, LA, OC, and San Diego, so success compounds across all my markets."</p>
+                </div>
+                <button class="copy-btn" onclick="copyResponse('sf-response')">📋 Copy Response</button>
+            </div>
+        </section>
+
+        <!-- PENINSULA SECTION -->
+        <section id="peninsula-section" class="market-section">
+            <div class="market-header-card" style="border-left-color: var(--peninsula-blue);">
+                <h2>🏔️ Peninsula Market</h2>
+                <p class="subtitle">San Mateo County • Palo Alto • Menlo Park • Mountain View</p>
+            </div>
+
+            <div class="question-card">
+                <h3>Strategic Question:</h3>
+                <p class="question-text">"How would you approach the Peninsula market?"</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><div class="value">20%+</div><div class="label">Office Vacancy</div></div>
+                <div class="stat-box"><div class="value">$8.11</div><div class="label">Palo Alto Rent/SF</div></div>
+                <div class="stat-box"><div class="value">$8.12</div><div class="label">Menlo Park Rent/SF</div></div>
+                <div class="stat-box"><div class="value">$6.80</div><div class="label">Mtn View Rent/SF</div></div>
+            </div>
+
+            <h3 class="section-title">Key Submarkets</h3>
+            <div class="submarket-grid">
+                <div class="submarket-card" style="border-top-color: var(--peninsula-blue);">
+                    <h5>Palo Alto</h5>
+                    <span class="tag ai">AI Concentration</span>
+                    <span class="tag prime-target">Prime Target</span>
+                    <p>Premium $8.11/SF rents. AI firm expanded through multiple leases + significant renovations. VC proximity to Sand Hill Road.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--peninsula-blue);">
+                    <h5>Menlo Park</h5>
+                    <span class="tag tech">Meta Country</span>
+                    <p>Highest rents at $8.12/SF. Meta's presence creates spillover demand. Sand Hill Road VC concentration.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--peninsula-blue);">
+                    <h5>Mountain View</h5>
+                    <span class="tag tech">Google Adjacent</span>
+                    <p>Applied Intuition $600M raise. $6.80/SF rents. AI companies clustering near Google for talent.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--peninsula-blue);">
+                    <h5>San Mateo / Redwood City</h5>
+                    <span class="tag office">Value Play</span>
+                    <p>Lower rents than southern Peninsula. Attracting companies priced out of Palo Alto. Oracle presence in Redwood Shores.</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏢 Major Property Owners</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">Jay Paul Company</span> — 181 Fremont, Moffett Towers</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Sobrato Organization</span> — 7.5M+ SF Silicon Valley portfolio</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Stanford University</span> — Stanford Research Park, largest landowner</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Google</span> — Major Mtn View presence, downtown SJ expansion</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>📈 AI-Driven Dynamics</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span>Safe Superintelligence: $2B raise in Palo Alto</li>
+                        <li><span class="bullet">▸</span>Applied Intuition: $600M raise in Mountain View</li>
+                        <li><span class="bullet">▸</span>AI firms choosing ownership over leasing for long-term commitment</li>
+                        <li><span class="bullet">▸</span>Demand concentrated in modern, amenity-rich buildings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="response-card">
+                <h4>💬 Strategic Response</h4>
+                <div class="response-content" id="peninsula-response">
+                    <p>"The Peninsula is interesting because despite 20%+ vacancy, AI investment is creating concentrated demand — Safe Superintelligence raised $2B in Palo Alto, Applied Intuition $600M in Mountain View.</p>
+
+                    <p><strong>Key Submarkets:</strong></p>
+                    <p>• <strong>Palo Alto</strong> — Premium $8.11/SF but AI companies are actively expanding. One AI firm did multiple leases plus significant interior renovations — they're clustering near research, engineering talent, and VCs on Sand Hill Road.</p>
+                    <p>• <strong>Mountain View</strong> — Google-adjacent talent pool. Applied Intuition and similar AI companies choosing this submarket for access to engineers.</p>
+                    <p>• <strong>Menlo Park</strong> — Highest rents, Meta presence creates spillover demand.</p>
+
+                    <p><strong>Major Players:</strong></p>
+                    <p>• <strong>Sobrato Organization</strong> — 7.5M+ SF across Silicon Valley, long-term family ownership, tenants include Nvidia, Apple, Netflix. A portfolio relationship here is huge.</p>
+                    <p>• <strong>Jay Paul Company</strong> — 11M SF including Moffett Towers. Premium tech-focused portfolio.</p>
+                    <p>• <strong>Stanford Research Park</strong> — Stanford is the largest landowner in Santa Clara County. Unique opportunity if we can engage their real estate team.</p>
+
+                    <p><strong>My Approach:</strong></p>
+                    <p>Target buildings in the AI corridor — Palo Alto to Mountain View — where well-funded AI companies are actively taking space. These tenants understand bandwidth requirements for training and inference workloads. Build Sobrato relationship for portfolio scale — they've worked with every major tech company and have a long-term ownership perspective that aligns with the provider's value prop."</p>
+                </div>
+                <button class="copy-btn" onclick="copyResponse('peninsula-response')">📋 Copy Response</button>
+            </div>
+        </section>
+
+        <!-- SOUTH BAY SECTION -->
+        <section id="southbay-section" class="market-section">
+            <div class="market-header-card" style="border-left-color: var(--southbay-green);">
+                <h2>💻 South Bay Market</h2>
+                <p class="subtitle">Santa Clara County • San Jose • Sunnyvale • Santa Clara</p>
+            </div>
+
+            <div class="question-card">
+                <h3>Strategic Question:</h3>
+                <p class="question-text">"How would you approach the South Bay market?"</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box"><div class="value">16.4%</div><div class="label">Office Vacancy</div></div>
+                <div class="stat-box"><div class="value">35%</div><div class="label">Downtown SJ Vacancy</div></div>
+                <div class="stat-box"><div class="value">$5.41</div><div class="label">Avg Rent/SF</div></div>
+                <div class="stat-box"><div class="value">1.3M</div><div class="label">SF Q4 Absorption</div></div>
+            </div>
+
+            <h3 class="section-title">Key Submarkets</h3>
+            <div class="submarket-grid">
+                <div class="submarket-card" style="border-top-color: var(--southbay-green);">
+                    <h5>Santa Clara</h5>
+                    <span class="tag tech">Nvidia Country</span>
+                    <span class="tag prime-target">Prime Target</span>
+                    <p>Nvidia HQ, Intel legacy, Cisco. Recent Sobrato campus acquisition shows tech commitment. Lower costs than SF driving expansion.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--southbay-green);">
+                    <h5>Downtown San Jose</h5>
+                    <span class="tag high-vacancy">35% Vacancy</span>
+                    <span class="tag prime-target">Selective Target</span>
+                    <p>Highest Bay Area vacancy BUT Google's planned downtown expansion + office-to-residential conversions signal repositioning. Target quality with strong sponsors.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--southbay-green);">
+                    <h5>Sunnyvale</h5>
+                    <span class="tag tech">Tech Campus</span>
+                    <p>Jay Paul's Moffett Towers/Place. Apple, LinkedIn, Google overflow. Large floor plates for tech campuses.</p>
+                </div>
+                <div class="submarket-card" style="border-top-color: var(--southbay-green);">
+                    <h5>North San Jose / Milpitas</h5>
+                    <span class="tag ai">AI Infrastructure</span>
+                    <p>Astera Labs expansion on North First. Data center adjacent. AI chip companies need proximity to manufacturing.</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏢 Major Property Owners</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span><span class="highlight">Jay Paul Company</span> — Moffett Towers, premium tech campuses</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Sobrato Organization</span> — Nvidia campus deal, 7.5M+ SF total</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Irvine Company</span> — Santa Clara Square, expanding north</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Google</span> — Downtown SJ mega-development planned</li>
+                        <li><span class="bullet">▸</span><span class="highlight">Cisco</span> — Recently sold 4 buildings, repositioning</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>📈 Market Recovery Signs</h4>
+                    <ul class="info-list">
+                        <li><span class="bullet">▸</span>1.3M SF positive absorption Q4 2025 (first since 2019)</li>
+                        <li><span class="bullet">▸</span>8 new leases 100K+ SF in 2025 (vs 7 in 2024)</li>
+                        <li><span class="bullet">▸</span>AI driving 22.9% leasing volume increase</li>
+                        <li><span class="bullet">▸</span>Tenant requirements up 52.1% to 6.7M SF</li>
+                        <li><span class="bullet">▸</span>Lower costs than SF attracting tech expansion</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="response-card">
+                <h4>💬 Strategic Response</h4>
+                <div class="response-content" id="southbay-response">
+                    <p>"The South Bay is showing the strongest recovery in the Bay Area — 1.3M SF positive absorption in Q4, first positive quarter since 2019. AI is the driver, and the 'price is right' compared to SF.</p>
+
+                    <p><strong>Key Opportunity Areas:</strong></p>
+                    <p>• <strong>Santa Clara</strong> — Nvidia HQ, Intel legacy, Cisco. Sobrato just did a major campus deal with Nvidia. Tech companies are buying buildings outright rather than leasing — signaling long-term commitment.</p>
+                    <p>• <strong>North San Jose</strong> — Astera Labs expansion on North First. AI chip companies want proximity to manufacturing and data centers.</p>
+                    <p>• <strong>Downtown San Jose</strong> — 35% vacancy sounds bad, but Google's planned mega-development signals long-term bet. Target quality repositioning plays, not commodity distress.</p>
+
+                    <p><strong>Why South Bay for the provider:</strong></p>
+                    <p>• Lower rents ($5.41/SF vs SF's $67/SF) = tech companies can afford more space</p>
+                    <p>• AI companies driving 22.9% leasing volume increase</p>
+                    <p>• Tenant requirements up 52.1% — demand is real and growing</p>
+                    <p>• 8 new 100K+ SF leases in 2025 shows large-format deals happening</p>
+
+                    <p><strong>Major Players:</strong></p>
+                    <p>• <strong>Jay Paul</strong> — Moffett Towers is the premium tech campus play</p>
+                    <p>• <strong>Sobrato</strong> — Family-owned, 7.5M+ SF, just did Nvidia deal. Long-term perspective aligns with the provider.</p>
+                    <p>• <strong>Irvine Company</strong> — Santa Clara Square and expanding presence. We'd engage them in OC anyway — natural extension north.</p>
+
+                    <p><strong>My Approach:</strong></p>
+                    <p>Target the Santa Clara AI corridor where tech companies are actively expanding and even buying buildings. These tenants understand infrastructure — they're building AI chips and data centers. The value prop writes itself. Build Sobrato relationship for portfolio scale across Silicon Valley."</p>
+                </div>
+                <button class="copy-btn" onclick="copyResponse('southbay-response')">📋 Copy Response</button>
+            </div>
+        </section>
+
+        <!-- MARKET COMPARISON -->
+        <div class="comparison-section">
+            <h3 class="section-title">📊 All-Market Comparison</h3>
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Vacancy</th>
+                            <th>Primary Driver</th>
+                            <th>Key Owner</th>
+                            <th>Prime Target</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f0fff4;">
+                            <td class="category">San Diego</td>
+                            <td>18% / 30% Life Sci</td>
+                            <td>Life Sciences / Biotech</td>
+                            <td>Alexandria</td>
+                            <td>Torrey Pines spec labs</td>
+                        </tr>
+                        <tr>
+                            <td class="category">Orange County</td>
+                            <td>11.8% / 19.1% A</td>
+                            <td>Medical Device / Tech</td>
+                            <td>Irvine Company</td>
+                            <td>North County Class B</td>
+                        </tr>
+                        <tr style="background: #f0fff4;">
+                            <td class="category">Los Angeles</td>
+                            <td>23.4% / 31% DTLA</td>
+                            <td>Tech / Media / Creative</td>
+                            <td>Kilroy</td>
+                            <td>Arts District conversions</td>
+                        </tr>
+                        <tr>
+                            <td class="category">San Francisco</td>
+                            <td>30.1% / 47% SoMa</td>
+                            <td>AI / Tech Recovery</td>
+                            <td>Kilroy / BXP</td>
+                            <td>Central SoMa AI cluster</td>
+                        </tr>
+                        <tr style="background: #f0fff4;">
+                            <td class="category">Peninsula</td>
+                            <td>20%+</td>
+                            <td>AI / VC Concentration</td>
+                            <td>Sobrato / Jay Paul</td>
+                            <td>Palo Alto AI corridor</td>
+                        </tr>
+                        <tr>
+                            <td class="category">South Bay</td>
+                            <td>16.4% / 35% DTSJ</td>
+                            <td>AI / Chip / Tech Campus</td>
+                            <td>Sobrato / Jay Paul</td>
+                            <td>Santa Clara tech campus</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="margin-top: 24px; padding: 20px; background: var(--primary); border-radius: 12px; color: white;">
+                <h4 style="margin-bottom: 12px;">🎯 Key Talking Point for All Markets:</h4>
+                <p style="font-size: 0.9rem; line-height: 1.7;">"The common thread across all California markets is that high vacancy in quality buildings creates opportunity for the provider. Whether it's life sciences in San Diego, AI in San Francisco, or tech in Silicon Valley — motivated landlords need differentiation. The provider transforms connectivity from a tenant pain point into a landlord advantage. I understand each market's unique dynamics and where our value proposition resonates strongest."</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMarket(market) {
+            document.querySelectorAll('.market-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
+
+            document.getElementById(market + '-section').classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+
+        function copyResponse(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

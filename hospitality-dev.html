@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMPPED | Financing Comparison</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --navy: #0b1929;
+    --navy-mid: #112238;
+    --navy-light: #1a3350;
+    --cyan: #00c8ff;
+    --cyan-dim: rgba(0,200,255,0.12);
+    --red: #e8341c;
+    --amber: #f5a623;
+    --white: #f0f4f8;
+    --muted: #7a9bb5;
+    --border: rgba(0,200,255,0.18);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--navy); color: var(--white); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(11,25,41,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; overflow-x: auto; }
+  .nav-brand { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--cyan); white-space: nowrap; padding: 14px 24px 14px 0; border-right: 1px solid var(--border); margin-right: 8px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; padding: 16px 14px; white-space: nowrap; transition: color 0.2s; border-bottom: 2px solid transparent; }
+  nav a:hover, nav a.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .nav-tag { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(245,166,35,0.14); border: 1px solid rgba(245,166,35,0.35); color: var(--amber); padding: 3px 10px; border-radius: 4px; white-space: nowrap; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0b1929 0%, #0e2240 55%, #0b1929 100%); padding: 56px 0 44px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 70% at 75% 50%, rgba(0,200,255,0.06) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 2; }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 44px); line-height: 1.12; color: #fff; margin-bottom: 8px; }
+  .hero h1 span { color: var(--cyan); }
+  .hero-sub { color: var(--muted); font-size: 13px; }
+
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 36px; }
+  .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  .section:last-of-type { border-bottom: none; }
+  .section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
+  .section-tag::before { content: ''; display: block; width: 18px; height: 1px; background: var(--cyan); }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(22px, 3vw, 32px); color: #fff; margin-bottom: 6px; line-height: 1.2; }
+  .section-desc { color: var(--muted); font-size: 13px; margin-bottom: 32px; max-width: 680px; }
+
+  /* RECOMMENDATION BANNER */
+  .rec-banner { background: linear-gradient(135deg, rgba(0,200,255,0.1) 0%, rgba(0,200,255,0.03) 100%); border: 1px solid rgba(0,200,255,0.3); border-left: 3px solid var(--cyan); border-radius: 10px; padding: 24px 28px; margin-bottom: 36px; }
+  .rec-banner-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .rec-pill { background: var(--cyan); color: var(--navy); font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 4px; letter-spacing: 0.05em; }
+  .rec-banner h3 { font-family: 'DM Serif Display', serif; font-size: 22px; color: #fff; margin-bottom: 8px; }
+  .rec-banner p { font-size: 14px; line-height: 1.7; color: var(--white); }
+  .rec-banner strong { color: var(--cyan); }
+
+  /* MATRIX TABLE */
+  .matrix-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--navy-mid); }
+  table.matrix { width: 100%; border-collapse: collapse; min-width: 900px; }
+  table.matrix th, table.matrix td { padding: 14px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  table.matrix thead th { font-size: 11px; font-weight: 600; color: var(--white); background: var(--navy-light); border-bottom: 1px solid var(--border); vertical-align: bottom; }
+  table.matrix thead th.metric-col { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .col-recommended { background: rgba(0,200,255,0.07) !important; position: relative; }
+  .col-recommended::after { content: 'RECOMMENDED'; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: 700; letter-spacing: 0.1em; color: var(--cyan); white-space: nowrap; }
+  table.matrix thead th.col-recommended { padding-top: 22px; }
+  .opt-name { font-family: 'DM Serif Display', serif; font-size: 17px; color: #fff; margin-bottom: 2px; }
+  .opt-sub { font-size: 11px; color: var(--muted); font-weight: 400; letter-spacing: 0; text-transform: none; }
+  .opt-name.cyan { color: var(--cyan); }
+  table.matrix td.metric-label { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  table.matrix td.val { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--white); }
+  table.matrix td.val.cyan { color: var(--cyan); font-weight: 600; }
+  table.matrix td.val.green { color: var(--green); }
+  table.matrix td.val.amber { color: var(--amber); }
+  table.matrix td.val.muted { color: var(--muted); }
+  table.matrix tbody tr:hover td:not(.col-recommended) { background: rgba(255,255,255,0.015); }
+  .row-section td { background: var(--navy-light); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); padding: 8px 18px; }
+
+  /* CALLOUT CARDS */
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  @media (max-width: 680px) { .insight-grid { grid-template-columns: 1fr; } }
+  .insight-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px 26px; }
+  .insight-card.flag { border-color: rgba(245,166,35,0.3); background: rgba(245,166,35,0.04); }
+  .insight-card h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .insight-card.flag h4 { color: var(--amber); border-bottom-color: rgba(245,166,35,0.2); }
+  .kv-table { width: 100%; border-collapse: collapse; }
+  .kv-table tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .kv-table tr:last-child { border-bottom: none; }
+  .kv-table td { padding: 9px 0; vertical-align: top; font-size: 13.5px; line-height: 1.5; }
+  .kv-table td:first-child { color: var(--muted); font-size: 12px; padding-right: 16px; white-space: nowrap; width: 1%; }
+  .kv-table td strong { color: var(--cyan); }
+
+  /* EXIT BRIDGE */
+  .bridge-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+  @media (max-width: 680px) { .bridge-cards { grid-template-columns: 1fr; } }
+  .bridge-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 10px; padding: 24px; text-align: center; position: relative; }
+  .bridge-card.mid { border-color: rgba(0,200,255,0.4); background: rgba(0,200,255,0.05); }
+  .bridge-cap { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .bridge-card.mid .bridge-cap { color: var(--cyan); }
+  .bridge-val { font-family: 'DM Serif Display', serif; font-size: 34px; line-height: 1; color: var(--cyan); margin-bottom: 6px; }
+  .bridge-note { font-size: 11px; color: var(--muted); }
+  .bridge-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); background: rgba(0,200,255,0.12); border: 1px solid rgba(0,200,255,0.3); padding: 2px 8px; border-radius: 4px; margin-top: 10px; }
+
+  .highlight-box { background: rgba(0,200,255,0.06); border: 1px solid rgba(0,200,255,0.25); border-left: 3px solid var(--cyan); border-radius: 8px; padding: 20px 24px; margin-top: 24px; font-size: 14px; line-height: 1.7; }
+  .highlight-box strong { color: var(--cyan); }
+
+  .footnote { font-size: 11px; color: var(--muted); margin-top: 20px; line-height: 1.6; }
+  .footnote strong { color: var(--white); }
+
+  /* FOOTER */
+  .footer { background: var(--navy-mid); border-top: 1px solid var(--border); padding: 32px 36px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-brand { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--cyan); }
+  .footer-contact { font-size: 13px; color: var(--muted); }
+  .footer-stamp { font-size: 11px; color: rgba(122,155,181,0.5); }
+
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+
+  @media print { nav { display: none; } body { background: #fff; color: #111; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">AMPPED</div>
+  <a href="#matrix">Financing Matrix</a>
+  <a href="#rate-decision">Rate Decision</a>
+  <a href="#exit">Exit Valuation</a>
+  <span class="nav-tag">Method Showcase</span>
+</nav>
+
+<div class="hero">
+  <div class="container hero-inner">
+    <div class="hero-eyebrow">AMPPED &nbsp;·&nbsp; Financing Analysis &nbsp;·&nbsp; June 2026</div>
+    <h1>Financing Comparison<br><span>& Exit Valuation Bridge</span></h1>
+    <div class="hero-sub">Hospitality / Resort Acquisition &nbsp;·&nbsp; $2,565,738 system &nbsp;·&nbsp; Figures from third-party engineering proposal v1 (6/8/2026)</div>
+  </div>
+</div>
+
+<!-- RECOMMENDATION -->
+<div class="section" id="matrix">
+  <div class="container">
+    <div class="rec-banner">
+      <div class="rec-banner-label"><span class="rec-pill">AMPPED RECOMMENDATION</span></div>
+      <h3>Low-Rate Loan (5.75%) — anchored to a 5–10 year exit</h3>
+      <p>For a partnership targeting a sale in 5–10 years, the <strong>Low-Rate 5.75% loan</strong> is the strongest structure. It front-loads <strong>~$449,000 more in Year-1 tax benefit</strong> than the 9.99% option — value that lands immediately, when the older partners want it — while the planned exit truncates the loan before its higher principal can cost the partnership on the back end. <strong>Cash purchase remains the cleanest option</strong> if the partnership chooses to self-fund. PACE is conditional on CMBS servicer approval. PPA is shown for completeness but not recommended — it forfeits the tax credits that drive this deal.</p>
+    </div>
+
+    <div class="section-tag">Section 01</div>
+    <h2 class="section-title">Financing Options — Side by Side</h2>
+    <p class="section-desc">All figures pulled directly from the third-party engineering proposal cash-flow models (Sections 4.1–4.3). Tax effects depend on each partner's individual situation — consult your CPA.</p>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th class="metric-col">Metric</th>
+            <th class="col-recommended"><div class="opt-name cyan">Low-Rate 5.75%</div><div class="opt-sub">Low rate / high dealer fee</div></th>
+            <th><div class="opt-name">High-Rate 9.99%</div><div class="opt-sub">High rate / low dealer fee</div></th>
+            <th><div class="opt-name">Cash Purchase</div><div class="opt-sub">Self-funded</div></th>
+            <th><div class="opt-name">PACE</div><div class="opt-sub">Conditional</div></th>
+            <th><div class="opt-name">PPA</div><div class="opt-sub">Not recommended</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-section"><td colspan="6">Structure</td></tr>
+          <tr>
+            <td class="metric-label">Upfront Capital Required</td>
+            <td class="val cyan col-recommended">$0</td>
+            <td class="val">$0</td>
+            <td class="val">$2,565,738</td>
+            <td class="val muted">$0</td>
+            <td class="val muted">$0</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Interest Rate</td>
+            <td class="val cyan col-recommended">5.75%</td>
+            <td class="val">9.99%</td>
+            <td class="val muted">—</td>
+            <td class="val muted">~6.5–8.5%*</td>
+            <td class="val muted">n/a</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Term</td>
+            <td class="val col-recommended">20 yrs</td>
+            <td class="val">20 yrs</td>
+            <td class="val muted">—</td>
+            <td class="val muted">10–25 yrs</td>
+            <td class="val muted">15–25 yrs</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Total Financed / Loan</td>
+            <td class="val col-recommended">$3,310,630</td>
+            <td class="val">$2,616,765</td>
+            <td class="val muted">—</td>
+            <td class="val muted">~$2.6M</td>
+            <td class="val muted">n/a</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Dealer Fee (financed into principal)</td>
+            <td class="val amber col-recommended">$744,892</td>
+            <td class="val">$51,027</td>
+            <td class="val muted">none</td>
+            <td class="val muted">varies</td>
+            <td class="val muted">n/a</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Lien Type</td>
+            <td class="val green col-recommended">UCC-1 (equipment)</td>
+            <td class="val green">UCC-1 (equipment)</td>
+            <td class="val">none</td>
+            <td class="val amber">RE assessment</td>
+            <td class="val">3rd-party owns</td>
+          </tr>
+          <tr>
+            <td class="metric-label">CMBS Compatible</td>
+            <td class="val green col-recommended">Yes ✓</td>
+            <td class="val green">Yes ✓</td>
+            <td class="val green">Yes ✓</td>
+            <td class="val amber">Needs servicer OK</td>
+            <td class="val green">Yes ✓</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="6">Payments</td></tr>
+          <tr>
+            <td class="metric-label">Year-1 Payment</td>
+            <td class="val cyan col-recommended">$278,921</td>
+            <td class="val">$302,820</td>
+            <td class="val muted">—</td>
+            <td class="val muted">~$240–290K</td>
+            <td class="val muted">escalates</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Monthly Payment</td>
+            <td class="val col-recommended">$23,243</td>
+            <td class="val">$25,235</td>
+            <td class="val muted">—</td>
+            <td class="val muted">varies</td>
+            <td class="val muted">varies</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Total Payments (term)</td>
+            <td class="val col-recommended">$5,578,412</td>
+            <td class="val">$6,056,403</td>
+            <td class="val">$2,565,738</td>
+            <td class="val muted">~$4.5–5.5M</td>
+            <td class="val muted">varies</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="6">Tax Benefits & Incentives</td></tr>
+          <tr>
+            <td class="metric-label">Year-1 Federal Tax Effect</td>
+            <td class="val cyan col-recommended">$2,142,075</td>
+            <td class="val">$1,693,124</td>
+            <td class="val">$1,660,108</td>
+            <td class="val muted">~$1.66M</td>
+            <td class="val muted">forfeited</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Year-1 State Tax Effect</td>
+            <td class="val col-recommended">$59,591</td>
+            <td class="val">$47,102</td>
+            <td class="val">$46,183</td>
+            <td class="val muted">~$46K</td>
+            <td class="val muted">forfeited</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Total Incentives (term)</td>
+            <td class="val cyan col-recommended">$2,440,032</td>
+            <td class="val">$1,928,633</td>
+            <td class="val">$1,891,025</td>
+            <td class="val muted">~$1.89M</td>
+            <td class="val muted">to 3rd party</td>
+          </tr>
+
+          <tr class="row-section"><td colspan="6">Returns</td></tr>
+          <tr>
+            <td class="metric-label">30-Year NPV</td>
+            <td class="val cyan col-recommended">$6,377,094</td>
+            <td class="val">$5,597,063</td>
+            <td class="val">$6,769,673</td>
+            <td class="val muted">—</td>
+            <td class="val muted">—</td>
+          </tr>
+          <tr>
+            <td class="metric-label">30-Yr Electric Bill Savings</td>
+            <td class="val col-recommended">$17,899,193</td>
+            <td class="val">$17,899,193</td>
+            <td class="val">$17,899,193</td>
+            <td class="val muted">$17.9M</td>
+            <td class="val muted">reduced</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Net Cost After Incentives</td>
+            <td class="val col-recommended">$3,138,381</td>
+            <td class="val">$4,127,770</td>
+            <td class="val green">$674,713</td>
+            <td class="val muted">—</td>
+            <td class="val muted">—</td>
+          </tr>
+          <tr>
+            <td class="metric-label">Cash Payback</td>
+            <td class="val green col-recommended">~0 yrs (no upfront)</td>
+            <td class="val green">~0 yrs (no upfront)</td>
+            <td class="val">2.8 yrs</td>
+            <td class="val muted">~0 yrs</td>
+            <td class="val muted">n/a</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">* PACE rates and terms are illustrative — actual figures require a quote and are subject to CMBS servicer consent (Joe / counsel to initiate). All loan and cash figures are extracted verbatim from the third-party engineering proposal v1 dated 6/8/2026. Federal/state tax effects modeled at 30% / 9% rates per the proposal; actual benefit depends on each partner's tax position.</p>
+  </div>
+</div>
+
+<!-- RATE DECISION -->
+<div class="section" id="rate-decision">
+  <div class="container">
+    <div class="section-tag">Section 02</div>
+    <h2 class="section-title">The Rate Decision — Why 5.75% Wins for an Exit</h2>
+    <p class="section-desc">The two lender options are the same loan with opposite trade-offs: pay a dealer fee to buy down the rate, or keep principal lean and accept a higher rate. For a 5–10 year hold, the math favors the buy-down.</p>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Why 5.75% Beats 9.99% on Exit</h4>
+        <table class="kv-table">
+          <tr><td>Front-loaded benefit</td><td><strong>+$448,951</strong> more Year-1 federal tax effect — banked in the first filing, before any exit</td></tr>
+          <tr><td>Lighter carry</td><td><strong>$23,899/yr less</strong> in payments — ~$167K retained over a 7-year hold</td></tr>
+          <tr><td>Exit truncates the downside</td><td>The 5.75% option's larger principal only hurts over a full 20-yr term. A 5–10 yr sale escapes the back half where that cost lives</td></tr>
+          <tr><td>Better hold-period NOI</td><td>Lower debt service reads better to a buyer underwriting the asset's cash flow</td></tr>
+        </table>
+      </div>
+      <div class="insight-card flag">
+        <h4>⚠ Flag for the CPA Before Locking</h4>
+        <table class="kv-table">
+          <tr><td>Dealer-fee basis</td><td>The $744,892 financed dealer fee appears to inflate the ITC/depreciation basis, driving the higher tax benefit. Confirm the IRS respects dealer-fee-inflated basis before relying on the full $2.44M incentive figure</td></tr>
+          <tr><td>Rate confirmation</td><td>Proposal states <strong>5.75%</strong>; you referenced 5.9%. Confirm the current locked rate with Brad</td></tr>
+          <tr><td>Payoff at sale</td><td>5.75% option carries a larger balance ($3.31M vs $2.62M) — more is settled from sale proceeds, but out of value the system itself created</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Net read:</strong> On a 5–10 year exit, the 5.75% loan captures its front-loaded tax advantage in full while the planned sale cuts off its long-tail interest cost. You get the upside and escape the penalty. The single open item is the CPA's sign-off on dealer-fee basis treatment — if that holds, 5.75% is the clear pick; if the IRS limits basis to actual system cost, the two options converge and the decision shifts back toward the leaner 9.99% principal.
+    </div>
+  </div>
+</div>
+
+<!-- EXIT VALUATION -->
+<div class="section" id="exit">
+  <div class="container">
+    <div class="section-tag">Section 03</div>
+    <h2 class="section-title">Exit Valuation Bridge</h2>
+    <p class="section-desc">How the energy project converts into sale value. Commercial real estate prices on NOI ÷ cap rate — every dollar of permanent operating savings becomes capitalized value at exit.</p>
+
+    <div style="font-size:12px; color:var(--muted); margin-bottom:14px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">At $300,000 annual NOI improvement (current model, ~90% offset)</div>
+    <div class="bridge-cards">
+      <div class="bridge-card">
+        <div class="bridge-cap">6.5% Cap</div>
+        <div class="bridge-val">$4.62M</div>
+        <div class="bridge-note">Premium buyer — de-risked NOI</div>
+      </div>
+      <div class="bridge-card mid">
+        <div class="bridge-cap">7.5% Cap</div>
+        <div class="bridge-val">$4.00M</div>
+        <div class="bridge-note">Most likely — SD market midpoint</div>
+        <div class="bridge-badge">Anchor</div>
+      </div>
+      <div class="bridge-card">
+        <div class="bridge-cap">8.5% Cap</div>
+        <div class="bridge-val">$3.53M</div>
+        <div class="bridge-note">Conservative — higher-rate environment</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>The headline for the partners:</strong> At the 7.5% midpoint, the solar project adds approximately <strong>$4.0M in property value</strong> through NOI improvement alone — before counting the ~$2.44M in tax incentives or the asset's own balance-sheet value. On a $2.57M system, the project is <strong>value-accretive on the real estate by itself.</strong> This is the answer to Joe's question: <em>"Maybe the increase in NOI gets us there?"</em> — yes, it materially does.
+    </div>
+
+    <div class="insight-card mt-24">
+      <h4>On Cap Rate Selection — Why 6.5% / 7.5% / 8.5%</h4>
+      <table class="kv-table">
+        <tr><td>The band</td><td>Southern California limited-service hotel cap rates currently run roughly <strong>7.5%–9.5%</strong>, elevated from the sub-7% era by higher borrowing costs across hospitality</td></tr>
+        <tr><td>Why not 5–6%</td><td>A 5–6% cap on an economy/limited-service hotel would be aggressive — closer to trophy multifamily or premium coastal retail. Presenting it risks over-promising if a buyer's appraiser lands at 8.5%</td></tr>
+        <tr><td>The 6.5% edge</td><td>Included as the optimistic boundary: a stabilized, energy-cost-insulated asset with a 30-yr solar warranty can justify a premium (lower cap) because the NOI is more predictable and operating risk is lower</td></tr>
+        <tr><td>Credibility play</td><td>Anchoring at a defensible band means the real number almost certainly lands inside the range — which builds trust with sophisticated partners rather than eroding it</td></tr>
+      </table>
+    </div>
+
+    <p class="footnote mt-16"><strong>Modeling note:</strong> A buyer's appraiser capitalizes durable, proven NOI. Until the system has an operating production history, expect some discount applied to projected vs. actual savings. Frame these figures as the <strong>stabilized</strong> value, realized once the system has a metered track record. Conservative cross-check at the modeled $253K offset: $3.9M (6.5%) / $3.4M (7.5%) / $3.0M (8.5%).</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-brand">AMPPED</div>
+    <div class="footer-contact">Oz Rosario &nbsp;·&nbsp; Managing Principal &nbsp;·&nbsp; oz.rosario@gmail.com &nbsp;·&nbsp; m. 619.987.4040</div>
+  </div>
+  <div class="footer-stamp">AMPPED &nbsp;·&nbsp; Financing Analysis &nbsp;·&nbsp; Method &amp; approach showcase &nbsp;·&nbsp; client details intentionally redacted</div>
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('nav a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const m = document.querySelector('nav a[href="#' + e.target.id + '"]');
+      if (m) m.classList.add('active');
+    }
+  });
+}, { threshold: 0.2 });
+sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>

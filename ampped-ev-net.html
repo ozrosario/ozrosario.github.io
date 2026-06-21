@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMPPED · Asset Recovery & Reactivation Package</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8232A;
+    --red-dark: #B01A1F;
+    --red-muted: #F5C3C5;
+    --charcoal: #1A1A1A;
+    --mid: #444444;
+    --light: #F7F5F2;
+    --white: #FFFFFF;
+    --accent-green: #2ECC71;
+    --accent-gold: #D4A843;
+    --border: #E0DDD8;
+    --shadow: 0 4px 24px rgba(26,26,26,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--charcoal);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--charcoal);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    border-bottom: 2px solid var(--red);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-brand .bullet { color: var(--red); font-size: 1.4rem; line-height: 1; }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    height: 100%;
+  }
+
+  .nav-tab {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.55);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0 1.1rem;
+    cursor: pointer;
+    height: 100%;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-tab:hover { color: var(--white); }
+  .nav-tab.active { color: var(--white); border-bottom-color: var(--red); }
+
+  /* HERO */
+  .hero {
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,35,42,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(232,35,42,0.15);
+    border: 1px solid rgba(232,35,42,0.4);
+    color: var(--red-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .hero p {
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    max-width: 560px;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .hero-meta-item strong { color: var(--white); font-weight: 500; }
+
+  /* SECTIONS */
+  .section {
+    display: none;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+  }
+
+  .section.active { display: block; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    background: rgba(232,35,42,0.08);
+    border: 1px solid rgba(232,35,42,0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-top: 0.35rem;
+    white-space: nowrap;
+  }
+
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .section-header p {
+    color: var(--mid);
+    font-size: 0.88rem;
+    margin-top: 0.25rem;
+  }
+
+  /* EMAIL DELIVERABLE */
+  .email-container {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .email-toolbar {
+    background: #F0EDE8;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .email-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .email-dots span {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+  }
+
+  .email-dots .d1 { background: #FF5F57; }
+  .email-dots .d2 { background: #FFBD2E; }
+  .email-dots .d3 { background: #28C840; }
+
+  .email-label {
+    font-size: 0.72rem;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .email-copy-btn {
+    background: var(--charcoal);
+    color: var(--white);
+    border: none;
+    padding: 0.3rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .email-copy-btn:hover { background: var(--red); }
+
+  .email-header-fields {
+    padding: 1rem 1.5rem;
+    background: #FAFAF8;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .email-field {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    padding: 0.25rem 0;
+  }
+
+  .email-field-label {
+    font-weight: 600;
+    color: var(--mid);
+    width: 55px;
+    flex-shrink: 0;
+  }
+
+  .email-field-value {
+    color: var(--charcoal);
+    font-style: italic;
+    color: #666;
+  }
+
+  .email-body {
+    padding: 2rem 1.5rem;
+    line-height: 1.8;
+  }
+
+  .email-body p { margin-bottom: 1rem; color: #2a2a2a; }
+  .email-body p:last-child { margin-bottom: 0; }
+
+  .email-steps {
+    background: var(--light);
+    border-left: 3px solid var(--red);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+
+  .email-steps p {
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  .email-steps strong { color: var(--red); }
+
+  .pathways {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .pathway {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .pathway-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.4rem;
+  }
+
+  .pathway p { font-size: 0.85rem; margin-bottom: 0; }
+
+  .email-signature {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    background: #FAFAF8;
+  }
+
+  .sig-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--charcoal);
+  }
+
+  .sig-title { font-size: 0.83rem; color: var(--mid); margin: 0.15rem 0; }
+
+  .sig-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.6rem;
+  }
+
+  .sig-contact-item {
+    font-size: 0.8rem;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .sig-contact-item a { color: var(--red); text-decoration: none; }
+
+  .safe-harbor {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #F0EDE8;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  /* FORM DELIVERABLE */
+  .form-container {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .form-header-bar {
+    background: var(--charcoal);
+    padding: 1.5rem;
+    color: var(--white);
+  }
+
+  .form-header-bar h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .form-header-bar p { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-top: 0.25rem; }
+
+  .form-body { padding: 1.75rem 1.5rem; }
+
+  .form-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(232,35,42,0.2);
+  }
+
+  .form-section { margin-bottom: 2rem; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--mid);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  label .req { color: var(--red); }
+
+  .field-input {
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    background: var(--light);
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  .field-input:focus { border-color: var(--red); background: var(--white); }
+  .field-input::placeholder { color: #BBB; }
+
+  select.field-input { cursor: pointer; }
+
+  .radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .radio-option, .checkbox-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--light);
+  }
+
+  .radio-option:hover, .checkbox-option:hover {
+    border-color: var(--red);
+    background: rgba(232,35,42,0.03);
+  }
+
+  .radio-option input, .checkbox-option input { margin-top: 2px; accent-color: var(--red); }
+
+  .radio-option-content .label-main {
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
+  .radio-option-content .label-sub {
+    font-size: 0.78rem;
+    color: var(--mid);
+    margin-top: 0.1rem;
+  }
+
+  .form-note {
+    background: rgba(212,168,67,0.08);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 7px;
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    color: #7A5E1A;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .form-submit {
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+    margin-top: 1rem;
+  }
+
+  .form-submit:hover { background: var(--red-dark); }
+
+  .form-disclaimer {
+    margin-top: 0.75rem;
+    font-size: 0.72rem;
+    color: #999;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .faq-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(26,26,26,0.04);
+    transition: box-shadow 0.2s;
+  }
+
+  .faq-item:hover { box-shadow: var(--shadow); }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+  }
+
+  .faq-q-text {
+    font-weight: 600;
+    font-size: 0.93rem;
+    color: var(--charcoal);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .faq-tag {
+    background: rgba(232,35,42,0.1);
+    color: var(--red);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+
+  .faq-chevron {
+    font-size: 1.1rem;
+    color: var(--mid);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .faq-answer {
+    display: none;
+    padding: 0 1.25rem 1.1rem;
+    font-size: 0.88rem;
+    color: var(--mid);
+    line-height: 1.75;
+    border-top: 1px solid var(--border);
+    padding-top: 0.9rem;
+  }
+
+  .faq-item.open .faq-answer { display: block; }
+
+  /* WHY MATTERS */
+  .matters-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .matters-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matters-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .matters-card.card-impact::before { background: var(--red); }
+  .matters-card.card-action::before { background: var(--accent-gold); }
+  .matters-card.card-solution::before { background: var(--accent-green); }
+
+  .matters-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .matters-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .card-impact .matters-icon { background: rgba(232,35,42,0.1); }
+  .card-action .matters-icon { background: rgba(212,168,67,0.1); }
+  .card-solution .matters-icon { background: rgba(46,204,113,0.1); }
+
+  .matters-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .matters-bullets { list-style: none; }
+
+  .matters-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--mid);
+  }
+
+  .matters-bullet:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .bullet-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-top: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  .card-impact .bullet-dot { background: var(--red); }
+  .card-action .bullet-dot { background: var(--accent-gold); }
+  .card-solution .bullet-dot { background: var(--accent-green); }
+
+  .matters-bullet strong { color: var(--charcoal); font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    margin-top: 2rem;
+    border-top: 2px solid var(--red);
+  }
+
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  /* PRINT BTN */
+  .action-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .btn-outline {
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--mid);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+  @media (max-width: 600px) {
+    .pathways, .form-row { grid-template-columns: 1fr; }
+    .hero { padding: 2.5rem 1.25rem 2rem; }
+    .section { padding: 2rem 1.25rem; }
+    .nav-tabs { gap: 0; }
+    .nav-tab { padding: 0 0.65rem; font-size: 0.68rem; }
+  }
+
+  @media print {
+    nav, .action-bar { display: none; }
+    .section { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <span class="bullet">⚡</span>
+    the charging network <span style="color:rgba(255,255,255,0.3);margin:0 0.4rem">|</span> AMPPED
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('email', this)">Email</button>
+    <button class="nav-tab" onclick="showSection('form', this)">Form</button>
+    <button class="nav-tab" onclick="showSection('faq', this)">FAQ</button>
+    <button class="nav-tab" onclick="showSection('matters', this)">Why It Matters</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Asset Recovery Initiative · California
+    </div>
+    <h1>EV Charger<br><em>Reactivation</em> Outreach Package</h1>
+    <p>A coordinated outreach system for site hosts with offline charging infrastructure — built to restore service, revenue, and community access.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Targets: <strong>&nbsp;120+ Day Offline Units</strong></div>
+      <div class="hero-meta-item">Region: <strong>&nbsp;California</strong></div>
+      <div class="hero-meta-item">Led by: <strong>&nbsp;AMPPED</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: EMAIL -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-email" class="section active">
+  <div class="section-header">
+    <div>
+      <h2>Warm Introduction Email</h2>
+      <p>Boilerplate outbound template — personalize fields in brackets before sending.</p>
+    </div>
+  </div>
+
+  <div class="email-container">
+    <div class="email-toolbar">
+      <div class="email-dots">
+        <span class="d1"></span><span class="d2"></span><span class="d3"></span>
+      </div>
+      <span class="email-label">Outreach Email Template</span>
+      <button class="email-copy-btn" onclick="copyEmail()">Copy Text</button>
+    </div>
+
+    <div class="email-header-fields">
+      <div class="email-field">
+        <span class="email-field-label">To:</span>
+        <span class="email-field-value">[Site Contact Name] — [Title, e.g., Facilities Manager / Property Manager / Concierge]</span>
+      </div>
+      <div class="email-field">
+        <span class="email-field-label">CC:</span>
+        <span class="email-field-value">[Asset Manager or Owner, if known]</span>
+      </div>
+      <div class="email-field">
+        <span class="email-field-label">From:</span>
+        <span class="email-field-value">Oz Rosario — <a href="mailto:oz.rosario@gmail.com">oz.rosario@gmail.com</a> · +1-619-987-4040</span>
+      </div>
+      <div class="email-field">
+        <span class="email-field-label">Subject:</span>
+        <span class="email-field-value">Your EV Chargers at [Property Name] — Let's Get Them Back Online</span>
+      </div>
+    </div>
+
+    <div class="email-body" id="email-content">
+      <p>Hi [First Name],</p>
+
+      <p>I hope this message finds you well. My name is Oz Rosario, and I'm the Founder of AMPPED — a San Diego-based infrastructure consultancy that partners with the charging network, a California-registered EV network operator, on our joint <strong>Asset Recovery & EV Charger Re-Activation Initiative</strong>.</p>
+
+      <p>We're reaching out because the charging network's public infrastructure monitoring tools identified EV charging unit(s) at a site you own or operate that appear to have been offline for an extended period — likely due to a network operator that may be decommissioned or no longer providing active service. We completely understand that this kind of disruption can happen without warning, and we want you to know that restoring service is very achievable.</p>
+
+      <p>Beyond the inconvenience, we know that offline chargers can mean <strong>lost revenue-sharing income</strong> for your property and reduced access to a service your community, residents or guests depend on. That's why we've put together a straightforward recovery program specifically for sites in this situation.</p>
+
+      <p><strong>Here's how the recovery works — two simple pathways:</strong></p>
+
+      <div class="pathways">
+        <div class="pathway">
+          <div class="pathway-label">✅ Option A — Unit is Functional</div>
+          <p>If your charger hardware is physically intact, we can often re-commission it onto the charging network's network with minimal disruption. No replacement hardware required in many cases.</p>
+        </div>
+        <div class="pathway">
+          <div class="pathway-label">🔧 Option B — Unit Needs Assessment</div>
+          <p>If the hardware has been damaged or is beyond recovery, our team will evaluate options for replacement or upgrade — with transparent cost conversations upfront, so there are no surprises.</p>
+        </div>
+      </div>
+
+      <p><strong>Our 5-step reactivation process is designed to be simple:</strong></p>
+
+      <div class="email-steps">
+        <p><strong>Step 1</strong> &nbsp;Complete the short Site Host Information Form (attached / linked below)</p>
+        <p><strong>Step 2</strong> &nbsp;We confirm your unit(s) and run a remote diagnostic</p>
+        <p><strong>Step 3</strong> &nbsp;We present a clear reactivation plan — no obligation</p>
+        <p><strong>Step 4</strong> &nbsp;Upon your approval, our certified technicians restore service</p>
+        <p><strong>Step 5</strong> &nbsp;Your charger goes live on the charging network's network, revenue sharing resumes</p>
+      </div>
+
+      <p>There is <strong>no cost to you</strong> for the initial assessment, and our team handles all coordination with the prior network operator if needed. We're here as your partner in this — not as a vendor pushing hardware.</p>
+
+      <p>To get started, all we need is for you to complete the attached <strong>Site Host Information Form</strong>. It takes about 5 minutes and gives us everything we need to begin the evaluation. If you have questions before filling it out, I'm happy to jump on a quick call at your convenience.</p>
+
+      <p>Thank you for the work you do to support your site and community, and we look forward to helping get your charging service back up and running.</p>
+
+      <p>Warm regards,</p>
+    </div>
+
+    <div class="email-signature">
+      <div class="sig-name">Oz Rosario</div>
+      <div class="sig-title">Founder &amp; Managing Principal, AMPPED<br>California Asset Recovery Program Lead — the charging network</div>
+      <div class="sig-contacts">
+        <span class="sig-contact-item">📧 <a href="mailto:oz.rosario@gmail.com">oz.rosario@gmail.com</a></span>
+        <span class="sig-contact-item">📞 <a href="tel:+16199874040">+1 (619) 987-4040</a></span>
+        
+      </div>
+      <div class="safe-harbor">
+        <strong>Safe Harbor Notice:</strong> This communication is intended solely for the authorized representative of the identified property or site. AMPPED and its network partner collect and process contact information only for the purpose of evaluating and facilitating EV charging infrastructure recovery. We do not sell, share, or use your information for marketing purposes unrelated to this initiative. This outreach does not constitute a binding agreement. All services are subject to a separate written agreement. Recipients who wish to be removed from future outreach may reply with "Unsubscribe" in the subject line.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: FORM -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-form" class="section">
+  <div class="section-header">
+    <div>
+      <h2>Site Host Information Form</h2>
+      <p>Structured intake form — presented here as an interactive prototype for layout reference.</p>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <div class="form-header-bar">
+      <h3>⚡ AMPPED — Site Host Information Form</h3>
+      <p>Asset Recovery &amp; EV Charger Re-Activation Initiative · California · Estimated completion time: 5 minutes</p>
+    </div>
+
+    <div class="form-body">
+
+      <!-- Section A -->
+      <div class="form-section">
+        <div class="form-section-title">Section A — Site &amp; Ownership Information</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Property / Site Name <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="e.g., Oceanview Apartments">
+          </div>
+          <div class="form-group">
+            <label>Property Street Address <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="123 Main St, City, CA ZIP">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Legal Ownership Entity Name <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="LLC, Corp, or Individual Name">
+          </div>
+          <div class="form-group">
+            <label>Entity Type <span class="req">*</span></label>
+            <select class="field-input">
+              <option value="">Select entity type…</option>
+              <option>LLC</option>
+              <option>Corporation (C or S)</option>
+              <option>Partnership</option>
+              <option>Individual / Sole Proprietor</option>
+              <option>Municipal / Government</option>
+              <option>HOA / Community Association</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Primary Contact Name <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="Full name">
+          </div>
+          <div class="form-group">
+            <label>Contact Title / Role <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="e.g., Facilities Manager, Owner">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address <span class="req">*</span></label>
+            <input class="field-input" type="email" placeholder="contact@company.com">
+          </div>
+          <div class="form-group">
+            <label>Phone Number <span class="req">*</span></label>
+            <input class="field-input" type="tel" placeholder="+1 (___) ___-____">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B -->
+      <div class="form-section">
+        <div class="form-section-title">Section B — Site Host Intent Confirmation</div>
+        <div class="form-group">
+          <label>Do you wish to maintain your status as an active EV charging site host? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="intent" value="yes">
+              <div class="radio-option-content">
+                <div class="label-main">Yes — I want to restore and continue EV charging services at this site</div>
+                <div class="label-sub">We'll proceed with an assessment and reactivation plan at no initial cost.</div>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="intent" value="evaluate">
+              <div class="radio-option-content">
+                <div class="label-main">Unsure — I'd like more information before deciding</div>
+                <div class="label-sub">Our team will reach out to answer questions with no obligation.</div>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="intent" value="no">
+              <div class="radio-option-content">
+                <div class="label-main">No — I do not wish to continue as a site host at this time</div>
+                <div class="label-sub">We may be able to help with responsible decommissioning if needed.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section C -->
+      <div class="form-section">
+        <div class="form-section-title">Section C — EV Charging Unit Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Number of EV Charging Units at This Site <span class="req">*</span></label>
+            <select class="field-input">
+              <option value="">Select…</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option>
+              <option>5–10</option><option>10+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Charger Level(s) Present</label>
+            <select class="field-input">
+              <option value="">Select…</option>
+              <option>Level 2 (AC)</option>
+              <option>DC Fast Charger (DCFC)</option>
+              <option>Both Level 2 &amp; DCFC</option>
+              <option>Unknown</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem">
+          <label>Serial Number(s) of Offline Unit(s) — for Network Authorization <span class="req">*</span></label>
+          <textarea class="field-input" rows="3" placeholder="Enter serial numbers, one per line. Found on unit label or original documentation. Contact us if not available — we can help locate."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Manufacturer / Brand (if known)</label>
+          <select class="field-input">
+            <option value="">Select or skip…</option>
+            <option>Autel</option><option>ChargePoint</option><option>Blink</option>
+            <option>EVgo</option><option>Enel X / JuiceBox</option><option>Clipper Creek</option>
+            <option>Wallbox</option><option>Tesla</option><option>Unknown</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Section D -->
+      <div class="form-section">
+        <div class="form-section-title">Section D — Data Usage &amp; Public Reporting Preference</div>
+        <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1rem;">the charging network uses site data to maintain network health monitoring and ensure charger availability. You may also opt in to public infrastructure reporting, which increases your site's visibility on EV driver apps and maps.</p>
+        <div class="form-group">
+          <label>Public Infrastructure Reporting Opt-In <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="data" value="opt-in">
+              <div class="radio-option-content">
+                <div class="label-main">✅ Opt In — Enable public reporting for this site</div>
+                <div class="label-sub">Your site will appear on PlugShare, Google Maps EV layers, and the charging network's public charger directory. Increases utilization and revenue potential.</div>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="data" value="private">
+              <div class="radio-option-content">
+                <div class="label-main">🔒 Keep Private — Network monitoring only, no public listing</div>
+                <div class="label-sub">Site data used only for network management and revenue reporting. Not listed publicly.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="form-note">
+          💡 <strong>Note:</strong> Sites that enable public reporting typically see 30–60% higher utilization rates and, where applicable, may qualify for additional utility program incentives tied to publicly accessible infrastructure.
+        </div>
+      </div>
+
+      <!-- Section E -->
+      <div class="form-section">
+        <div class="form-section-title">Section E — Network Connectivity</div>
+        <div class="form-group">
+          <label>Preferred Network Connectivity Method <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="connectivity" value="wifi">
+              <div class="radio-option-content">
+                <div class="label-main">📶 Existing Site Wi-Fi</div>
+                <div class="label-sub">We'll coordinate secure onboarding to your property network. Requires IT or facilities contact for credentials.</div>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="connectivity" value="hosted">
+              <div class="radio-option-content">
+                <div class="label-main">📡 the charging network Hosted Cellular (Recommended for Redundancy)</div>
+                <div class="label-sub">We provision a dedicated cellular data connection for the charger — no reliance on your site's internet. Most reliable option for uptime guarantees.</div>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="connectivity" value="dual">
+              <div class="radio-option-content">
+                <div class="label-main">🔁 Dual Redundancy (Wi-Fi Primary + Cellular Backup)</div>
+                <div class="label-sub">Maximum uptime assurance. Recommended for high-traffic properties.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section F -->
+      <div class="form-section">
+        <div class="form-section-title">Section F — Revenue Sharing &amp; ACH Payment Setup</div>
+        <p style="font-size:0.85rem;color:var(--mid);margin-bottom:1rem;">Revenue sharing from charging sessions will be distributed monthly via ACH direct deposit. This information is collected securely and used only for payment processing.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Bank Account Holder Name <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="Exact name on account">
+          </div>
+          <div class="form-group">
+            <label>Bank Name <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="e.g., Wells Fargo, Chase">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Routing Number <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="9-digit routing number">
+          </div>
+          <div class="form-group">
+            <label>Account Number <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="Account number">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Account Type <span class="req">*</span></label>
+            <select class="field-input">
+              <option value="">Select…</option>
+              <option>Checking</option>
+              <option>Savings</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tax ID / EIN (for 1099 reporting)</label>
+            <input class="field-input" type="text" placeholder="XX-XXXXXXX or SSN if individual">
+          </div>
+        </div>
+        <div class="form-note">
+          🔐 <strong>Security Note:</strong> Banking information is encrypted and transmitted via secure protocol. AMPPED and its network partner do not store raw banking credentials after ACH setup is complete. You will receive an authorization confirmation via email before any transfers are processed.
+        </div>
+      </div>
+
+      <!-- Section G: Signature -->
+      <div class="form-section">
+        <div class="form-section-title">Section G — Authorization</div>
+        <label class="checkbox-option">
+          <input type="checkbox">
+          <div class="radio-option-content">
+            <div class="label-main">I confirm I am authorized to submit this form on behalf of the property ownership entity listed above.</div>
+            <div class="label-sub">I understand this form initiates an evaluation process and does not constitute a binding agreement.</div>
+          </div>
+        </label>
+        <div style="margin-top:1rem">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Printed Name <span class="req">*</span></label>
+              <input class="field-input" type="text" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label>Date <span class="req">*</span></label>
+              <input class="field-input" type="date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Digital Signature (Type full name to sign) <span class="req">*</span></label>
+            <input class="field-input" type="text" placeholder="Type your name as signature" style="font-style:italic;font-size:1.05rem">
+          </div>
+        </div>
+      </div>
+
+      <button class="form-submit">Submit Site Host Information →</button>
+      <p class="form-disclaimer">Questions? Contact Oz Rosario · <a href="mailto:oz.rosario@gmail.com">oz.rosario@gmail.com</a> · (619) 987-4040<br>
+      Submission of this form initiates a no-obligation assessment. Data handled per our Privacy Policy.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: FAQ -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-faq" class="section">
+  <div class="section-header">
+    <div>
+      <h2>Frequently Asked Questions</h2>
+      <p>Anticipated questions from stakeholders across the RACI chain — front-line staff through ownership.</p>
+    </div>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Cost</span>
+          Is there any cost to us for the assessment or reactivation?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        The initial assessment — including remote diagnostics and a technician evaluation — is provided at no cost. If hardware replacement or upgrades are needed, we will present you with a transparent cost proposal before any work begins. There is no obligation to proceed, and we will never perform paid work without written approval.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Timeline</span>
+          How long does reactivation take?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        For units that are physically functional and simply need to be re-networked, reactivation can often be completed within 5–10 business days of form submission. If hardware assessment or replacement is required, timelines vary but we provide a clear schedule with milestones at the outset. We keep you updated at every stage.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Maintenance</span>
+          Who is responsible for ongoing maintenance after reactivation?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        the charging network assumes full responsibility for remote network monitoring, software updates, and first-response technical support as part of the network operating agreement. On-site physical maintenance is handled by the charging network's certified technician network — site hosts are not expected to perform any technical maintenance themselves.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Revenue</span>
+          How does revenue sharing work? When and how do we get paid?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Site hosts receive a percentage of gross charging session revenue, paid monthly via ACH direct deposit. The exact revenue share rate is established in the Site Host Agreement and varies based on site type and charger configuration — our team will walk you through the specifics for your property before you sign anything. You'll also receive a monthly reporting dashboard so you can track session activity and earnings in real time.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Technical</span>
+          Do we need to do anything to our building's internet or electrical system?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        In most cases, no changes to your building's electrical system are required — the charger circuit is already in place. For connectivity, we offer a hosted cellular option that requires no changes to your site's network infrastructure whatsoever. If you prefer to use your existing Wi-Fi, our team will coordinate securely with your IT contact to add the charger as a managed device.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Liability</span>
+          Are we exposed to any liability by hosting the charger?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        the charging network carries commercial general liability and errors & omissions insurance, and assumes operational liability for the charging equipment under the Site Host Agreement. We recommend consulting your property insurer to confirm your existing coverage aligns with hosting EV infrastructure — this is typically a straightforward rider or endorsement. We're happy to provide our certificate of insurance upon request.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Data</span>
+          What data do you collect, and how is it used?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        We collect session data (energy delivered, time, charger ID) for billing, revenue reporting, and network health monitoring. Payment information is encrypted and used only for ACH processing. We do not sell data to third parties. If you opt into public infrastructure reporting, your site location and charger availability status will be visible on public EV mapping platforms — no personal or financial data is ever shared publicly.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <div class="faq-q-text">
+          <span class="faq-tag">Non-Recovery</span>
+          What if the assessment finds the unit can't be recovered?
+        </div>
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        If your existing hardware is beyond recovery, we'll present hardware replacement or upgrade options with clear pricing and financing alternatives — including programs that may be available through California utility incentive programs. If you decide not to proceed, we can assist with responsible decommissioning and removal at no cost, and help you understand your options going forward. You are never left without a path forward.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: WHY IT MATTERS -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="section-matters" class="section">
+  <div class="section-header">
+    <div>
+      <h2>"Why This Matters" Reference</h2>
+      <p>Supporting content for stakeholder conversations — share with decision-makers or include as a leave-behind.</p>
+    </div>
+  </div>
+
+  <div class="matters-grid">
+
+    <div class="matters-card card-impact">
+      <div class="matters-card-header">
+        <div class="matters-icon">⚡</div>
+        <h3>Why Does This Matter?</h3>
+      </div>
+      <ul class="matters-bullets">
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Lost revenue sits idle.</strong> Every day a charger is offline, a revenue-sharing stream that your property is entitled to goes uncollected. Over 120 days, that represents a meaningful financial impact that can be restored with relatively simple action.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Your community is underserved.</strong> EV drivers — your residents, guests, or the public depending on the site — have lost access to infrastructure they rely on. This can affect satisfaction, retention, and your property's competitive position in the market.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>California's EV mandate is accelerating.</strong> With over 40% of new vehicle sales trending toward EVs statewide, charging availability is rapidly becoming a baseline amenity expectation — not a premium feature.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Inaction compounds the problem.</strong> Hardware left offline can degrade further from weather exposure, vandalism risk, or software obsolescence, increasing the cost and complexity of eventual recovery.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="matters-card card-action">
+      <div class="matters-card-header">
+        <div class="matters-icon">🎯</div>
+        <h3>What You Can Do About It</h3>
+      </div>
+      <ul class="matters-bullets">
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Complete the Site Host Information Form.</strong> This is the single most impactful action you can take right now. It takes 5 minutes and starts the evaluation with no commitment required.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Locate your unit's serial number.</strong> Usually found on a label affixed to the charger hardware. Having this ready speeds up the diagnostic phase significantly — if you can't locate it, no worries, our team can help track it down for you.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Flag this to your property ownership or asset management team.</strong> Decisions about network agreements and revenue sharing may require sign-off above the facilities level — the sooner the right people are looped in, the faster service can resume.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Schedule a call.</strong> If you'd prefer to talk it through before submitting anything, reach Oz Rosario directly at <strong>(619) 987-4040</strong> or <strong><a href="mailto:oz.rosario@gmail.com">oz.rosario@gmail.com</a></strong>. No pressure, no sales pitch — just straight answers.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="matters-card card-solution">
+      <div class="matters-card-header">
+        <div class="matters-icon">🔋</div>
+        <h3>The Long-Term Solution</h3>
+      </div>
+      <ul class="matters-bullets">
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>A network built for stability.</strong> It's a California-registered, financially stable network operator. Unlike smaller operators that may exit the market or go insolvent, the charging network's infrastructure is designed for long-term, continuous operation with defined SLA commitments.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Proactive monitoring — not reactive firefighting.</strong> Our network operations center monitors charger uptime 24/7. If a unit goes offline, our team is alerted and a response is initiated before most site hosts even notice — reducing or eliminating disruptions.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>Full operational accountability.</strong> Every site host receives monthly performance reports with uptime metrics, session counts, energy delivered, and revenue breakdown. Transparency is built into the model — you'll always know exactly how your chargers are performing.</span>
+        </li>
+        <li class="matters-bullet">
+          <span class="bullet-dot"></span>
+          <span><strong>AMPPED as your local advocate.</strong> As the California program lead, AMPPED is your dedicated point of contact throughout and beyond the reactivation process — providing local presence, rapid response, and ongoing relationship support that national operators simply cannot match.</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <strong>AMPPED</strong> · Asset Recovery &amp; EV Charger Re-Activation Initiative · California<br>
+  Oz Rosario · <a href="mailto:oz.rosario@gmail.com" style="color:rgba(255,255,255,0.5)">oz.rosario@gmail.com</a> · (619) 987-4040<br><br>
+  Method &amp; approach showcase · client and partner details intentionally redacted.
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('sectio

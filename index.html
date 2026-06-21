@@ -1,1179 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oz Rosario · AI Co-Development Portfolio</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <style>
-    :root {
-        --ink: #0c0b09;
-        --ink3: #3d3a35;
-        --mid: #7a7570;
-        --rule: #e2ddd8;
-        --cream: #f9f7f3;
-        --paper: #fff;
-        --gold: #b87d1a;
-        --gold2: rgba(184, 125, 26, 0.09);
-        --goldB: rgba(184, 125, 26, 0.32);
-        --teal: #106668;
-        --teal2: rgba(16, 102, 104, 0.09);
-        --tealB: rgba(16, 102, 104, 0.35);
-        --red: #a8312a;
-        --red2: rgba(168, 49, 42, 0.09);
-        --slate: #284568;
-        --slate2: rgba(40, 69, 104, 0.09);
-        --health: #2d6a4f;
-        --health2: rgba(45, 106, 79, 0.09);
-        --healthB: rgba(45, 106, 79, 0.35);
-        --media: #6b3fa0;
-        --media2: rgba(107, 63, 160, 0.09);
-        --mediaB: rgba(107, 63, 160, 0.35);
-        --slateB: rgba(40, 69, 104, 0.35);
-    }
-
-    *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    html {
-        font-size: 15px;
-    }
-
-    body {
-        font-family: 'DM Sans', sans-serif;
-        background: var(--cream);
-        color: var(--ink);
-        line-height: 1.65;
-    }/* HERO */
-    .hero {
-        background: var(--ink);
-        padding: 60px 64px 52px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero-grid {
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-        background-size: 42px 42px;
-        pointer-events: none;
-    }
-
-    .hero-inner {
-        position: relative;
-        z-index: 2;
-        max-width: 960px;
-        margin: 0 auto;
-    }
-
-    .hero-eyebrow {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .hero-eyebrow::before {
-        content: '';
-        width: 24px;
-        height: 1px;
-        background: var(--gold);
-    }
-
-    .hero-name {
-        font-family: 'DM Serif Display', serif;
-        font-size: clamp(36px, 4.5vw, 54px);
-        line-height: 1.08;
-        color: #fff;
-        margin-bottom: 6px;
-    }
-
-    .hero-name em {
-        color: var(--gold);
-        font-style: italic;
-    }
-
-    .hero-sub {
-        font-size: 13px;
-        font-weight: 300;
-        color: rgba(255, 255, 255, 0.42);
-        max-width: 580px;
-        line-height: 1.75;
-        margin-bottom: 36px;
-    }
-
-    .hero-sub strong {
-        color: rgba(255, 255, 255, 0.72);
-        font-weight: 500;
-    }
-
-    .hero-stats {
-        display: flex;
-        gap: 36px;
-        flex-wrap: wrap;
-        border-top: 1px solid rgba(255, 255, 255, 0.07);
-        padding-top: 24px;
-    }
-
-    .hs-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .hs-icon {
-        color: var(--gold);
-        font-size: 16px;
-    }
-
-    .hs-val {
-        font-family: 'DM Serif Display', serif;
-        font-size: 20px;
-        color: var(--gold);
-    }
-
-    .hs-lbl {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        color: rgba(255, 255, 255, 0.3);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        line-height: 1.5;
-    }/* STRIP */
-    .strip {
-        background: var(--paper);
-        border-bottom: 1px solid var(--rule);
-        padding: 13px 64px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .strip-name {
-        font-family: 'DM Serif Display', serif;
-        font-size: 15px;
-        color: var(--ink);
-    }
-
-    .strip-sub {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        color: var(--mid);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-top: 2px;
-    }
-
-    .strip-contact {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        color: var(--mid);
-        text-align: right;
-        line-height: 1.9;
-    }
-
-    .strip-contact a {
-        color: var(--teal);
-        text-decoration: none;
-    }/* LAYOUT */
-    .wrap {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 0 64px;
-    }
-
-    .section {
-        padding: 52px 0;
-        border-bottom: 1px solid var(--rule);
-    }
-
-    .section:last-child {
-        border-bottom: none;
-    }
-
-    .sec-eyebrow {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8.5px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 5px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .sec-title {
-        font-family: 'DM Serif Display', serif;
-        font-size: clamp(20px, 2.4vw, 26px);
-        color: var(--ink);
-        letter-spacing: -0.01em;
-        line-height: 1.2;
-        margin-bottom: 5px;
-    }
-
-    .sec-sub {
-        font-size: 13px;
-        color: var(--mid);
-        line-height: 1.72;
-        max-width: 640px;
-        margin-bottom: 28px;
-    }/* BRIEF CARD */
-    .brief-card {
-        background: var(--ink);
-        border-radius: 10px;
-        padding: 36px 40px;
-        display: grid;
-        grid-template-columns: 1fr 280px;
-        gap: 40px;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .brief-grid-bg {
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-        background-size: 40px 40px;
-        pointer-events: none;
-    }
-
-    .brief-inner {
-        position: relative;
-        z-index: 2;
-    }
-
-    .brief-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        background: rgba(184, 125, 26, 0.12);
-        border: 1px solid rgba(184, 125, 26, 0.35);
-        border-radius: 3px;
-        padding: 5px 12px;
-        margin-bottom: 14px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8.5px;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        color: var(--gold);
-    }
-
-    .brief-title {
-        font-family: 'DM Serif Display', serif;
-        font-size: 22px;
-        color: #fff;
-        line-height: 1.2;
-        margin-bottom: 8px;
-    }
-
-    .brief-title em {
-        color: var(--gold);
-        font-style: italic;
-    }
-
-    .brief-desc {
-        font-size: 12.5px;
-        color: rgba(255, 255, 255, 0.45);
-        line-height: 1.72;
-        margin-bottom: 20px;
-    }
-
-    .brief-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--gold);
-        color: var(--ink);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 10px 20px;
-        border-radius: 3px;
-        text-decoration: none;
-        font-weight: 500;
-        transition: opacity 0.18s;
-    }
-
-    .brief-link:hover {
-        opacity: 0.88;
-    }
-
-    .brief-chips-col {
-        position: relative;
-        z-index: 2;
-    }
-
-    .bc-label {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.25);
-        margin-bottom: 12px;
-    }
-
-    .bc-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .bc-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        color: rgba(255, 255, 255, 0.45);
-        padding: 5px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .bc-item:last-child {
-        border-bottom: none;
-    }
-
-    .bc-item i {
-        color: var(--gold);
-        font-size: 12px;
-        flex-shrink: 0;
-    }/* ENGAGEMENT CARDS */
-    .eng-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-    }
-
-    .eng-card {
-        background: var(--paper);
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        overflow: hidden;
-        transition: border-color 0.18s, transform 0.15s;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .eng-card:hover {
-        border-color: var(--gold);
-        transform: translateY(-3px);
-    }
-
-    .eng-header {
-        padding: 20px 22px 16px;
-        border-bottom: 1px solid var(--rule);
-    }
-
-    .eng-sector-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .eng-sector {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        letter-spacing: 0.11em;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .eng-sector i {
-        font-size: 12px;
-    }
-
-    .eng-count {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        color: var(--mid);
-        background: var(--cream);
-        border: 1px solid var(--rule);
-        border-radius: 2px;
-        padding: 2px 7px;
-    }
-
-    .eng-client {
-        font-family: 'DM Serif Display', serif;
-        font-size: 18px;
-        color: var(--ink);
-        line-height: 1.2;
-        margin-bottom: 4px;
-    }
-
-    .eng-role {
-        font-size: 11.5px;
-        color: var(--mid);
-        line-height: 1.5;
-    }
-
-    .eng-body {
-        padding: 16px 22px;
-        flex: 1;
-    }
-
-    .eng-desc {
-        font-size: 12px;
-        color: var(--ink3);
-        line-height: 1.65;
-        margin-bottom: 16px;
-    }/* ARTIFACT ROWS — the upgrade */
-    .art-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .art-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 10px 14px;
-        border: 1px solid var(--rule);
-        border-radius: 5px;
-        background: var(--cream);
-        transition: border-color 0.15s, background 0.15s;
-    }
-
-    .art-row:hover {
-        background: var(--paper);
-    }
-
-    .art-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex: 1;
-        min-width: 0;
-    }
-
-    .art-left i {
-        font-size: 15px;
-        flex-shrink: 0;
-    }
-
-    .art-name {
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--ink);
-        line-height: 1.3;
-    }
-
-    .art-type {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        color: var(--mid);
-        margin-top: 1px;
-    }/* COLOR-THEMED OPEN BUTTONS */
-    .art-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8.5px;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        padding: 6px 12px;
-        border-radius: 3px;
-        border: 1.5px solid;
-        text-decoration: none;
-        white-space: nowrap;
-        flex-shrink: 0;
-        transition: background 0.15s, color 0.15s;
-        font-weight: 500;
-    }
-
-    .art-btn i {
-        font-size: 11px;
-    }
-
-    .btn-health {
-        color: var(--health);
-        border-color: var(--healthB);
-        background: var(--health2);
-    }
-
-    .btn-health:hover {
-        background: var(--health);
-        color: #fff;
-    }
-
-    .btn-media {
-        color: var(--media);
-        border-color: var(--mediaB);
-        background: var(--media2);
-    }
-
-    .btn-media:hover {
-        background: var(--media);
-        color: #fff;
-    }
-
-    .btn-slate {
-        color: var(--slate);
-        border-color: var(--slateB);
-        background: var(--slate2);
-    }
-
-    .btn-slate:hover {
-        background: var(--slate);
-        color: #fff;
-    }
-
-    .btn-gold {
-        color: var(--gold);
-        border-color: var(--goldB);
-        background: var(--gold2);
-    }
-
-    .btn-gold:hover {
-        background: var(--gold);
-        color: #fff;
-    }
-
-    .btn-teal {
-        color: var(--teal);
-        border-color: var(--tealB);
-        background: var(--teal2);
-    }
-
-    .btn-teal:hover {
-        background: var(--teal);
-        color: #fff;
-    }
-
-    .eng-footer {
-        padding: 12px 22px;
-        border-top: 1px solid var(--rule);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        background: var(--cream);
-    }
-
-    .tt {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8px;
-        padding: 2px 7px;
-        border-radius: 2px;
-        letter-spacing: 0.04em;
-    }
-
-    .tt-g {
-        background: var(--gold2);
-        color: var(--gold);
-        border: 1px solid rgba(184, 125, 26, 0.25);
-    }
-
-    .tt-t {
-        background: var(--teal2);
-        color: var(--teal);
-        border: 1px solid rgba(16, 102, 104, 0.25);
-    }
-
-    .tt-s {
-        background: var(--slate2);
-        color: var(--slate);
-        border: 1px solid rgba(40, 69, 104, 0.25);
-    }
-
-    .tt-h {
-        background: var(--health2);
-        color: var(--health);
-        border: 1px solid rgba(45, 106, 79, 0.25);
-    }
-
-    .tt-m {
-        background: var(--media2);
-        color: var(--media);
-        border: 1px solid rgba(107, 63, 160, 0.25);
-    }/* LEGEND */
-    .legend {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        padding: 20px 0;
-        border-top: 1px solid var(--rule);
-        border-bottom: 1px solid var(--rule);
-        margin-bottom: 28px;
-    }
-
-    .leg-item {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 8.5px;
-        color: var(--mid);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-    }
-
-    .leg-item i {
-        font-size: 14px;
-    }/* METHODOLOGY */
-    .method-strip {
-        background: var(--paper);
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        padding: 24px 28px;
-        display: grid;
-        grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr;
-        gap: 20px;
-    }
-
-    .ms-item {
-        text-align: center;
-    }
-
-    .ms-icon {
-        font-size: 22px;
-        margin-bottom: 8px;
-    }
-
-    .ms-platform {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--ink);
-        font-weight: 500;
-        margin-bottom: 3px;
-    }
-
-    .ms-role {
-        font-size: 11px;
-        color: var(--mid);
-        line-height: 1.5;
-    }
-
-    .ms-divider {
-        background: var(--rule);
-        align-self: stretch;
-    }/* FOOTER */
-    .footer {
-        background: var(--ink);
-        color: rgba(255, 255, 255, 0.28);
-        padding: 20px 64px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 0.07em;
-    }
-
-    .footer-right {
-        color: var(--gold);
-    }
-
-    @media (max-width: 800px) {
-        .hero, .wrap, .strip, .footer {
-            padding-left: 24px;
-            padding-right: 24px;
-        }
-
-        .brief-card, .eng-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .brief-chips-col {
-            display: none;
-        }
-
-        .method-strip {
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .ms-divider {
-            display: none;
-        }
-
-        .art-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        .art-btn {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oz Rosario — AI Strategic Operator · Co-Development Portfolio</title>
+<meta name="description" content="Translating complex operations into agentic AI infrastructure. 15 AI co-development engagements across infrastructure, field operations, enterprise integration, and margin defense.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c0b09; --ink2:#15130f; --surface:#191712; --surface2:#211e18; --border:#2c281f; --border-l:#3a352a;
+  --cream:#f3efe6; --muted:#a59c88; --dim:#6b6353;
+  --t1:#d99a2b; --t1d:#b87d1a;     /* gold */
+  --t2:#2bb3a6; --t2d:#106668;     /* teal */
+  --t3:#5a8fd6; --t3d:#284568;     /* slate */
+  --t4:#3fbf73; --t4d:#1a6b3a;     /* green */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(243,239,230,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(243,239,230,.018) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 26px}
+.mono{font-family:'JetBrains Mono',monospace}
+h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;line-height:1.12}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(12,11,9,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 26px}
+nav .brand{font-family:'DM Serif Display',serif;font-size:19px}
+nav .brand span{color:var(--t1)}
+nav .links{display:flex;gap:22px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.04em}
+nav .links a{color:var(--muted);text-decoration:none;transition:color .2s}
+nav .links a:hover{color:var(--cream)}
+@media(max-width:680px){nav .links{display:none}}
+
+/* hero */
+.hero{padding:92px 0 64px;border-bottom:1px solid var(--border)}
+.hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--t1);margin-bottom:22px}
+.hero h1{font-size:clamp(40px,6.6vw,72px);letter-spacing:-.015em;margin-bottom:24px;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--t1)}
+.hero .sub{font-family:'JetBrains Mono',monospace;font-size:13.5px;letter-spacing:.05em;color:var(--muted);margin-bottom:22px}
+.hero .copy{font-size:clamp(17px,2.1vw,20px);color:var(--cream);opacity:.9;max-width:760px}
+.hero .copy b{color:var(--t1);font-weight:600}
+.statline{display:flex;flex-wrap:wrap;gap:36px;margin-top:42px}
+.stat .v{font-family:'DM Serif Display',serif;font-size:clamp(34px,4.5vw,46px);color:var(--cream)}
+.stat .v small{font-size:.5em;color:var(--t1);font-family:'JetBrains Mono',monospace;vertical-align:super}
+.stat .l{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* amped engine */
+.amped{padding:64px 0;border-bottom:1px solid var(--border);background:var(--ink2)}
+.sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--t1);margin-bottom:14px}
+.sec-title{font-size:clamp(28px,3.8vw,40px);margin-bottom:14px;letter-spacing:-.01em}
+.sec-sub{font-size:17px;color:var(--muted);max-width:680px;margin-bottom:36px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;position:relative}
+.step .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t1);letter-spacing:.1em;margin-bottom:14px}
+.step h3{font-size:21px;margin-bottom:10px}
+.step p{font-size:14.5px;color:var(--muted)}
+.step .arrow{position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px;z-index:2}
+@media(max-width:760px){.steps{grid-template-columns:1fr}.step .arrow{display:none}}
+
+/* themes + cards */
+.theme{padding:58px 0;border-bottom:1px solid var(--border)}
+.theme-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+.theme-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;padding:4px 11px;border-radius:6px}
+.theme-name{font-size:clamp(24px,3.2vw,32px);letter-spacing:-.01em}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:780px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-3px)}
+.card .ct{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.card .sector{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
+.card h3{font-size:21px;margin-bottom:10px;line-height:1.2}
+.card p{font-size:14.5px;color:var(--muted);flex:1}
+.card .foot{display:flex;align-items:center;gap:14px;margin-top:18px}
+.open{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.06em;text-decoration:none;padding:9px 18px;border-radius:8px;border:1px solid;transition:all .18s;display:inline-flex;align-items:center;gap:7px}
+.open::after{content:'→';transition:transform .18s}
+.open:hover::after{transform:translateX(3px)}
+.sub-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--dim);transition:color .18s}
+.sub-link:hover{color:var(--cream)}
+
+/* theme color binding */
+.t1 .theme-num{background:rgba(217,154,43,.14);color:var(--t1)} .t1 .sector{background:rgba(217,154,43,.12);color:var(--t1)} .t1 .card:hover{border-color:var(--t1d)} .t1 .open{color:var(--t1);border-color:var(--t1d)} .t1 .open:hover{background:var(--t1);color:var(--ink)}
+.t2 .theme-num{background:rgba(43,179,166,.14);color:var(--t2)} .t2 .sector{background:rgba(43,179,166,.12);color:var(--t2)} .t2 .card:hover{border-color:var(--t2d)} .t2 .open{color:var(--t2);border-color:var(--t2d)} .t2 .open:hover{background:var(--t2);color:var(--ink)}
+.t3 .theme-num{background:rgba(90,143,214,.14);color:var(--t3)} .t3 .sector{background:rgba(90,143,214,.12);color:var(--t3)} .t3 .card:hover{border-color:var(--t3d)} .t3 .open{color:var(--t3);border-color:var(--t3d)} .t3 .open:hover{background:var(--t3);color:var(--ink)}
+.t4 .theme-num{background:rgba(63,191,115,.14);color:var(--t4)} .t4 .sector{background:rgba(63,191,115,.12);color:var(--t4)} .t4 .card:hover{border-color:var(--t4d)} .t4 .open{color:var(--t4);border-color:var(--t4d)} .t4 .open:hover{background:var(--t4);color:var(--ink)}
+
+/* footer */
+footer{padding:60px 0 80px}
+.foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+.foot-grid h2{font-size:clamp(26px,3.4vw,36px);margin-bottom:10px}
+.foot-grid .contact{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--t1)}
+.foot-grid .contact a{color:var(--t1);text-decoration:none}
+.foot-meta{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--dim);text-align:right;line-height:1.8}
+.redaction{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--dim);margin-top:40px;padding-top:22px;border-top:1px solid var(--border)}
+</style>
 </head>
 <body>
 
-    <div class="hero">
-        <div class="hero-grid"></div>
-        <div class="hero-inner">
-            <div class="hero-eyebrow">AI Co-Development Portfolio · 2026</div>
-            <div class="hero-name">
-                Oz Rosario.
-                <br>
-                <em>Proof of Work.</em>
-            </div>
-            <div class="hero-sub">
-                Five enterprise engagements across five verticals — each built from a live discovery call, with zero lines of code, in real time. This is what 
-                <strong>AI-augmented business development</strong>
-                 looks like in production.
-            </div>
-            <div class="hero-stats">
-                <div class="hs-item">
-                    <i class="ti ti-stack hs-icon"></i>
-                    <div>
-                        <div class="hs-val">5</div>
-                        <div class="hs-lbl">Verticals covered</div>
-                    </div>
-                </div>
-                <div class="hs-item">
-                    <i class="ti ti-packages hs-icon"></i>
-                    <div>
-                        <div class="hs-val">9</div>
-                        <div class="hs-lbl">Production artifacts</div>
-                    </div>
-                </div>
-                <div class="hs-item">
-                    <i class="ti ti-cpu hs-icon"></i>
-                    <div>
-                        <div class="hs-val">5</div>
-                        <div class="hs-lbl">AI platforms in stack</div>
-                    </div>
-                </div>
-                <div class="hs-item">
-                    <i class="ti ti-code-off hs-icon"></i>
-                    <div>
-                        <div class="hs-val">0</div>
-                        <div class="hs-lbl">Lines of code written</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<nav>
+  <div class="wrap">
+    <div class="brand">Oz Rosario<span>.</span></div>
+    <div class="links">
+      <a href="#engine">The AMPPED Engine</a>
+      <a href="#work">Engagements</a>
+      <a href="#contact">Contact</a>
     </div>
+  </div>
+</nav>
 
-    <div class="strip">
-        <div>
-            <div class="strip-name">Oz Rosario</div>
-            <div class="strip-sub">Founder · AMPPED &nbsp;·&nbsp; CGSO · VisLogic.AI &nbsp;·&nbsp; Director · SASE-Experts &nbsp;·&nbsp; San Diego, CA</div>
-        </div>
-        <div class="strip-contact">
-
-                oz.rosario@gmail.com &nbsp;·&nbsp; 619.987.4040 &nbsp;·&nbsp;
-                
-            <a href="https://linkedin.com/in/ozrosario">linkedin.com/in/ozrosario</a>
-        </div>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">AI Strategic Operator</div>
+    <h1>Translating complex operations into <em>agentic AI infrastructure</em>.</h1>
+    <div class="sub">VisLogic.AI &nbsp;·&nbsp; Oz Rosario, Chief Growth &amp; Strategy Officer</div>
+    <p class="copy">I identify operational friction, architect <b>deterministic AI systems</b>, and deploy them to drive sub-linear scaling, protect margins, and enforce enterprise compliance.</p>
+    <div class="statline">
+      <div class="stat"><div class="v">15<small>★</small></div><div class="l">AI Co-Development Engagements</div></div>
+      <div class="stat"><div class="v">4</div><div class="l">Strategic Themes</div></div>
+      <div class="stat"><div class="v">3</div><div class="l">Ventures Operated</div></div>
     </div>
+  </div>
+</header>
 
-    <div class="wrap">
-
-        <!-- BRIEF -->
-        <div class="section">
-            <div class="sec-eyebrow">
-                <i class="ti ti-star"></i>
-                 Anchor Document
-            </div>
-            <div class="sec-title">AI Operator Brief — The Day in Full</div>
-            <div class="sec-sub">The brief below documents a single working day — from discovery call to 12 production deliverables — and defines the operating model behind every engagement in this portfolio.</div>
-            <div class="brief-card">
-                <div class="brief-grid-bg"></div>
-                <div class="brief-inner">
-                    <div class="brief-badge">
-                        <i class="ti ti-bolt"></i>
-                         Executive Brief · v6 · 2026
-                    </div>
-                    <div class="brief-title">
-                        One Day.
-                        <br>
-                        <em>Twelve Deliverables.</em>
-                    </div>
-                    <div class="brief-desc">Six hours of active build time. Five AI platforms in rotation. A municipal discovery call turned into a 12-artifact intelligence program — dashboards, Python correlation engine, $694K ROI model, captain's presentation — before end of day. Zero lines of code written.</div>
-                    <a class="brief-link" href="brief.html" target="_blank">
-                        <i class="ti ti-external-link"></i>
-                         Open Full Brief
-                    </a>
-                </div>
-                <div class="brief-chips-col">
-                    <div class="bc-label">What's inside</div>
-                    <div class="bc-grid">
-                        <div class="bc-item">
-                            <i class="ti ti-user-check"></i>
-                             AI Operator Classification
-                        </div>
-                        <div class="bc-item">
-                            <i class="ti ti-timeline"></i>
-                             Sprint Timeline — Hour by Hour
-                        </div>
-                        <div class="bc-item">
-                            <i class="ti ti-packages"></i>
-                             12 Production Deliverables
-                        </div>
-                        <div class="bc-item">
-                            <i class="ti ti-brain"></i>
-                             Skills Inventory with Proof
-                        </div>
-                        <div class="bc-item">
-                            <i class="ti ti-bulb"></i>
-                             Ozolosophy — Directed Dev Framework
-                        </div>
-                        <div class="bc-item">
-                            <i class="ti ti-map-2"></i>
-                             Growth Map — Next Unlocks
-                        </div>
-                        <div class="bc-item">
-                            <i class="ti ti-quote"></i>
-                             In His Own Words
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ENGAGEMENTS -->
-        <div class="section">
-            <div class="sec-eyebrow">
-                <i class="ti ti-briefcase"></i>
-                 Client Engagements
-            </div>
-            <div class="sec-title">Five Verticals. Five Proof Points.</div>
-            <div class="sec-sub">Each engagement below was built co-operatively with AI — scoped from a live client context, structured for enterprise decision-makers, and delivered as production-grade artifacts.</div>
-
-            <div class="legend">
-                <div class="leg-item" style="color:var(--health);">
-                    <i class="ti ti-heart-rate-monitor"></i>
-                     Healthcare / MedDevices
-                </div>
-                <div class="leg-item" style="color:var(--media);">
-                    <i class="ti ti-device-tv"></i>
-                     Consumer Electronics
-                </div>
-                <div class="leg-item" style="color:var(--slate);">
-                    <i class="ti ti-shield"></i>
-                     Government / GSA
-                </div>
-                <div class="leg-item" style="color:var(--gold);">
-                    <i class="ti ti-building"></i>
-                     Real Estate / PropTech
-                </div>
-                <div class="leg-item" style="color:var(--teal);">
-                    <i class="ti ti-wifi"></i>
-                     Telecommunications
-                </div>
-            </div>
-
-            <div class="eng-grid">
-
-                <!-- HAKU -->
-                <div class="eng-card">
-                    <div class="eng-header">
-                        <div class="eng-sector-row">
-                            <div class="eng-sector" style="color:var(--health);">
-                                <i class="ti ti-heart-rate-monitor"></i>
-                                 Healthcare / MedDevices
-                            </div>
-                            <div class="eng-count">3 artifacts</div>
-                        </div>
-                        <div class="eng-client">Haku Technologies</div>
-                        <div class="eng-role">AI Strategy · Collaborative Session · QA/QMS/CAPA Flow</div>
-                    </div>
-                    <div class="eng-body">
-                        <div class="eng-desc">Enterprise AI scoping across a regulated medical device environment — workflow automation, quality management systems, and FDA-adjacent compliance architecture.</div>
-                        <div class="art-list">
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-messages" style="color:var(--health);"></i>
-                                    <div>
-                                        <div class="art-name">Collaboration Session</div>
-                                        <div class="art-type">Discovery · Stakeholder Mapping · Use Cases</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-health" href="haku-collab.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-presentation-analytics" style="color:var(--health);"></i>
-                                    <div>
-                                        <div class="art-name">Real Demo</div>
-                                        <div class="art-type">Live Platform Demo · Clinical Ops Value Framing</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-health" href="haku-demo.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-git-branch" style="color:var(--health);"></i>
-                                    <div>
-                                        <div class="art-name">QA + QMS + CAPA Flow</div>
-                                        <div class="art-type">Process Architecture · Corrective Action</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-health" href="haku-qms.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="eng-footer">
-                        <span class="tt tt-h">MedDevice</span>
-                        <span class="tt tt-h">QMS</span>
-                        <span class="tt tt-h">Regulated AI</span>
-                    </div>
-                </div>
-
-                <!-- VIZIO -->
-                <div class="eng-card">
-                    <div class="eng-header">
-                        <div class="eng-sector-row">
-                            <div class="eng-sector" style="color:var(--media);">
-                                <i class="ti ti-device-tv"></i>
-                                 Consumer Electronics / Media Tech
-                            </div>
-                            <div class="eng-count">1 artifact</div>
-                        </div>
-                        <div class="eng-client">Vizio</div>
-                        <div class="eng-role">Strategic Account Management · Director-Level Engagement</div>
-                    </div>
-                    <div class="eng-body">
-                        <div class="eng-desc">Executive-level engagement playbook targeting Vizio's Director of Strategic Account Management role — platform ecosystem positioning, OEM partnership architecture, and connected device GTM strategy.</div>
-                        <div class="art-list">
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-map" style="color:var(--media);"></i>
-                                    <div>
-                                        <div class="art-name">Engagement Playbook</div>
-                                        <div class="art-type">Strategy Brief · Stakeholder Map · Account Entry</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-media" href="vizio.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="eng-footer">
-                        <span class="tt tt-m">Consumer Electronics</span>
-                        <span class="tt tt-m">GTM</span>
-                        <span class="tt tt-m">OEM</span>
-                    </div>
-                </div>
-
-                <!-- SDLG -->
-                <div class="eng-card">
-                    <div class="eng-header">
-                        <div class="eng-sector-row">
-                            <div class="eng-sector" style="color:var(--slate);">
-                                <i class="ti ti-shield"></i>
-                                 Government / GSA
-                            </div>
-                            <div class="eng-count">1 artifact</div>
-                        </div>
-                        <div class="eng-client">San Diego Lifeguard Association</div>
-                        <div class="eng-role">Municipal Intelligence · Ops Command · Pentagon Model</div>
-                    </div>
-                    <div class="eng-body">
-                        <div class="eng-desc">The flagship engagement. A full municipal AI program built in one working day — 10am discovery call to 12-deliverable intelligence suite with live data dashboard, NOAA correlation engine, and $694K ROI model.</div>
-                        <div class="art-list">
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-pentagon" style="color:var(--slate);"></i>
-                                    <div>
-                                        <div class="art-name">Ops Command / Pentagon Model</div>
-                                        <div class="art-type">8-Tab Dashboard · Staffing Model · ROI · Data Matrix</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-slate" href="sdlg.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="eng-footer">
-                        <span class="tt tt-s">B2G</span>
-                        <span class="tt tt-s">Municipal AI</span>
-                        <span class="tt tt-s">ROI Modeling</span>
-                    </div>
-                </div>
-
-                <!-- PROPERTY ADVANTAGE -->
-                <div class="eng-card">
-                    <div class="eng-header">
-                        <div class="eng-sector-row">
-                            <div class="eng-sector" style="color:var(--gold);">
-                                <i class="ti ti-building"></i>
-                                 Real Estate / PropTech
-                            </div>
-                            <div class="eng-count">2 artifacts</div>
-                        </div>
-                        <div class="eng-client">Property Advantage</div>
-                        <div class="eng-role">AI Engagement Strategy · ROI Positioning</div>
-                    </div>
-                    <div class="eng-body">
-                        <div class="eng-desc">Multi-family and commercial real estate AI scoping — data platform strategy, operational automation, and financial positioning for property management decision-makers.</div>
-                        <div class="art-list">
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-target" style="color:var(--gold);"></i>
-                                    <div>
-                                        <div class="art-name">Engagement Strategy</div>
-                                        <div class="art-type">Discovery · Use Case Prioritization · Onboarding</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-gold" href="propadv-engagement.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-calculator" style="color:var(--gold);"></i>
-                                    <div>
-                                        <div class="art-name">ROI Positioning</div>
-                                        <div class="art-type">Financial Model · Value Narrative · Owner Audience</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-gold" href="propadv-roi.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="eng-footer">
-                        <span class="tt tt-g">PropTech</span>
-                        <span class="tt tt-g">MDU</span>
-                        <span class="tt tt-g">ROI</span>
-                    </div>
-                </div>
-
-                <!-- CITYSIDE — full width -->
-                <div class="eng-card" style="grid-column:1/-1;">
-                    <div class="eng-header">
-                        <div class="eng-sector-row">
-                            <div class="eng-sector" style="color:var(--teal);">
-                                <i class="ti ti-wifi"></i>
-                                 Telecommunications / Market Development
-                            </div>
-                            <div class="eng-count">1 artifact</div>
-                        </div>
-                        <div class="eng-client">Cityside Fiber</div>
-                        <div class="eng-role">Market Development Playbook · New Market Entry Strategy</div>
-                    </div>
-                    <div class="eng-body" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;">
-                        <div class="eng-desc" style="margin-bottom:0;">Enterprise market development playbook for a fiber infrastructure operator entering new geographic markets — channel strategy, partner ecosystem architecture, MDU access strategy, and revenue modeling for expansion scenarios.</div>
-                        <div class="art-list">
-                            <div class="art-row">
-                                <div class="art-left">
-                                    <i class="ti ti-map-route" style="color:var(--teal);"></i>
-                                    <div>
-                                        <div class="art-name">Market Development Playbook</div>
-                                        <div class="art-type">Market Entry · Channel Activation · MDU · Revenue Ramp</div>
-                                    </div>
-                                </div>
-                                <a class="art-btn btn-teal" href="cityside.html" target="_blank">
-                                    <i class="ti ti-external-link"></i>
-                                     Open
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="eng-footer">
-                        <span class="tt tt-t">Telecom</span>
-                        <span class="tt tt-t">Market Entry</span>
-                        <span class="tt tt-t">MDU</span>
-                        <span class="tt tt-t">Channel Strategy</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- METHODOLOGY -->
-        <div class="section">
-            <div class="sec-eyebrow">
-                <i class="ti ti-layers-subtract"></i>
-                 Operating Methodology
-            </div>
-            <div class="sec-title">The Five-Platform AI Stack</div>
-            <div class="sec-sub">Every engagement in this portfolio was produced using the same deliberate multi-model workflow — each platform selected for what it does best.</div>
-            <div class="method-strip">
-                <div class="ms-item">
-                    <div class="ms-icon" style="color:var(--gold);">
-                        <i class="ti ti-wand"></i>
-                    </div>
-                    <div class="ms-platform">PromptCowboy</div>
-                    <div class="ms-role">Prompt refinement before deployment</div>
-                </div>
-                <div class="ms-divider"></div>
-                <div class="ms-item">
-                    <div class="ms-icon" style="color:var(--teal);">
-                        <i class="ti ti-bolt"></i>
-                    </div>
-                    <div class="ms-platform">Gemini</div>
-                    <div class="ms-role">Fast directional sanity check</div>
-                </div>
-                <div class="ms-divider"></div>
-                <div class="ms-item">
-                    <div class="ms-icon" style="color:var(--slate);">
-                        <i class="ti ti-message-dots"></i>
-                    </div>
-                    <div class="ms-platform">ChatGPT</div>
-                    <div class="ms-role">Depth + narrative consistency</div>
-                </div>
-                <div class="ms-divider"></div>
-                <div class="ms-item">
-                    <div class="ms-icon" style="color:var(--red);">
-                        <i class="ti ti-cpu"></i>
-                    </div>
-                    <div class="ms-platform">Claude</div>
-                    <div class="ms-role">Production asset assembly</div>
-                </div>
-                <div class="ms-divider"></div>
-                <div class="ms-item">
-                    <div class="ms-icon" style="color:var(--gold);">
-                        <i class="ti ti-shield-search"></i>
-                    </div>
-                    <div class="ms-platform">Perplexity</div>
-                    <div class="ms-role">Adversarial blind-spot analysis</div>
-                </div>
-            </div>
-        </div>
-
+<!-- AMPPED ENGINE -->
+<section class="amped" id="engine">
+  <div class="wrap">
+    <div class="sec-eyebrow">How I Build</div>
+    <h2 class="sec-title">The AMPPED Engine</h2>
+    <p class="sec-sub">A proprietary multi-LLM orchestration workflow designed to rapidly deploy enterprise-grade operational solutions — the same method that produced every engagement below.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">STEP 01</div>
+        <h3>Context Extraction</h3>
+        <p>Establishing hyper-refined foundational instructions — the deterministic ground truth every downstream model reasons from.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="step">
+        <div class="n">STEP 02</div>
+        <h3>Multi-LLM Stacking</h3>
+        <p>Orchestrated sequencing across models for reasoning, algorithmic structuring, and syntax refinement — each LLM on what it does best.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="step">
+        <div class="n">STEP 03</div>
+        <h3>Verification Guardrails</h3>
+        <p>Target validation against compliance parameters and external data sets — the deterministic sandbox that keeps output trustworthy.</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="footer">
-        <span>Oz Rosario · oz.rosario@gmail.com · 619.987.4040 · VisLogic.AI</span>
-        <span class="footer-right">AI Co-Development Portfolio · 2026</span>
+<div id="work"></div>
+
+<!-- THEME 1 -->
+<section class="theme t1">
+  <div class="wrap">
+    <div class="theme-head"><span class="theme-num">THEME 01</span><h2 class="theme-name">Infrastructure Scale &amp; CapEx/OpEx Optimization</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="ct"><span class="sector">Broadband · Private Equity</span></div>
+        <h3>Private-Equity Backed Broadband Provider</h3>
+        <p>A mandated 5-year expansion roadmap stalled by instinct-driven capital allocation. Built an Agentic Scoring Engine across 7+ data pipelines (FCC, Census, GIS) with "Market Scout" agents pushing live Tier 1/2/3 heatmaps — plus a "Trench Once" EV co-deployment thesis cutting cost-per-passing 10–20%.</p>
+        <div class="foot"><a class="open" href="ftth-mdm-scale.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Hospitality · Real Estate Dev</span></div>
+        <h3>AMPPED &amp; National Hospitality / Resort Developer</h3>
+        <p>Multi-variable site-development paralysis against strict IRS tax deadlines. Built an automated comparative matrix ingesting unstructured financing terms and tax codes into a structured pro forma framework — a 4× velocity multiplier reclaiming 15–20 hours per project.</p>
+        <div class="foot"><a class="open" href="hospitality-dev.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Enterprise Network · NaaS</span></div>
+        <h3>Enterprise Network Infrastructure Provider (NaaS)</h3>
+        <p>A scattergun approach to real-estate partnerships burning sales cycles. Built an interactive market guide turning regional data into "Prime Target" and "Skip" calls plus a dynamic Building Scorecard — decoding regional telecom exclusivity laws into negotiation levers.</p>
+        <div class="foot"><a class="open" href="naas-infra-cre.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">EV Charging · CleanTech</span></div>
+        <h3>AMPPED / Regional EV Charging Network</h3>
+        <p>120+ day offline, abandoned charging assets needing re-engagement. Engineered a multi-channel outreach system consolidating technical, ownership, and financial data into a low-friction digital intake pipeline with automated remediation — a scalable path to reactivate assets and restore revenue.</p>
+        <div class="foot"><a class="open" href="ampped-ev-net.html">Open</a></div>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- THEME 2 -->
+<section class="theme t2">
+  <div class="wrap">
+    <div class="theme-head"><span class="theme-num">THEME 02</span><h2 class="theme-name">Field Operations &amp; Compliance Governance</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="ct"><span class="sector">Public Safety · GovTech</span></div>
+        <h3>Municipal Lifeguard &amp; Field-Operations Agency</h3>
+        <p>A multi-million-dollar seasonal overtime budget deployed on intuition, with coverage gaps during a 12.8× rescue surge. Built a 5-platform intelligence overlay triangulating 12 months of incident data with NOAA surf and UV APIs into a predictive risk-scoring model — displacing redundant SaaS before a contract was signed.</p>
+        <div class="foot"><a class="open" href="field-ops-intel.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Civil / Environmental Eng</span></div>
+        <h3>Regional Civil/Environmental Engineering Firm</h3>
+        <p>Key-person risk, manual prevailing-wage math, and reactive COI tracking as volume scaled. Engineered a "Deterministic Sandbox" — LLM vision agents extract unstructured data while hard-coded rules engines calculate strict prevailing wages, eliminating hallucination. Self-funding: discovery + Phase 1 below the cost of a budgeted hire.</p>
+        <div class="foot"><a class="open" href="civil-eng.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Regulated Industry · Compliance</span></div>
+        <h3>Regulated-Industry Vendor &amp; Compliance Platform</h3>
+        <p>An operations lead drowning in manual tracking across vendor SLA misses and complex deployments. Designed an exception-based UI powered by 4 AI agents — PMO, Vendor Accountability, Compliance, and Runbook Generator — replacing daily status-chasing with automated briefings and auto-drafted vendor penalty packages.</p>
+        <div class="foot"><a class="open" href="compliance-platform.html">Open</a><a class="sub-link" href="compliance-roadmap.html">+ Engagement Roadmap</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THEME 3 -->
+<section class="theme t3">
+  <div class="wrap">
+    <div class="theme-head"><span class="theme-num">THEME 03</span><h2 class="theme-name">Enterprise Integration &amp; Partner Ecosystems</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="ct"><span class="sector">Fortune 1 · CTV Commerce</span></div>
+        <h3>Fortune 1 Retailer &amp; CTV Subsidiary</h3>
+        <p>A post-acquisition transition with competing roadmaps and new Commerce SDK requirements across 19M+ active users. Architected an 8-node automation layer — automated pre-cert screening, LLM onboarding assistants, QA anomaly detection — cutting partner certification from 15+ days to under 8.</p>
+        <div class="foot"><a class="open" href="ctv-commerce.html">Open</a><a class="sub-link" href="ctv-commerce-tam-qa.html">+ TAM Quadrant</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Cybersecurity · SASE</span></div>
+        <h3>Global Cybersecurity Consulting Enterprise</h3>
+        <p>Executive paralysis from incumbent gaslighting toward an 18-month, hardware-heavy overhaul that failed cross-border compliance. Used the AI stack to generate a matrixed technical teardown exposing architectural flaws — securing millions in 5-year savings and compressing global deployment from 18 months to under 45 days.</p>
+        <div class="foot"><a class="open" href="sasex-transformation.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Global Audio · Media Platform</span></div>
+        <h3>Global Audio Tech &amp; Media Platform</h3>
+        <p>Cross-organizational integration friction, OTT player fragmentation, and DRM variability slowing global partner deployment. Applied a platform-first integration pattern — telemetry dashboards for quality signals, automated upstream PR tracking, hardened secure pathways. MTTU down 20%, ≥95% playback conformance.</p>
+        <div class="foot"><a class="open" href="av-tech-platform.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Enterprise Analytics · B2B SaaS</span></div>
+        <h3>Enterprise Analytics &amp; B2B SaaS Platform</h3>
+        <p>"Build-vs-buy" paralysis stalling transformation. Designed a 3-Phase Intelligence Journey (Foundation → Activation → Simulation) feeding a client-facing agentic workflow and a Digital Twin — packaged as a four-pilot AIaaS "business in a box" with a $9–11M three-year force-multiplier and clear IP boundaries.</p>
+        <div class="foot"><a class="open" href="aiaas-journey.html">Open</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THEME 4 -->
+<section class="theme t4">
+  <div class="wrap">
+    <div class="theme-head"><span class="theme-num">THEME 04</span><h2 class="theme-name">Margin Defense &amp; Change Management</h2></div>
+    <div class="cards">
+      <div class="card">
+        <div class="ct"><span class="sector">Retail · Loyalty</span></div>
+        <h3>National Omnichannel Athletic Retailer</h3>
+        <p>An 850K+ member paid loyalty program running like a transactional coupon club, eroding product margins. Reframed it into a recurring-revenue subscription via a 6-pillar AI loyalty orchestration layer — including predictive shoe-rotation modeling — shifting promotional weight to AI-triggered, behavior-based offers.</p>
+        <div class="foot"><a class="open" href="loyalty-os.html">Open</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Med-Device · QMS</span></div>
+        <h3>Boutique Med-Device Engineering Firm</h3>
+        <p>Engineers acting as "regression machines," running full manual revalidation for every algorithm change. Architected a 5-layer operational intelligence system — agentic workflows automating CAPA pipelines, ingesting dead archives, flagging regression deltas — slashing V&amp;V cycle times and institutionalizing founder-dependent regulatory knowledge.</p>
+        <div class="foot"><a class="open" href="meddevice-qms.html">Open</a><a class="sub-link" href="meddevice-demo.html">+ Team Demo</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Property Management</span></div>
+        <h3>Regional Residential Property Management Firm</h3>
+        <p>Margin decay from linear human scaling, needing a shift to a "platform operator" model. Architected a 3-pillar engagement with a bespoke "AI Readiness Audit" framework and a layered OS architecture — modeling hundreds of thousands in annual savings by replacing administrative headcount with a human-in-the-loop review layer.</p>
+        <div class="foot"><a class="open" href="propmgmt-engagement.html">Open</a><a class="sub-link" href="propmgmt-roi.html">+ ROI Model</a></div>
+      </div>
+      <div class="card">
+        <div class="ct"><span class="sector">Construction · Estimating</span></div>
+        <h3>Construction Estimating &amp; Development Firm</h3>
+        <p>Estimation locked in tribal knowledge and manual takeoffs, capping the firm's ability to scale. Architected an intelligence layer that transforms estimation into enterprise intelligence — structured data capture and agentic workflows that institutionalize estimating expertise and free senior estimators to scale capacity.</p>
+        <div class="foot"><a class="open" href="estimating-rollout.html">Open</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>Let's architect the next one.</h2>
+        <div class="contact"><a href="mailto:oz.rosario@gmail.com">oz.rosario@gmail.com</a> · <a href="tel:6199874040">619.987.4040</a></div>
+      </div>
+      <div class="foot-meta">
+        Oz Rosario · AI Strategic Operator<br>
+        VisLogic.AI · AMPPED · SASE-Experts<br>
+        San Diego, CA
+      </div>
+    </div>
+    <div class="redaction">Method &amp; approach showcase · every engagement is presented as method and architecture · client identities intentionally redacted.</div>
+  </div>
+</footer>
 
 </body>
 </html>

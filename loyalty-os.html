@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VIP Family → Movement Membership · Program Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1929; --navy-2:#061320; --cyan:#00c8ff; --red:#e8341c; --amber:#f5a623; --brand:#f36c21;
+    --ink:#e8eef5; --muted:#8aa0b6; --line:rgba(255,255,255,.09);
+    --card:rgba(255,255,255,.035); --card-2:rgba(255,255,255,.05); --good:#2ec27e; --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--navy);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--cyan);color:var(--navy-2)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+  header.hero{background:radial-gradient(900px 500px at 82% -10%,rgba(0,200,255,.12),transparent 60%),radial-gradient(700px 420px at -10% 30%,rgba(243,108,33,.10),transparent 55%),linear-gradient(180deg,var(--navy-2),var(--navy));border-bottom:1px solid var(--line);padding:54px 0 42px}
+  .eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.32em;font-size:12px;color:var(--cyan);font-weight:600;margin:0 0 14px}
+  h1{font-family:'Archivo',sans-serif;font-weight:900;line-height:.98;font-size:clamp(32px,5.6vw,58px);margin:0;letter-spacing:-.02em}
+  h1 .pop{color:var(--brand)}
+  .sub{color:#cdd9e6;max-width:64ch;margin:18px 0 0;font-size:17.5px}
+  .pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:30px}
+  .pillar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .pillar .ic{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:12px;font-weight:600}
+  .pillar .t{font-family:'Archivo',sans-serif;font-weight:700;font-size:14.5px;margin-top:6px;color:#fff;line-height:1.2}
+  @media(max-width:780px){.pillars{grid-template-columns:repeat(2,1fr)}}
+
+  nav.tabs{position:sticky;top:0;z-index:30;background:rgba(6,19,32,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .tabrow{display:flex;gap:4px;overflow-x:auto;padding:10px 22px;max-width:var(--maxw);margin:0 auto;scrollbar-width:none}
+  .tabrow::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;background:transparent;border:1px solid transparent;color:var(--muted);font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:.18s}
+  .tab .num{font-family:'JetBrains Mono',monospace;color:var(--cyan);opacity:.65;margin-right:7px;font-weight:600}
+  .tab:hover{color:var(--ink);background:var(--card)}
+  .tab.active{color:var(--navy-2);background:var(--cyan)}
+  .tab.active .num{color:var(--navy-2);opacity:.8}
+
+  .panel{display:none;padding:46px 0 30px;animation:fade .35s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px}
+  .sec-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:42px;color:rgba(0,200,255,.22);line-height:1}
+  h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(23px,3.2vw,32px);margin:0;letter-spacing:-.01em}
+  h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:20px;margin:30px 0 12px}
+  h4{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--amber);margin:22px 0 10px;font-weight:600}
+  p{margin:0 0 14px}
+  .lead{font-size:17.5px;color:#cdd9e6;max-width:70ch;margin-bottom:22px}
+  ul{margin:0 0 16px;padding-left:20px}
+  li{margin:0 0 8px}
+  strong{color:#fff}
+
+  .win{border-left:3px solid var(--good);background:rgba(46,194,126,.07);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0}
+  .chg{border-left:3px solid var(--amber);background:rgba(245,166,35,.07);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0}
+  .bld{border-left:3px solid var(--cyan);background:rgba(0,200,255,.06);border-radius:0 10px 10px 0;padding:14px 18px;margin:18px 0}
+  .tag{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:700;display:block;margin-bottom:6px}
+  .win .tag{color:var(--good)} .chg .tag{color:var(--amber)} .bld .tag{color:var(--cyan)}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .card h5{font-family:'Archivo',sans-serif;font-weight:700;font-size:16px;margin:0 0 8px;color:#fff}
+  .card p,.card li{font-size:14.5px;color:#bfcedd}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;color:var(--cyan);font-weight:600}
+  td b{color:#fff}
+  tr:hover td{background:rgba(255,255,255,.02)}
+
+  .ai{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px;border-top:3px solid var(--brand)}
+  .ai h5{font-family:'Archivo',sans-serif;font-weight:700;font-size:16.5px;margin:0 0 6px;color:#fff}
+  .ai .h{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);font-weight:600;letter-spacing:.04em}
+  .ai p{font-size:14.5px;color:#bfcedd;margin:6px 0 0}
+
+  .pilot{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+  .pilot summary{cursor:pointer;list-style:none;padding:15px 18px;display:flex;gap:12px;align-items:center}
+  .pilot summary::-webkit-details-marker{display:none}
+  .pilot summary:hover{background:var(--card-2)}
+  .pilot .pn{font-family:'JetBrains Mono',monospace;color:var(--brand);font-weight:600;font-size:13px}
+  .pilot .pt{font-family:'Archivo',sans-serif;font-weight:700;font-size:15.5px;color:#fff;flex:1}
+  .pilot .chev{color:var(--muted);transition:.2s}
+  .pilot[open] .chev{transform:rotate(90deg)}
+  .pilot .body{padding:2px 18px 16px;border-top:1px solid var(--line)}
+  .pilot .body .row{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .pilot .body .row:last-child{border-bottom:none}
+  .pilot .body .k{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--amber);padding-top:2px}
+  @media(max-width:600px){.pilot .body .row{grid-template-columns:1fr;gap:2px}}
+
+  .quote{font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(19px,2.6vw,26px);line-height:1.3;color:#fff;border-left:4px solid var(--brand);padding:6px 0 6px 20px;margin:8px 0 4px}
+  .note{font-size:12.5px;color:var(--muted);font-style:italic}
+  footer{border-top:1px solid var(--line);padding:28px 0 60px;color:var(--muted);font-size:13px;margin-top:30px}
+  .archive{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);border:1px solid rgba(0,200,255,.3);border-radius:20px;padding:3px 10px;margin-bottom:10px}
+  @media print{nav.tabs{display:none}.panel{display:block!important;page-break-after:always}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Program Playbook · the athletic retailer</p>
+    <h1>From a savings card to a <span class="pop">Movement Membership</span>.</h1>
+    <p class="sub">VIP doesn't need another discount — it already has one of the category's strongest paid-membership propositions. It needs to become the trusted, data-rich membership the whole running community plugs into. Here's what that looks like, and how to build it.</p>
+    <div class="pillars">
+      <div class="pillar"><div class="ic">01</div><div class="t">Fit expertise</div></div>
+      <div class="pillar"><div class="ic">02</div><div class="t">Human service</div></div>
+      <div class="pillar"><div class="ic">03</div><div class="t">Family participation</div></div>
+      <div class="pillar"><div class="ic">04</div><div class="t">Local community</div></div>
+      <div class="pillar"><div class="ic">05</div><div class="t">Brand access</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabrow" id="tabrow">
+    <button class="tab active" data-t="t0"><span class="num">00</span>The Thesis</button>
+    <button class="tab" data-t="t1"><span class="num">01</span>2026 Membership</button>
+    <button class="tab" data-t="t2"><span class="num">02</span>Run the Program</button>
+    <button class="tab" data-t="t3"><span class="num">03</span>The AI Layer</button>
+    <button class="tab" data-t="t4"><span class="num">04</span>Pilots</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- THESIS -->
+<section class="panel active" id="t0">
+  <div class="sec-head"><span class="sec-num">00</span><h2>The thesis: earn the renewal</h2></div>
+  <p class="lead">VIP's real moat was never the 10% off. It's forty years of community equity with runners and walkers, a fit-and-service experience no online seller can copy, and a paid membership at real scale. The strategic move is to stop competing on discount — which anyone can match — and start being the membership people renew on purpose.</p>
+
+  <div class="quote">"VIP saves my family money, helps us get the right fit, and keeps us moving."</div>
+  <p class="note">The one sentence a member should be able to say about the program.</p>
+
+  <h3>Why "Movement Membership," and why now</h3>
+  <p>The market has shifted. Members increasingly value access, utility, recognition, community, and service over one more point of cash back. The strongest programs combine an economic engine with identity and participation. VIP has the economic engine already; the work is to add the human and community layers on top of it — and to make every member feel the value clearly enough that renewal becomes a choice, not a surprise.</p>
+
+  <div class="grid g3">
+    <div class="win"><span class="tag">Protect</span>The hard value: 10% everyday savings, Rewards Cash, the 90-Day Perfect Fit Guarantee, free shipping, family sharing. These built the program. Don't break the P&amp;L chasing shiny objects.</div>
+    <div class="chg"><span class="tag">Change</span>Make the renewal and enrollment experience transparent and easy — the program earns the renewal. Re-market access ("First Dibs") as a headline benefit. Make tiers differ in <em>kind</em>, not just percentage.</div>
+    <div class="bld"><span class="tag">Build</span>One member identity across store, app, and web. A community and partner layer. A fit profile and shoe-rotation guidance that make the membership useful between purchases.</div>
+  </div>
+
+  <div class="bld" style="border-left-color:var(--brand);background:rgba(243,108,33,.07)">
+    <span class="tag" style="color:var(--brand)">The mantra: Earn the Right</span>
+    A program — and the associate pitch on the floor — should <strong>earn</strong> the member's renewal, never extract it. Transparent value, clear benefits, easy choices. "Earn the Right" is both the operating principle and the language store teams already understand.
+  </div>
+</section>
+
+<!-- 2026 MEMBERSHIP -->
+<section class="panel" id="t1">
+  <div class="sec-head"><span class="sec-num">01</span><h2>The 2026 Movement Membership</h2></div>
+  <p class="lead">Keep the economic engine. Add a free on-ramp, a non-cash way to earn status for moving, a genuinely useful app, and tiers that mean something. The existing VIP name has equity — protect it, and make clear it stands for movement support, not just footwear savings.</p>
+
+  <h3>Membership architecture</h3>
+  <table>
+    <tr><th>Layer</th><th>Position</th><th>What it includes</th></tr>
+    <tr><td><b>Member (Free)</b></td><td>The on-ramp</td><td>Digital account, receipt history, fit profile, store &amp; event discovery, basic challenges, saved products. Captures identity and becomes the conversion funnel to paid VIP. Does not get the signature paid benefits.</td></tr>
+    <tr><td><b>VIP Family</b></td><td>Everyday savings &amp; confidence</td><td>The existing core: 10% everyday savings, 5% Rewards Cash, 90-Day Perfect Fit Guarantee, family profiles, free shipping, fit history.</td></tr>
+    <tr><td><b>VIP Plus</b></td><td>More movement, more support</td><td>Higher Rewards Cash plus priority fit appointments, advanced rotation guidance, enhanced event access, brand-launch reservations, a family guest pass.</td></tr>
+    <tr><td><b>VIP Platinum</b></td><td>Premium expertise &amp; recognition</td><td>Top Rewards Cash plus premium Fit Expert access, an annual biomechanics/RunDNA-style session where available, premium launch &amp; demo access, select race-entry credits, surprise-and-delight.</td></tr>
+  </table>
+  <p class="note">Differentiate the upper tiers by access, service, and experience — not only by a deeper cash-back number. That protects margin while raising perceived value. A future option: let members either pay the fee or earn the tier through qualifying spend and engagement.</p>
+
+  <h3>Two currencies, one membership</h3>
+  <div class="grid g2">
+    <div class="card"><h5>Rewards Cash — keep it simple</h5><p>Stays financial and transparent: shown in dollars, visible in app, on the receipt, and to associates. No mystery formulas, clear expiration, partner-funded amounts tagged separately.</p></div>
+    <div class="card"><h5>Move Status — the new layer</h5><p>A non-cash currency earned for valuable engagement: fit appointments, store check-ins, completing a first walk or run, event attendance, reviews, referrals, updating shoe mileage, trade-ins. Unlocks recognition, access, and experiences — not another discount. This is what raises engagement without eroding margin.</p></div>
+  </div>
+
+  <h3>The app: a movement dashboard, not a catalog with push</h3>
+  <div class="grid g2">
+    <div class="card"><h5>VIP Wallet</h5><p>Tier, renewal date, Rewards Cash balance, recent earnings, expiring value, and a running tally of value received this year.</p></div>
+    <div class="card"><h5>Fit Passport</h5><p>Foot-scan history, size by brand/model, Fit Expert notes, insole and support preferences, prior return reasons — for each household member.</p></div>
+    <div class="card"><h5>Shoe Garage</h5><p>Shoes in rotation, purchase date, use case, optional mileage, expected replacement window, and "compare the next generation."</p></div>
+    <div class="card"><h5>Store Mode</h5><p>Digital membership card, appointment check-in, BOPIS status, inventory locator, associate-assisted cart.</p></div>
+  </div>
+
+  <h3>In-store: the moat (≈60% of the work)</h3>
+  <p>The store is where VIP wins and where most of the experience lives. The associate should see a concise <strong>service brief</strong> — not a customer's whole history — that makes the conversation personal: status and renewal date, household, Rewards Cash, previous shoes and sizes, a fit summary, stated goals, recent returns, and a recommended next action. Every footwear pickup should offer a two-minute fit confirmation, a Shoe Garage add, and a no-pressure reminder of the Perfect Fit Guarantee.</p>
+
+  <h3>Community &amp; partners: nationally enabled, locally run</h3>
+  <p>Productize local running culture into a national benefit: beginner run/walk groups, "back to movement" programs, family and women's events, race-course previews, product-demo runs. The retailer's structural advantage is that it can host <strong>many brands' communities under one roof</strong> — something no single brand can do. Brands, races, recovery and training partners can co-fund experiences, reducing direct cost while making the membership feel premium.</p>
+</section>
+
+<!-- RUN THE PROGRAM -->
+<section class="panel" id="t2">
+  <div class="sec-head"><span class="sec-num">02</span><h2>How to run the program</h2></div>
+  <p class="lead">Three numbers matter most: joins, renewal, and frequency. Everything else is an input. Protect the engine, fix the trust and emotional gaps, build the infrastructure that lets the program grow without buying loyalty by the discount point.</p>
+
+  <h3>Protect</h3>
+  <ul>
+    <li>The 10% everyday-savings promise — easy to understand, immediate value. Don't destabilize it before understanding margin by segment.</li>
+    <li>The 90-Day Perfect Fit Guarantee — one of the strongest trust assets in retail, and on-mission for a company built on pain-free movement.</li>
+    <li>Family sharing — convert it from a billing feature into a true household-engagement model.</li>
+    <li>Fit expertise and the human, founder-rooted feel. The program should stay personal, not become an anonymous tech platform.</li>
+  </ul>
+
+  <h3>Change</h3>
+  <ul>
+    <li><strong>Make renewal a trust advantage.</strong> Plain-language disclosure at sign-up; an immediate confirmation showing price, term, and how to cancel; pre-renewal reminders; easy online cancellation; a personalized annual value statement. The message: <em>members stay because VIP earns the renewal.</em></li>
+    <li><strong>Simplify the tier story</strong> to one sentence each — Family: everyday savings and confidence; Plus: more access and support; Platinum: premium expertise and experiences.</li>
+    <li><strong>Rebalance upper-tier value</strong> toward service, access, and partner-funded experiences instead of ever-deeper cash-back liability.</li>
+    <li><strong>Change store incentives</strong> from join-count alone to a balanced scorecard: qualified joins, 30-day activation, benefit comprehension, renewal, and satisfaction.</li>
+    <li><strong>Make value visible</strong> at every touch: what did I earn, what can I use now, what am I close to unlocking, what value have I received this year, when do I renew.</li>
+  </ul>
+
+  <h3>Build</h3>
+  <ul>
+    <li>A free Member identity layer and a clean, single member ID across store, app, and web.</li>
+    <li>VIP Wallet, Fit Passport, Shoe Garage, and household profiles.</li>
+    <li>A community-event platform and a partner-reward marketplace.</li>
+    <li>An experimentation framework with holdouts, and an incremental-margin view of the program — not member-vs-nonmember vanity comparisons.</li>
+  </ul>
+
+  <h3>Operating rhythm</h3>
+  <div class="grid g3">
+    <div class="card"><h5>Weekly — Growth Room</h5><p>Loyalty, CRM, E-comm, Retail Ops, Analytics, Care, Product. KPI movement, experiment readouts, member friction, store feedback, next launches.</p></div>
+    <div class="card"><h5>Monthly — Business Review</h5><p>Membership P&amp;L, joins and acquisition cost, frequency, benefit utilization, renewal and churn, reward liability, incremental margin, test portfolio.</p></div>
+    <div class="card"><h5>Quarterly — VIP Council</h5><p>With the founder and executives: benefit and pricing decisions, tier design, roadmap, partnerships, store changes, growth goals.</p></div>
+  </div>
+
+  <h4>North Star</h4>
+  <p>Incremental contribution margin per active VIP household — paired with a customer North Star: the share of active households that receive and <em>recognize</em> meaningful value each quarter.</p>
+</section>
+
+<!-- AI LAYER -->
+<section class="panel" id="t3">
+  <div class="sec-head"><span class="sec-num">03</span><h2>The AI layer</h2></div>
+  <p class="lead">AI's job here is to make the human expert more prepared, the member better understood, and the next interaction more relevant — never to impersonate expertise or replace the Fit Expert. Used this way, it strengthens the exact thing that makes the retailer different. Each of these can be prototyped and piloted quickly, then hardened.</p>
+
+  <div class="ai"><div class="h">CLIENTELING</div><h5>The pre-appointment service brief</h5><p>Before a member walks in or arrives for a fit, generate a one-paragraph brief for the associate: last shoes and sizes, insole preferences, prior fit issues or returns, training goal, estimated shoe mileage, and a suggested next action. The associate stays fully accountable for the recommendation — they just start the conversation already knowing the member.</p></div>
+
+  <div class="ai"><div class="h">PREDICTION</div><h5>Shoe-rotation &amp; replacement modeling</h5><p>Estimate when a member's shoes are wearing out from purchase date, use case, and optional connected-activity data, and trigger a right-time, helpful nudge ("your trainers are likely past their best — here's what's new in your fit"). Replaces generic blast replenishment with timely, trusted guidance.</p></div>
+
+  <div class="ai"><div class="h">RETENTION</div><h5>Renewal-risk scoring &amp; proactive save</h5><p>Identify members drifting toward a lapse — low engagement, unused rewards, no recent visit — and route them into a value-first save journey well before renewal. This is "Earn the Right" operationalized: reach members with a reason to stay before the renewal date, not a surprise charge after it.</p></div>
+
+  <div class="ai"><div class="h">ORCHESTRATION</div><h5>Lifecycle journeys, automated and reliable</h5><p>Move from batch email to triggered, behavior-based journeys — onboarding, first-90-days activation, replacement-window nudges, renewal runway, win-back. The renewal-reminder and member-communication workflows run automatically and consistently, so transparency isn't dependent on someone remembering to send it.</p></div>
+
+  <div class="ai"><div class="h">PERSONALIZATION</div><h5>Fit-grounded recommendations</h5><p>Recommendations anchored in the member's actual fit profile and history rather than generic best-sellers — including knowing when a fit refresh in-store beats a reorder, and surfacing category gaps like recovery footwear or socks.</p></div>
+
+  <div class="ai"><div class="h">OPERATIONS</div><h5>Agentic back-office workflows</h5><p>The unglamorous plumbing — document handling, partner-reward reconciliation, identity de-duplication, compliance and communication logging — can be automated with agentic workflows, freeing the team to spend time on members. A loyalty leader who can prototype these directly, not just brief a vendor, compresses the time from idea to running system.</p></div>
+
+  <div class="chg"><span class="tag">Guardrail</span>Any biomechanics or fit output is framed as retail guidance, not medical diagnosis. AI prepares and supports; the human expert decides. Member data is used with clear consent, purpose limitation, and easy controls.</div>
+</section>
+
+<!-- PILOTS -->
+<section class="panel" id="t4">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Pilots — test, measure, learn</h2></div>
+  <p class="lead">Eight pilots, each with a hypothesis, a control, a clear success bar, and a scale-or-kill decision. Sized to be manageable for local store teams. Tap to expand.</p>
+
+  <details class="pilot"><summary><span class="pn">P-01</span><span class="pt">Fit Passport</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>A persistent, member-accessible fit record increases footwear conversion, reduces avoidable returns, and improves repeat purchase.</div></div>
+    <div class="row"><div class="k">Design</div><div>Eight test stores vs. eight matched controls; associates save scan, products tried, size, insoles, and notes to the profile; member gets an app summary and a 14-day follow-up.</div></div>
+    <div class="row"><div class="k">Success</div><div>Fit-session-to-purchase conversion, return rate, 90-day repeat, Passport activation, associate adoption.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>8 weeks.</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-02</span><span class="pt">Shoe Garage &amp; rotation coach</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>Timely, use-based replacement guidance outperforms generic replenishment emails on frequency and trust.</div></div>
+    <div class="row"><div class="k">Design</div><div>Members add shoes manually or from history, optionally connect activity; system sends rotation-health, replacement-window, and fit-refresh prompts vs. matched control.</div></div>
+    <div class="row"><div class="k">Success</div><div>Garage opt-in, replenishment conversion, days between purchases, return rate, perceived helpfulness.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>10–12 weeks.</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-03</span><span class="pt">Run Local, Earn Local</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>Repeated local participation builds emotional loyalty and store frequency more efficiently than an equivalent discount.</div></div>
+    <div class="row"><div class="k">Design</div><div>Six stores host recurring run/walk formats (beginner, walking, family); a non-cash status badge after the first visit, a partner-funded reward after the third.</div></div>
+    <div class="row"><div class="k">Success</div><div>Repeat attendance, store visits, incremental spend, renewal intent, event NPS.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>12 weeks.</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-04</span><span class="pt">Renew with Confidence</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>Transparent reminders, a clear value statement, and frictionless choice increase intentional renewal while reducing complaints.</div></div>
+    <div class="row"><div class="k">Design</div><div>A/B the current renewal journey vs. a sequence: 30-day notice, 7-day reminder, annual value summary, easy renew/downgrade/cancel, optional feedback, recovery outreach for the dissatisfied.</div></div>
+    <div class="row"><div class="k">Success</div><div>Intentional renewal, save rate, support contacts, post-renewal activity and satisfaction.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>Two renewal cycles (~8–12 weeks).</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-05</span><span class="pt">Family Relay Referral</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>Members acquire higher-quality members at lower cost when the reward is tied to a completed first purchase, not a sign-up.</div></div>
+    <div class="row"><div class="k">Design</div><div>Invite up to three; referrer rewarded only after the referred member's qualified purchase clears the return window; test cash vs. access vs. Move Status as the incentive.</div></div>
+    <div class="row"><div class="k">Success</div><div>Referred join rate, CAC vs. paid acquisition, 90-day repeat, household expansion.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>8 weeks.</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-06</span><span class="pt">Brand Launch Pass</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>Brand-funded access and discovery differentiates more than another discount and drives new-to-brand sales.</div></div>
+    <div class="row"><div class="k">Design</div><div>Partner with Brooks, Hoka, or On for a limited launch: VIP reservation window, local demo run, Fit Expert education, partner-funded experience reward.</div></div>
+    <div class="row"><div class="k">Success</div><div>Reservations, attendance, launch conversion, new-to-brand customers, partner funding and reinvestment.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>6 weeks per launch.</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-07</span><span class="pt">Second Lap Trade-In</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>Footwear trade-in, donation, or recycling reactivates lapsed members and creates purchase urgency — and the retailer can do it across all brands.</div></div>
+    <div class="row"><div class="k">Design</div><div>Four to six stores accept eligible footwear via an operating partner; higher credit for reusable, smaller for recyclable; a 30-day bonus for using the credit on a replacement.</div></div>
+    <div class="row"><div class="k">Success</div><div>Take-back volume, reactivation, credit redemption, replacement-purchase margin, member sentiment.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>12–16 weeks.</div></div></div></details>
+
+  <details class="pilot"><summary><span class="pn">P-08</span><span class="pt">BOPIS Finish Line</span><span class="chev">›</span></summary><div class="body">
+    <div class="row"><div class="k">Hypothesis</div><div>A short, optional fit confirmation at pickup increases confidence and attachment without materially adding labor.</div></div>
+    <div class="row"><div class="k">Design</div><div>At pickup, offer immediate handoff, a two-minute fit check, a scheduled 10-minute appointment, a prepared alternate size, and a Shoe Garage add; one permissioned geofenced reminder on approach.</div></div>
+    <div class="row"><div class="k">Success</div><div>Fit-check acceptance, add-on sales, return rate, satisfaction, incremental labor under two minutes.</div></div>
+    <div class="row"><div class="k">Timeline</div><div>8 weeks.</div></div></details>
+
+  <p class="note">Test discipline: every pilot has a control, a pre-set success bar, and a scale/kill gate. Throughput of learning beats the cleverness of any single test.</p>
+
+  <footer>
+    <span class="archive">GTM PLAYBOOK ARCHIVE · Prototyping Business Solutions</span><br>
+    VIP Family → Movement Membership · Program Playbook · <span id="stamp"></span><br>
+    <span class="note">Verified program facts (tier structure, benefits, ~849.7K members) and category benchmarks current as of June 2026; figures noted as assumptions should be validated against internal data. A shareable, vision-level reference — not a substitute for the internal diagnostic.</span>
+  </footer>
+</section>
+
+</main>
+
+<script>
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){
+        tabs.forEach(function(x){ x.classList.remove('active'); });
+        panels.forEach(function(p){ p.classList.remove('active'); });
+        t.classList.add('active');
+        var target = document.getElementById(t.getAttribute('data-t'));
+        if(target) target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+    var stamp = document.getElementById('stamp');
+    if(stamp){ stamp.textContent = new Date().toLocaleDateString('en-US', { month:'long', year:'numeric' }); }
+  })();
+</script>
+</body>
+</html>

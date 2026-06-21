@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SASE Vendor Comparison Matrix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 30px 40px;
+            color: white;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .content {
+            padding: 30px 40px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+        
+        .comparison-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            border: 1px solid #34495e;
+        }
+        
+        .comparison-table td {
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f0f7ff;
+        }
+        
+        .competency-col {
+            width: 18%;
+            background: #34495e !important;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .vendor-col {
+            width: 27.3%;
+        }
+        
+        .pro-indicator {
+            color: #27ae60;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .con-indicator {
+            color: #c0392b;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .critical {
+            background: #fff3cd !important;
+        }
+        
+        .critical strong {
+            color: #856404;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-left: 4px solid #3498db;
+            font-size: 11px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SASE EXPERTS™</div>
+            <h1>VENDOR COMPARISON MATRIX</h1>
+            <div class="subtitle">Side-by-Side Competitive Analysis</div>
+        </div>
+        
+        <div class="content">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>COMPETENCY AREA</th>
+                        <th>OPEN SYSTEMS</th>
+                        <th>COMMANDLINK | CATO</th>
+                        <th>IBM | PALO ALTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="competency-col">MANAGED SERVICE PROVIDER</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> 6-yr incumbent; global ISP monitoring; Mission Control<br>
+                            <span class="pro-indicator">✓</span> Local HW partners (SystemsGo) in China/Taiwan<br>
+                            <span class="con-indicator">✗</span> No direct APAC presence; Mandarin via translation only<br>
+                            <span class="con-indicator">✗</span> No dedicated U.S./APAC account mgmt; new CEO (Oct 2025)
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Full SASE proposal; cloud-native unified platform<br>
+                            <span class="pro-indicator">✓</span> White-glove support; single POC for network + security<br>
+                            <span class="pro-indicator">✓</span> Rapid global deployment capability<br>
+                            <span class="con-indicator">✗</span> Service quality varies by regional team<br>
+                            <span class="con-indicator">✗</span> Less direct vendor engagement vs. traditional models
+                        </td>
+                        <td class="vendor-col critical">
+                            <span class="pro-indicator">✓</span> Cloud architecture; ITSM integrations (ServiceNow, SCCM)<br>
+                            <span class="con-indicator">✗</span> <strong>NO SASE PROPOSAL AFTER 6 MONTHS—HW ONLY</strong><br>
+                            <span class="con-indicator">✗</span> No MSP partnerships mentioned; requires internal expertise
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">SASE DESIGN</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Complete stack: SD-WAN, FW, SWG, ZTNA, Detection<br>
+                            <span class="pro-indicator">✓</span> ZTNA replaces VPN; cloud SWG/CASB for remote users<br>
+                            <span class="con-indicator">✗</span> ZTNA still in phased rollout—not fully deployed
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> True cloud-native SASE; network + security integrated<br>
+                            <span class="pro-indicator">✓</span> Simplified architecture; fewer dependencies<br>
+                            <span class="con-indicator">✗</span> Limited flexibility for hybrid/customized environments<br>
+                            <span class="con-indicator">✗</span> Performance varies by PoP coverage
+                        </td>
+                        <td class="vendor-col critical">
+                            <span class="pro-indicator">✓</span> Zero Trust foundational; cloud/remote/on-prem integration<br>
+                            <span class="con-indicator">✗</span> <strong>NO SASE IN PROPOSAL—HW FIREWALL/SDWAN ONLY</strong><br>
+                            <span class="con-indicator">✗</span> Requires Prisma SASE to align; 2 consoles required
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">IMPLEMENTATION ROADMAP</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Phased rollout: SDPs, ZTNA, OT Firewall<br>
+                            <span class="pro-indicator">✓</span> Clear short/mid/long-term roadmap<br>
+                            <span class="con-indicator">✗</span> Key features (APIs, threat detection) delayed to 2026-27
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> <strong>Target: June 30, 2026</strong><br>
+                            <span class="pro-indicator">✓</span> Fast deployment—weeks not months<br>
+                            <span class="pro-indicator">✓</span> Streamlined provisioning via CommandLink<br>
+                            <span class="con-indicator">✗</span> Conflicting timeline shows mid-2027
+                        </td>
+                        <td class="vendor-col critical">
+                            <span class="pro-indicator">✓</span> Claims 15X faster deployment; automated policy (20X)<br>
+                            <span class="con-indicator">✗</span> <strong>IBM estimates ~18-month migration</strong><br>
+                            <span class="con-indicator">✗</span> No detailed phased roadmap provided
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">SUPPORT CAPABILITIES</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> AI ticketing with auto-translation; CoPilot + interpreter<br>
+                            <span class="pro-indicator">✓</span> Proactive ISP monitoring/escalation<br>
+                            <span class="con-indicator">✗</span> No native Mandarin staff; HW replacement delays from CH
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> 5K+ carriers; 3K+ services deployed monthly<br>
+                            <span class="pro-indicator">✓</span> 24/7 NOC/SOC; all access types (Fiber, 4G/5G, Satellite)<br>
+                            <span class="pro-indicator">✓</span> ITSM integration; global multi-currency billing<br>
+                            <span class="con-indicator">✗</span> Support depth depends on CommandLink team expertise
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Unit 42 Threat Research; real-time risk assessment<br>
+                            <span class="pro-indicator">✓</span> SOAR integration for automated response<br>
+                            <span class="con-indicator">✗</span> 2 consoles required; no 24/7 support/SLAs mentioned
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">CHINA COMPLIANCE</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Local hot standby devices in China/Taiwan<br>
+                            <span class="pro-indicator">✓</span> Willing to partner with Chinese vendors<br>
+                            <span class="con-indicator">✗</span> No explicit MLPS 2.0/CAC compliance protocols<br>
+                            <span class="con-indicator">✗</span> Data sovereignty not clearly addressed
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Regional PoPs; compliance-aware routing<br>
+                            <span class="pro-indicator">✓</span> GRE/IPsec protocol support<br>
+                            <span class="con-indicator">✗</span> China connectivity may face regulatory limitations<br>
+                            <span class="con-indicator">✗</span> Limited visibility into evolving compliance frameworks
+                        </td>
+                        <td class="vendor-col critical">
+                            <span class="pro-indicator">✓</span> Industrial protocol support (S7, CIP-IP / IEC62443)<br>
+                            <span class="con-indicator">✗</span> <strong>No SASE architecture—not comparable</strong><br>
+                            <span class="con-indicator">✗</span> Hub-spoke via carrier (no backbone); separate Panorama<br>
+                            <span class="con-indicator">✗</span> No China compliance mentioned (MLPS 2.0)
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">MICROSOFT INTEGRATION</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Cipher MDR with API ticketing/telemetry—potential Sentinel<br>
+                            <span class="con-indicator">✗</span> No direct Microsoft Sentinel integration confirmed
+                        </td>
+                        <td class="vendor-col">
+                            <span class="con-indicator">✗</span> Not explicitly addressed in proposal
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Integrates with Defender XDR and SCCM<br>
+                            <span class="con-indicator">✗</span> Still requires 2 consoles
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">SEGMENTATION</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Strong: FW, ZTNA, OT/IT separation at plant level<br>
+                            <span class="pro-indicator">✓</span> App-level access controls reduce lateral movement<br>
+                            <span class="con-indicator">✗</span> Some FW controls manual/reactive
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Embedded in cloud-native architecture
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Zero Trust principles embedded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="competency-col">CLOUD BACKBONE</td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> SD-WAN backbone connects China globally<br>
+                            <span class="con-indicator">✗</span> Limited bandwidth (5 Mbps)—may be insufficient
+                        </td>
+                        <td class="vendor-col">
+                            <span class="pro-indicator">✓</span> Global PoP backbone—dedicated SASE infrastructure
+                        </td>
+                        <td class="vendor-col">
+                            <span class="con-indicator">✗</span> No dedicated backbone—relies on carrier GRE/IPSEC
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="legend">
+                <strong>LEGEND:</strong>
+                <div class="legend-item">
+                    <span class="pro-indicator">✓</span> <span>Strength / Advantage</span>
+                </div>
+                <div class="legend-item">
+                    <span class="con-indicator">✗</span> <span>Weakness / Gap</span>
+                </div>
+                <div class="legend-item">
+                    <span style="display: inline-block; width: 20px; height: 15px; background: #fff3cd; border: 1px solid #ffc107;"></span>
+                    <span>Critical Gap or Risk</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeoIntelligence Market Development System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A1628;
+  --navy-mid: #112240;
+  --navy-card: rgba(17,34,64,0.75);
+  --fiber-blue: #0E5AE8;
+  --fiber-blue-dim: rgba(14,90,232,0.12);
+  --fiber-blue-glow: rgba(14,90,232,0.25);
+  --cyan: #00C2FF;
+  --cyan-dim: rgba(0,194,255,0.1);
+  --gold: #F5A623;
+  --gold-dim: rgba(245,166,35,0.1);
+  --gold-light: #FFD87A;
+  --green: #22C87A;
+  --green-dim: rgba(34,200,122,0.1);
+  --red: #E84040;
+  --red-dim: rgba(232,64,64,0.1);
+  --white: #F7F9FC;
+  --muted: #8A9BB5;
+  --rule: rgba(14,90,232,0.12);
+  --border: rgba(14,90,232,0.18);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  line-height: 1.65;
+  font-size: 15px;
+  min-height: 100vh;
+}
+
+/* GRID TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(14,90,232,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,90,232,0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(10,22,40,0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 52px;
+}
+.nav-brand {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-right: 2rem;
+  white-space: nowrap;
+  font-family: 'DM Mono', monospace;
+}
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  padding: 0 1.1rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  letter-spacing: 0.02em;
+}
+.nav-tab:hover { color: var(--white); }
+.nav-tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+.nav-badge {
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  background: var(--fiber-blue-dim);
+  color: var(--cyan);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+
+/* LAYOUT */
+.page { position: relative; z-index: 1; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+/* HERO */
+.hero {
+  padding: 3.5rem 0 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.75rem;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--cyan);
+}
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.hero-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  color: var(--muted);
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--fiber-blue-dim);
+}
+.hero-pill .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+.hero-pill .dot.gold { background: var(--gold); }
+.hero-pill .dot.green { background: var(--green); }
+
+/* STATUS STRIP */
+.status-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin: 0;
+}
+.stat-cell {
+  background: var(--navy);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stat-label {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stat-value {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.stat-value.blue { color: var(--fiber-blue); }
+.stat-value.cyan { color: var(--cyan); }
+.stat-value.gold { color: var(--gold); }
+.stat-value.green { color: var(--green); }
+.stat-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* SECTIONS */
+.section { padding: 3rem 0; border-bottom: 1px solid var(--rule); }
+.section:last-child { border-bottom: none; }
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.section-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+  padding-bottom: 4px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+}
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 5px;
+}
+
+/* GRID LAYOUTS */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+@media(max-width: 768px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* CARDS */
+.card {
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  backdrop-filter: blur(6px);
+}
+.card.blue { border-top: 3px solid var(--fiber-blue); }
+.card.cyan { border-top: 3px solid var(--cyan); }
+.card.gold { border-top: 3px solid var(--gold); }
+.card.green { border-top: 3px solid var(--green); }
+.card.red { border-top: 3px solid var(--red); }
+.card.dim { background: rgba(14,90,232,0.04); border-color: var(--rule); }
+.card-label {
+  font-size: 9.5px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.card p {
+  font-size: 13px;
+  color: rgba(247,249,252,0.75);
+  line-height: 1.65;
+}
+.card p + p { margin-top: 8px; }
+
+/* CALLOUTS */
+.callout {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  align-items: flex-start;
+}
+.callout-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+.callout-body { flex: 1; }
+.callout-body strong { color: var(--white); }
+.callout-body p { font-size: 13px; color: rgba(247,249,252,0.8); margin-top: 4px; }
+.callout.blue { background: rgba(14,90,232,0.09); border-left: 3px solid var(--fiber-blue); }
+.callout.cyan { background: var(--cyan-dim); border-left: 3px solid var(--cyan); }
+.callout.gold { background: var(--gold-dim); border-left: 3px solid var(--gold); }
+.callout.green { background: var(--green-dim); border-left: 3px solid var(--green); }
+.callout.red { background: var(--red-dim); border-left: 3px solid var(--red); }
+
+/* LISTS */
+ul.signal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.signal li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(247,249,252,0.8);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.6;
+}
+ul.signal li:last-child { border-bottom: none; }
+ul.signal li::before {
+  content: '›';
+  color: var(--cyan);
+  flex-shrink: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+ul.signal li.g::before { color: var(--green); }
+ul.signal li.gold::before { color: var(--gold); }
+ul.signal li.r::before { color: var(--red); }
+ul.signal li strong { color: var(--white); }
+
+/* TABLES */
+.tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin: 1rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 500px; }
+thead th {
+  background: rgba(14,90,232,0.22);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  color: rgba(247,249,252,0.8);
+  vertical-align: top;
+  line-height: 1.55;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) td { background: rgba(14,90,232,0.04); }
+tbody tr:hover td { background: rgba(14,90,232,0.09); transition: background 0.15s; }
+.td-strong { font-weight: 600; color: var(--white); }
+.td-mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--cyan); }
+.td-mono.gold { color: var(--gold); }
+.td-mono.green { color: var(--green); }
+.td-mono.red { color: var(--red); }
+.td-mono.muted { color: var(--muted); }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.badge.blue { background: var(--fiber-blue-dim); color: var(--cyan); border: 1px solid rgba(14,90,232,0.3); }
+.badge.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,200,122,0.25); }
+.badge.gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,166,35,0.25); }
+.badge.red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(232,64,64,0.25); }
+.badge.muted { background: rgba(138,155,181,0.1); color: var(--muted); border: 1px solid rgba(138,155,181,0.2); }
+
+/* STEP FLOW */
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 1rem;
+  position: relative;
+}
+.step:not(:last-child) .step-line {
+  position: absolute;
+  left: 19px;
+  top: 36px;
+  bottom: -8px;
+  width: 2px;
+  background: var(--rule);
+}
+.step-num {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--fiber-blue-dim);
+  border: 1px solid rgba(14,90,232,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cyan);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.step-content {
+  padding-bottom: 1.5rem;
+}
+.step-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+  padding-top: 8px;
+}
+.step-content p {
+  font-size: 13px;
+  color: rgba(247,249,252,0.7);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.step-tool {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+}
+.step-output {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+/* AGENT CARDS */
+.agent-card {
+  background: var(--navy-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.agent-header {
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.agent-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.agent-icon.blue { background: var(--fiber-blue-dim); }
+.agent-icon.cyan { background: var(--cyan-dim); }
+.agent-icon.gold { background: var(--gold-dim); }
+.agent-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.agent-role {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--muted);
+}
+.agent-body { padding: 1rem 1.25rem; }
+.agent-body p {
+  font-size: 13px;
+  color: rgba(247,249,252,0.75);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.io-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+.io-block {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+.io-block.in { background: rgba(14,90,232,0.08); border: 1px solid rgba(14,90,232,0.2); }
+.io-block.out { background: var(--green-dim); border: 1px solid rgba(34,200,122,0.2); }
+.io-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.io-label.in { color: var(--cyan); }
+.io-label.out { color: var(--green); }
+.io-text { color: rgba(247,249,252,0.75); }
+
+/* SOW DELIVERABLE */
+.del-row {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: flex-start;
+}
+.del-row:last-child { border-bottom: none; }
+.del-num {
+  width: 28px; height: 28px;
+  background: var(--fiber-blue-dim);
+  border: 1px solid rgba(14,90,232,0.3);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--cyan);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.del-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.del-desc {
+  font-size: 13px;
+  color: rgba(247,249,252,0.7);
+  line-height: 1.6;
+}
+.del-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+
+/* 30/60/90 */
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+@media(max-width:768px) { .phase-grid { grid-template-columns: 1fr; } }
+.phase-col { padding: 1.4rem; border-right: 1px solid var(--rule); }
+.phase-col:last-child { border-right: none; }
+.phase-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.phase-label.blue { color: var(--fiber-blue); }
+.phase-label.cyan { color: var(--cyan); }
+.phase-label.gold { color: var(--gold); }
+.phase-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* GAP TABLE */
+.gap-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: flex-start;
+}
+.gap-row:last-child { border-bottom: none; }
+.gap-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.4;
+  padding-top: 2px;
+}
+.gap-label .tag {
+  display: block;
+  margin-top: 5px;
+}
+.gap-res {
+  font-size: 13px;
+  color: rgba(247,249,252,0.75);
+  line-height: 1.65;
+}
+@media(max-width:640px) {
+  .gap-row { grid-template-columns: 1fr; }
+}
+
+/* AUDIENCE TABLE SPECIAL */
+.aud-row {
+  display: grid;
+  grid-template-columns: 120px 220px 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: flex-start;
+}
+.aud-row:last-child { border-bottom: none; }
+@media(max-width:640px) { .aud-row { grid-template-columns: 1fr; } }
+
+/* FOOTER */
+footer {
+  padding: 2rem 0 3rem;
+  border-top: 1px solid var(--rule);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-brand {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.footer-sub {
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  color: var(--muted);
+}
+.footer-contact {
+  text-align: right;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.footer-contact a { color: var(--cyan); text-decoration: none; }
+
+/* PRINT */
+@media print {
+  body::before { display: none; }
+  nav { display: none; }
+  .section { page-break-inside: avoid; }
+  .card { break-inside: avoid; }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(14,90,232,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(14,90,232,0.5); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">GeoInt // Market Dev</span>
+    <div class="nav-tabs">
+      <a href="#exec" class="nav-tab active">Exec Summary</a>
+      <a href="#strategic" class="nav-tab">Strategic Gap</a>
+      <a href="#architecture" class="nav-tab">Tech Architecture</a>
+      <a href="#workflow" class="nav-tab">P1 Workflow</a>
+      <a href="#agentic" class="nav-tab">Agentic AI <span class="nav-badge">P2</span></a>
+      <a href="#sow" class="nav-tab">SOW</a>
+      <a href="#crossfunctional" class="nav-tab">Cross-Functional</a>
+      <a href="#timeline" class="nav-tab">30/60/90</a>
+      <a href="#gaps" class="nav-tab">Gaps</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">New Market Development · April 2026</div>
+    <h1>GeoIntelligence Market<br><em>Development System</em></h1>
+    <p class="hero-sub">A decision-grade targeting and prioritization framework for a fiber operator's 5-year California expansion — built from scratch, investor-ready, and agentic from day one.</p>
+    <div class="hero-meta">
+      <div class="hero-pill"><div class="dot green"></div>Oz Rosario · oz.rosario@gmail.com</div>
+      <div class="hero-pill"><div class="dot"></div>619.987.4040</div>
+    </div>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="status-strip">
+  <div class="stat-cell">
+    <span class="stat-label">Scoring Buckets</span>
+    <span class="stat-value blue">3</span>
+    <span class="stat-sub">Revenue · Build · Moat</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-label">API Integrations</span>
+    <span class="stat-value cyan">7+</span>
+    <span class="stat-sub">VETRO + 6 external sources</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-label">Phase 1 Cost</span>
+    <span class="stat-value green">$0</span>
+    <span class="stat-sub">Public APIs + existing tools</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-label">Agentic Build</span>
+    <span class="stat-value gold">60–90d</span>
+    <span class="stat-sub">Fixed-fee SOW via VisLogic.AI</span>
+  </div>
+  <div class="stat-cell">
+    <span class="stat-label">Target Geography</span>
+    <span class="stat-value" style="font-size:1.1rem;padding-top:4px">California</span>
+    <span class="stat-sub">Lead market active · 2 metros queued</span>
+  </div>
+</div>
+
+<!-- SECTION 1: EXEC SUMMARY -->
+<div id="exec" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Executive Summary</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="callout cyan">
+      <div class="callout-icon">📡</div>
+      <div class="callout-body">
+        <strong>The Mandate (the CDO, April 2026)</strong>
+        <p>"We're going to spend the next year laying out the roadmap for the next 5 years." The NMD function was built from scratch. The deliverable: a market qualification pipeline and an investor-grade narrative — a system, not a hand-off-and-execute task. The work demanded <em>systems</em>, not just effort.</p>
+      </div>
+    </div>
+
+    <p style="font-size:14px;color:rgba(247,249,252,0.75);margin:1rem 0 1.5rem;line-height:1.7;">The operator was under private equity pressure to deploy capital efficiently across California. The investor thesis required a disciplined, data-backed market sequencing model — not instinct-driven expansion. That system didn't yet exist. This is the system built to close that gap.</p>
+
+    <!-- Audience Value Table -->
+    <div class="card dim" style="margin-bottom:1rem;">
+      <div class="card-label">Audience-Specific Value Split</div>
+      <div style="border-bottom:1px solid var(--rule);padding-bottom:0.75rem;margin-bottom:0.75rem;">
+        <div class="aud-row" style="padding-top:0;font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;">
+          <div>Audience</div><div>Primary Question</div><div>What This System Answers</div>
+        </div>
+      </div>
+      <div class="aud-row">
+        <div class="td-strong" style="font-size:13px;">CEO</div>
+        <div style="font-size:13px;color:rgba(247,249,252,0.7);">Where does capital generate the best return?</div>
+        <div style="font-size:13px;color:rgba(247,249,252,0.75);">Ranked market scorecard with IRR/cost-per-passing estimates by zone; investor-ready pipeline narrative with capital deployment sequence.</div>
+      </div>
+      <div class="aud-row">
+        <div class="td-strong" style="font-size:13px;">CDO</div>
+        <div style="font-size:13px;color:rgba(247,249,252,0.7);">Which markets do we build first and why?</div>
+        <div style="font-size:13px;color:rgba(247,249,252,0.75);">3-bucket geo-scoring model surfacing construction-ready, HOA-strong zones with lowest CapEx headwinds. Custom VETRO overlay layer visible to build team.</div>
+      </div>
+      <div class="aud-row" style="padding-bottom:0;">
+        <div class="td-strong" style="font-size:13px;">CFO</div>
+        <div style="font-size:13px;color:rgba(247,249,252,0.7);">What does it cost to run this system?</div>
+        <div style="font-size:13px;color:rgba(247,249,252,0.75);">Phase 1 runs on public APIs — near-zero net cost. Phase 2 VisLogic.AI build is a fixed-fee SOW, not an open-ended engineering retainer.</div>
+      </div>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body">
+        <strong>The Operating Thesis</strong>
+        <p>The operator didn't need a generic PM learning the market on the job — it needed an installed intelligence system that turned the CDO's described-but-unbuilt vision into something operable. This <em>is</em> that system.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: STRATEGIC GAP -->
+<div id="strategic" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Strategic Gap — The Geospatial Wedge</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.25rem;">
+      <div class="card cyan">
+        <div class="card-label">What the CDO Said</div>
+        <p style="font-size:13.5px;font-style:italic;color:rgba(247,249,252,0.85);margin-bottom:0.75rem;">"Part of the challenge is having a geospatial eye — the ability to see a map, a potential target, and carve it up using the right tools."</p>
+        <p>Direct quote from the April 2026 discovery session. Explicit acknowledgment that the tooling was not fully mature.</p>
+      </div>
+      <div class="card gold">
+        <div class="card-label">What He Meant (Subtext)</div>
+        <p>The operator lacked a data-driven market targeting system. Decisions ran on map intuition and deal-by-deal judgment — capital-allocation risk at scale. The engagement installed the system the CDO could describe but hadn't yet seen built.</p>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <div class="callout-icon">⚡</div>
+      <div class="callout-body">
+        <strong>The Differentiator</strong>
+        <p>Most teams claim project-management capability. Few arrive with an operable scoring model, a VETRO API integration plan, and a VisLogic.AI SOW already drafted. The advantage was never in the claim — it was in the specificity.</p>
+      </div>
+    </div>
+
+    <!-- 3-Bucket Model -->
+    <h3 style="font-size:15px;font-weight:600;color:var(--white);margin:1.5rem 0 1rem;">The Three-Bucket Scoring Model</h3>
+    <p style="font-size:13px;color:rgba(247,249,252,0.7);margin-bottom:1rem;">Developed and field-tested across 100+ SoCal EV/MDU deployments. Directly maps to fiber market qualification.</p>
+
+    <div class="grid-3">
+      <div class="card blue">
+        <div class="card-label">Bucket 01 · 40% Weight</div>
+        <h3>Revenue Potential</h3>
+        <p>Household pass density, ARPU ceiling, competitive whitespace, renter vs. owner ratio.</p>
+        <div style="margin-top:10px;">
+          <ul class="signal">
+            <li>FCC Broadband Fabric (competitive gap by census block)</li>
+            <li>US Census ACS (housing density, income, renter ratio)</li>
+            <li>CoStar/LoopNet (parcel and unit count)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card cyan">
+        <div class="card-label">Bucket 02 · 35% Weight</div>
+        <h3>Build Feasibility</h3>
+        <p>Conduit cost, aerial vs. buried, utility headwinds, permitting complexity, terrain.</p>
+        <div style="margin-top:10px;">
+          <ul class="signal">
+            <li>VETRO FiberMap API (infrastructure proximity)</li>
+            <li>City permitting databases</li>
+            <li>ESRI ArcGIS (elevation/terrain overlay)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card green">
+        <div class="card-label">Bucket 03 · 25% Weight</div>
+        <h3>Market Moat</h3>
+        <p>HOA/COA concentration, P3 relationships, anchor partnerships, first-mover advantage.</p>
+        <div style="margin-top:10px;">
+          <ul class="signal">
+            <li>CA Secretary of State HOA registry</li>
+            <li>Municipal partnership pipeline</li>
+            <li class="gold">EV co-deployment partners (Trench Once)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: TECH ARCHITECTURE -->
+<div id="architecture" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Technical Architecture</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <!-- VETRO API -->
+    <h3 style="font-size:15px;font-weight:600;color:var(--white);margin-bottom:0.75rem;">VETRO FiberMap API — Confirmed Capabilities</h3>
+    <p style="font-size:13px;color:rgba(247,249,252,0.7);margin-bottom:1rem;">VETRO operates a RESTful API built on OpenAPI 3.0. Authentication via token (generated in Developer Portal → Tools → Tokens). Full docs gated to customers — request API token + permissions from the operator IT on Day 1.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>API Capability</th>
+            <th>Endpoint</th>
+            <th>Use in Market Scoring</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Address Match &amp; Serviceability</td>
+            <td class="td-mono">/v2/address/match/{address}</td>
+            <td>Confirm whether a target parcel falls inside an existing plan, build zone, or unserved area</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Geometry Proximity Query</td>
+            <td class="td-mono">/api/layer/geometriesNear/{lng}/{lat}</td>
+            <td>Pull existing conduit, backbone, poles, and nodes near a candidate market zone — drives build feasibility score</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Layer Feature Read/Write</td>
+            <td class="td-mono">GET/POST/UPSERT features</td>
+            <td>Inject scored market zones as custom overlay layers visible in the live the operator VETRO instance</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Plan &amp; Zone Sync</td>
+            <td class="td-mono">Plans = towns · Sub-plans = neighborhoods</td>
+            <td>Tie scoring model outputs to active build plans; trigger alerts when a zone crosses priority threshold</td>
+          </tr>
+          <tr>
+            <td class="td-strong">GeoJSON Feature Upsert</td>
+            <td class="td-mono">POST features with layer_id + plan_id</td>
+            <td>Push AI-scored heatmap polygons directly into VETRO as a custom scoring layer — visible to full engineering and build team</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout red" style="margin-top:1rem;">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <strong>Critical Day 1 Action</strong>
+        <p>Full VETRO API access requires a customer API token from the operator's live instance. Token generation lives at VETRO Dashboard → Developer Tools → Tokens → Assign Permissions. Surfaced at engagement kickoff, not mid-build. IT approval cycles can delay Phase 1 by 2–3 weeks.</p>
+      </div>
+    </div>
+
+    <!-- External Data Stack -->
+    <h3 style="font-size:15px;font-weight:600;color:var(--white);margin:1.75rem 0 0.75rem;">External Data Layer Stack</h3>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data Source</th>
+            <th>Scoring Bucket</th>
+            <th>Access Model</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">FCC Broadband Fabric</td>
+            <td>Revenue / Competitive Gap</td>
+            <td class="td-mono">Free public API</td>
+            <td class="td-mono green">$0 — Priority</td>
+          </tr>
+          <tr>
+            <td class="td-strong">US Census TIGER/ACS</td>
+            <td>Revenue / Density / Demographics</td>
+            <td class="td-mono">Free public API</td>
+            <td class="td-mono green">$0 — Housing density, income, renter split</td>
+          </tr>
+          <tr>
+            <td class="td-strong">CoStar / LoopNet</td>
+            <td>Revenue / HOA / Parcel</td>
+            <td class="td-mono">Subscription</td>
+            <td class="td-mono gold">~$500–2K/mo — Negotiate via the operator acct</td>
+          </tr>
+          <tr>
+            <td class="td-strong">ESRI ArcGIS Online</td>
+            <td>Build Feasibility / Terrain</td>
+            <td class="td-mono">Subscription or per-call</td>
+            <td class="td-mono gold">Phase 2 — VisLogic handles as data connector</td>
+          </tr>
+          <tr>
+            <td class="td-strong">CA HOA Registry (SOS)</td>
+            <td>Market Moat / HOA Density</td>
+            <td class="td-mono">Free public</td>
+            <td class="td-mono green">$0 — Scriptable via bulk download</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Google Maps Platform</td>
+            <td>Build Feasibility / Parcel Context</td>
+            <td class="td-mono">Pay-per-call</td>
+            <td class="td-mono green">Low volume = low cost</td>
+          </tr>
+          <tr>
+            <td class="td-strong">PlugShare / DOE AFDC (EV)</td>
+            <td>Market Moat / Trench Once Thesis</td>
+            <td class="td-mono">Free public API</td>
+            <td class="td-mono green">$0 — EV registration density by zip</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: WORKFLOW -->
+<div id="workflow" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Phase 1 Workflow — 30–60 Days</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body">
+        <strong>No Budget Required for Phase 1</strong>
+        <p>This entire workflow runs on public APIs and tools already in operation. Phase 1 proves the model with zero incremental spend — making it safe to present to the CFO before the Phase 2 SOW is approved.</p>
+      </div>
+    </div>
+
+    <div class="steps" style="margin-top:1.5rem;">
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Define Target Geography</h4>
+          <p>Map existing active plans in VETRO — the lead county live, a major metro and a queued metro County queued. Establish geographic perimeter of Tier 1 priority zones.</p>
+          <span class="step-tool">VETRO FiberMap — existing the operator instance</span>
+          <span class="step-output">→ Geographic perimeter map of priority zones</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Pull FCC Fabric — Competitive Gap Analysis</h4>
+          <p>Query FCC National Broadband Map API by census block. Identify unserved and underserved areas within target geography.</p>
+          <span class="step-tool">FCC API — free public endpoint</span>
+          <span class="step-output">→ Underserved census block heatmap</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Layer Census ACS Data</h4>
+          <p>Pull housing density, renter/owner ratio, and median income by census tract. Calculate revenue potential score: households × addressable ARPU ceiling.</p>
+          <span class="step-tool">US Census API — ACS 5-year estimates</span>
+          <span class="step-output">→ Revenue potential score per tract</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Map HOA/COA Concentration</h4>
+          <p>Pull CA Secretary of State entity data for HOA/COA density by zip code. Layer over LoopNet/CoStar parcel data to confirm unit counts. This is the operator's core market moat.</p>
+          <span class="step-tool">CA SOS registry + LoopNet/CoStar</span>
+          <span class="step-output">→ HOA density heat layer by zip</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Query VETRO geometriesNear API</h4>
+          <p>For each candidate zone centroid, query existing infrastructure proximity: conduit, backbone, poles, nodes. Drives build feasibility score and cost-to-connect estimate.</p>
+          <span class="step-tool">VETRO API — /api/layer/geometriesNear/{lng}/{lat}</span>
+          <span class="step-output">→ Build feasibility score by zone</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h4>Composite Score Calculation</h4>
+          <p>Run the 3-bucket weighted model in Excel/Sheets: 40% Revenue / 35% Build Feasibility / 25% Market Moat. Output Tier 1 / 2 / 3 zone classification with rationale notes per zone.</p>
+          <span class="step-tool">Excel / Google Sheets — weighted scoring model</span>
+          <span class="step-output">→ Zone Priority Stack Rank v1</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <h4>Push Scored Zones to VETRO Overlay</h4>
+          <p>Use VETRO GeoJSON Feature Upsert API to push scored zones as a custom overlay layer. Color-coded Tier 1 (green) / 2 (amber) / 3 (gray). Visible to the CDO, build team, and field ops in the live instance.</p>
+          <span class="step-tool">VETRO API — GeoJSON Feature Upsert with custom layer_id</span>
+          <span class="step-output">→ Live heatmap layer in VETRO</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-content">
+          <h4>Package as Investor-Ready Market Brief</h4>
+          <p>Convert zone stack rank into a CDO/CFO/CEO-ready pipeline narrative: Tier 1 cohort, IRR range estimate, capital deployment sequence, 12-month buildout timeline.</p>
+          <span class="step-tool">Excel + PowerPoint — hockey stick IRR model</span>
+          <span class="step-output">→ Investor pipeline brief v1</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: AGENTIC AI -->
+<div id="agentic" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Phase 2 — Agentic AI Overlay</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p style="font-size:14px;color:rgba(247,249,252,0.75);margin-bottom:0.5rem;">Phase 1 proves the model manually. Phase 2 automates it — turning a quarterly scoring exercise into a continuous intelligence feed via VisLogic.AI / AiresOS.</p>
+
+    <div class="callout blue" style="margin-bottom:1.5rem;">
+      <div class="callout-icon">🤖</div>
+      <div class="callout-body">
+        <strong>Agentic Design Philosophy</strong>
+        <p>The system does not replace human judgment. It eliminates the 80% of manual data aggregation that delays decisions — freeing the NMD team to focus on market validation, municipal relationships, and deal structuring. Every output is decision-grade: sourced, scored, and explainable to a PE investor.</p>
+      </div>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-icon blue">📡</div>
+          <div>
+            <div class="agent-name">Market Scout Agent</div>
+            <div class="agent-role">Continuous Opportunity Monitor</div>
+          </div>
+        </div>
+        <div class="agent-body">
+          <p>Monitors target geographies for trigger events: new HOA filings, building permits, competitor ISP moves, municipal broadband RFPs. Fires weekly alert digest with scored opportunity flags.</p>
+          <div class="io-row">
+            <div class="io-block in">
+              <div class="io-label in">Inputs</div>
+              <div class="io-text">CA SOS API · City permit portals · FCC Fabric refresh</div>
+            </div>
+            <div class="io-block out">
+              <div class="io-label out">Output</div>
+              <div class="io-text">Weekly alert digest with scored opportunity flags</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-icon cyan">🗺️</div>
+          <div>
+            <div class="agent-name">Zone Scoring Agent</div>
+            <div class="agent-role">Automated 3-Bucket Engine</div>
+          </div>
+        </div>
+        <div class="agent-body">
+          <p>Runs the 3-bucket model automatically on new zones or on-demand for any address/parcel input. Returns Tier classification with sub-scores and confidence level. Pushes GeoJSON to VETRO overlay.</p>
+          <div class="io-row">
+            <div class="io-block in">
+              <div class="io-label in">Inputs</div>
+              <div class="io-text">Census API · FCC API · VETRO geometriesNear · CoStar webhook</div>
+            </div>
+            <div class="io-block out">
+              <div class="io-label out">Output</div>
+              <div class="io-text">JSON score object + GeoJSON polygon → VETRO overlay</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-icon gold">📊</div>
+          <div>
+            <div class="agent-name">Investor Narrative Agent</div>
+            <div class="agent-role">Automated Pipeline Reporting</div>
+          </div>
+        </div>
+        <div class="agent-body">
+          <p>Converts zone score outputs into formatted pipeline reports. Generates IRR range, cost-per-passing estimate, and recommended capital sequence for any scored cohort on demand.</p>
+          <div class="io-row">
+            <div class="io-block in">
+              <div class="io-label in">Inputs</div>
+              <div class="io-text">Zone score objects + the operator build cost benchmarks</div>
+            </div>
+            <div class="io-block out">
+              <div class="io-label out">Output</div>
+              <div class="io-text">PowerPoint deck + PDF brief — CEO/CFO/CDO ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: SOW -->
+<div id="sow" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Statement of Work — VisLogic.AI / AiresOS</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.5rem;">
+      <div class="card dim">
+        <div class="card-label">Engagement Overview</div>
+        <ul class="signal">
+          <li><strong>Client:</strong> the operator — NMD function</li>
+          <li><strong>Delivery:</strong> VisLogic.AI / AiresOS (Oz Rosario + the VisLogic build lead, Technical Lead)</li>
+          <li><strong>Model:</strong> Fixed-fee SOW — not open-ended engineering retainer</li>
+          <li><strong>Duration:</strong> 60–90 days (Phase 2, post Phase 1 validation)</li>
+          <li><strong>Contact:</strong> oz.rosario@gmail.com · 619.987.4040</li>
+        </ul>
+      </div>
+      <div class="card dim">
+        <div class="card-label">IP &amp; Commercial Terms</div>
+        <ul class="signal">
+          <li>All custom code and integrations under this SOW are the operator property upon full payment</li>
+          <li>VisLogic.AI core engine and agent orchestration framework remain VisLogic IP</li>
+          <li>Custom connectors and scoring logic are fully client-owned</li>
+          <li>Optional 90-day post-launch support retainer (separate SOW)</li>
+          <li class="gold">Phase 3 escalation path: AiresOS Digital Twin / network simulation layer available</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Deliverables -->
+    <div class="card" style="padding:1.4rem 1.6rem;">
+      <div class="card-label" style="margin-bottom:1rem;">5 Fixed Deliverables</div>
+
+      <div class="del-row">
+        <div class="del-num">1</div>
+        <div>
+          <div class="del-title">GeoIntelligence Data Connector Suite</div>
+          <div class="del-desc">VETRO FiberMap API integration (geometriesNear, GeoJSON upsert, zone sync) · FCC Broadband Fabric connector with automated census block gap analysis · US Census ACS pipeline · CA HOA Registry connector · Google Maps Platform integration</div>
+          <div class="del-tags"><span class="badge blue">VETRO API</span><span class="badge blue">FCC</span><span class="badge blue">Census</span><span class="badge blue">HOA Registry</span></div>
+        </div>
+      </div>
+
+      <div class="del-row">
+        <div class="del-num">2</div>
+        <div>
+          <div class="del-title">Zone Scoring Engine</div>
+          <div class="del-desc">Weighted 3-bucket scoring model with configurable weights · Automated Tier 1/2/3 zone classification with confidence scoring · On-demand scoring for any address, parcel, or polygon input · Score history and audit log for investor-grade documentation</div>
+          <div class="del-tags"><span class="badge cyan">Configurable Weights</span><span class="badge cyan">Audit Log</span><span class="badge cyan">On-Demand</span></div>
+        </div>
+      </div>
+
+      <div class="del-row">
+        <div class="del-num">3</div>
+        <div>
+          <div class="del-title">VETRO Heatmap Overlay Layer</div>
+          <div class="del-desc">Custom scoring layer pushed directly into the operator's live VETRO instance · Color-coded: Tier 1 (green) / Tier 2 (amber) / Tier 3 (gray) · Click-through zone detail with sub-scores, data sources, confidence, and recommended action · Weekly automated refresh or on-demand trigger</div>
+          <div class="del-tags"><span class="badge green">Live in VETRO</span><span class="badge green">Weekly Refresh</span><span class="badge green">Click-Through Detail</span></div>
+        </div>
+      </div>
+
+      <div class="del-row">
+        <div class="del-num">4</div>
+        <div>
+          <div class="del-title">Investor Narrative Generator</div>
+          <div class="del-desc">Automated pipeline report: Tier 1 cohort with IRR range and capital deployment sequence · Cost-per-passing estimate calibrated to the operator build benchmarks · Output formats: PowerPoint template + PDF brief · Scenario modeling: conservative / base / aggressive assumptions</div>
+          <div class="del-tags"><span class="badge gold">IRR Model</span><span class="badge gold">PPTX + PDF</span><span class="badge gold">3 Scenarios</span></div>
+        </div>
+      </div>
+
+      <div class="del-row" style="border-bottom:none;padding-bottom:0;">
+        <div class="del-num">5</div>
+        <div>
+          <div class="del-title">Market Scout Agent — Ongoing Intelligence Feed</div>
+          <div class="del-desc">Weekly alert digest: new HOA filings, building permits, competitor ISP movement, municipal broadband RFPs · Trigger-based zone re-scoring on market event detection · Delivery via Slack/email — no dashboard login required</div>
+          <div class="del-tags"><span class="badge blue">Weekly Digest</span><span class="badge blue">Trigger-Based</span><span class="badge blue">Slack / Email</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: CROSS-FUNCTIONAL -->
+<div id="crossfunctional" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Cross-Functional Operating Model</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>Owner</th>
+            <th>NMD Handoff / Dependency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Market Identification &amp; Scoring</td>
+            <td class="td-mono">NMD PM (Oz)</td>
+            <td>Inputs: VETRO infrastructure data, external APIs. Output: ranked zone list with Tier classification.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Municipal / Franchise Relationships</td>
+            <td class="td-mono">NMD PM (Oz)</td>
+            <td>NMD owns the politics — franchise agreements, MAAs, P3 negotiations. Protects build team from regulatory delay.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Construction-Ready Handoff Gate</td>
+            <td class="td-mono" style="color:var(--gold);">NMD → Plant PM</td>
+            <td>NMD delivers: scored zone, permitted ROW status, franchise confirmation, CapEx estimate, signed anchor HOA/partner. Plant PM receives a <em>build-ready package</em> — not a prospect.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Build Execution &amp; OSP Development</td>
+            <td class="td-mono">Plant PM + EVP Engineering</td>
+            <td>Plant PM owns trenching, contractor management, splicing, and turnup. NMD is not in the build chain after the handoff gate.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Investor Reporting &amp; Pipeline Narrative</td>
+            <td class="td-mono" style="color:var(--cyan);">NMD → CDO → CEO/CFO</td>
+            <td>NMD produces the pipeline brief (zone count, Tier distribution, capital sequence, IRR range). CDO presents to PE investors. NMD maintains the source of truth.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Strategic Partner Management</td>
+            <td class="td-mono">NMD PM (Oz)</td>
+            <td>EV co-deployment partners, anchor HOA relationships, municipal commerce relationships — all NMD-owned.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Trench Once -->
+    <h3 style="font-size:15px;font-weight:600;color:var(--white);margin:1.75rem 0 0.75rem;">The Trench Once Thesis — CapEx Offset Strategy</h3>
+
+    <div class="callout blue">
+      <div class="callout-icon">🔌</div>
+      <div class="callout-body">
+        <strong>From Discovery</strong>
+        <p>"Let's kill two birds with one stone — if we can pull conduit and voltage wiring to make-ready charging stations, it's a win-win. Infrastructure optimization 101." Validated by the CDO's acknowledgment that HOAs are the operator's strongest segment — the same segment where EV co-deployment has the highest ROI and lowest friction.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem;">
+      <div class="card gold">
+        <div class="card-label">Active Partners — Trench Once Network</div>
+        <ul class="signal">
+          <li class="gold"><strong>Red E Charge</strong> — EV co-investment MDU partner; joint trench negotiation framework established</li>
+          <li class="gold"><strong>EV Logic</strong> — EV infrastructure deployment partner; operational in SoCal MDU market</li>
+          <li class="gold"><strong>Autel Energy</strong> — OEM hardware partner (Chris Malm); preferred pricing for co-deployed sites</li>
+          <li class="gold"><strong>AMPPED</strong> — 100+ active SoCal EV charging deployments; site host relationships are NMD-ready assets</li>
+        </ul>
+      </div>
+      <div class="card dim">
+        <div class="card-label">CapEx Offset Logic</div>
+        <p style="margin-bottom:0.75rem;">Every HOA that signs a fiber ROE agreement gets an EV charging conversation in the same meeting.</p>
+        <ul class="signal">
+          <li>Estimated 10–20% reduction in cost-per-passing on HOA builds (to be calibrated with the operator benchmarks)</li>
+          <li>Site host revenue upside is accretive to the HOA — makes fiber adoption easier to close</li>
+          <li class="g">Single trench, dual revenue streams — fiber + EV charging infrastructure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8: 30/60/90 -->
+<div id="timeline" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">30 / 60 / 90 Day Execution Plan</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="phase-grid">
+      <div class="phase-col" style="background:rgba(14,90,232,0.06);">
+        <div class="phase-label blue">Days 1–30</div>
+        <div class="phase-title">Onboarding + Phase 1 Launch</div>
+        <ul class="signal">
+          <li>Request VETRO API token + permissions from IT</li>
+          <li>Map existing active plans — the lead county</li>
+          <li>Run manual 3-bucket scoring on first 5 target zones</li>
+          <li>Deliver Zone Priority Stack Rank v1 to the CDO</li>
+          <li>Identify CoStar/LoopNet access status; flag to CFO if budget needed</li>
+          <li class="g">Establish weekly NMD reporting cadence</li>
+        </ul>
+      </div>
+      <div class="phase-col" style="background:rgba(0,194,255,0.04);">
+        <div class="phase-label cyan">Days 31–60</div>
+        <div class="phase-title">Model Validation + SOW Kickoff</div>
+        <ul class="signal">
+          <li>Validate Phase 1 scoring against the CDO's market intuition — calibrate weights</li>
+          <li>Kick off VisLogic.AI fixed-fee SOW with the VisLogic build lead</li>
+          <li>Begin VETRO heatmap overlay layer build</li>
+          <li>Score the lead region + a major metro priority zones</li>
+          <li class="g">Deliver investor pipeline brief v1 — Tier 1 cohort + capital sequence</li>
+        </ul>
+      </div>
+      <div class="phase-col" style="background:rgba(245,166,35,0.04);">
+        <div class="phase-label gold">Days 61–90</div>
+        <div class="phase-title">Agentic System Go-Live</div>
+        <ul class="signal">
+          <li>Deploy Market Scout + Zone Scoring agents</li>
+          <li>Push live heatmap overlay to VETRO</li>
+          <li>Deliver Investor Narrative Generator first run</li>
+          <li class="g">Present full 5-year California market roadmap to CDO / CFO / CEO</li>
+          <li>Establish quarterly scoring refresh cadence</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 9: GAPS -->
+<div id="gaps" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Open Gaps &amp; Required Resolutions</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p style="font-size:13px;color:rgba(247,249,252,0.65);margin-bottom:1.5rem;">These are the questions this system must answer before it goes to the C-suite. Surfacing them up front is the discipline — not hiding them.</p>
+
+    <div class="card" style="padding:1.4rem 1.6rem;">
+
+      <div class="gap-row" style="padding-top:0;">
+        <div class="gap-label">Build cost benchmarks are unknown<span class="tag"><span class="badge red">Critical</span></span></div>
+        <div class="gap-res">Request the operator's actual cost-per-foot and cost-per-passing from current the active build markets builds in the first 30 days. Without this, IRR estimates are directional only. Do not present to the CFO until this number is confirmed.</div>
+      </div>
+
+      <div class="gap-row">
+        <div class="gap-label">Penetration rate assumption is unvalidated<span class="tag"><span class="badge red">Critical</span></span></div>
+        <div class="gap-res">the CDO referenced "a certain demographic profile that hits their numbers." Get the target take rate and ARPU assumption from CDO/CFO before modeling. Do not assume 30–35% and $70–90 ARPU without confirmation — these are industry benchmarks, not the operator actuals.</div>
+      </div>
+
+      <div class="gap-row">
+        <div class="gap-label">VETRO API access may require IT approval<span class="tag"><span class="badge gold">Day 1 Flag</span></span></div>
+        <div class="gap-res">Token generation is gated to VETRO Dashboard → Developer Tools → Tokens → Assign Permissions. Needs IT/GIS team coordination. Surfaced at kickoff, before Phase 1 — IT approval cycles can push Phase 1 delivery by 2–3 weeks.</div>
+      </div>
+
+      <div class="gap-row">
+        <div class="gap-label">Data licensing cost is unbudgeted<span class="tag"><span class="badge gold">CFO Item</span></span></div>
+        <div class="gap-res">CoStar/LoopNet subscription can run $500–2K/month. Needs CFO sign-off or a Phase 1 workaround using public data only. Present this as a line item in the Phase 1 brief — not as a surprise in month 2.</div>
+      </div>
+
+      <div class="gap-row">
+        <div class="gap-label">Multifamily unlock is unsolved<span class="tag"><span class="badge muted">Separate Workstream</span></span></div>
+        <div class="gap-res">the CDO acknowledged the operator has struggled with MDU/multifamily. HOA strength is confirmed. The bulk play (Hotwire failed here after one year) needs a different thesis. Bulk-lite model or managed WiFi angle may be the wedge — needs a dedicated workstream separate from the HOA scoring model.</div>
+      </div>
+
+      <div class="gap-row" style="padding-bottom:0;border-bottom:none;">
+        <div class="gap-label">Google Fiber brownfield risk is unnamed<span class="tag"><span class="badge blue">Competitive Moat</span></span></div>
+        <div class="gap-res">The CDO confirmed all Google Fiber CA activity is greenfield (master-planned communities only). The operator's HOA brownfield approach is differentiated — but this needs to be a named competitive moat in the investor narrative, not just an implied assumption. Name it explicitly in the pipeline brief.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Oz Rosario</div>
+        <div class="footer-sub">Chief Growth &amp; Strategy Officer · VisLogic.AI</div>
+        <div class="footer-sub" style="margin-top:4px;color:rgba(138,155,181,0.6);">Part of the GeoIntelligence Market Development Package · April 2026</div>
+      </div>
+      <div class="footer-contact">
+        <div><a href="mailto:oz.rosario@gmail.com">oz.rosario@gmail.com</a></div>
+        <div>619.987.4040</div>
+        <div style="margin-top:8px;color:rgba(138,155,181,0.5);font-size:11px;">Method &amp; approach showcase · client details intentionally redacted</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- end .page -->
+
+<script>
+// Active nav tab on scroll
+const sections = document.querySelectorAll('.section[id], .hero');
+const navTabs = document.querySelectorAll('.nav-tab');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navTabs.forEach(t => {
+        t.classList.remove('active');
+        if (t.getAttribute('href') === '#' + id) t.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.25, rootMargin: '-52px 0px -40% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Smooth nav click highlight
+navTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    navTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
