@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sanitization &amp; Abstraction Rebuild — A Retrospective</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c0b09; --ink2:#15130f; --surface:#191712; --surface2:#211e18; --border:#2c281f; --border-l:#3a352a;
+  --cream:#f3efe6; --muted:#a59c88; --dim:#6b6353;
+  --t1:#e0a431; --t2:#2fbfb0; --t3:#6498e0; --t4:#46c97e; --red:#d8645e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--cream);font-family:'Open Sans',system-ui,sans-serif;line-height:1.65;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(243,239,230,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(243,239,230,.018) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 26px}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
+.label{font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+
+.hero{padding:96px 0 56px;border-bottom:1px solid var(--border)}
+.hero .kicker{font-size:12px;letter-spacing:.22em;color:var(--t1);margin-bottom:22px}
+.hero h1{font-size:clamp(38px,6vw,66px);font-weight:800;letter-spacing:-.025em;line-height:1.05;margin-bottom:22px;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--t1)}
+.hero .dek{font-size:clamp(17px,2.1vw,20px);color:var(--muted);max-width:720px}
+.hero .meta{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:600;color:var(--dim);margin-top:20px;letter-spacing:.03em}
+.statline{display:flex;flex-wrap:wrap;gap:38px;margin-top:46px}
+.stat .v{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,46px);line-height:1;letter-spacing:-.02em;color:var(--cream)}
+.stat .v.g{color:var(--t4)} .stat .v.a{color:var(--t1)}
+.stat .l{font-size:11px;letter-spacing:.09em;color:var(--muted);margin-top:8px}
+
+section{padding:62px 0;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:12px;letter-spacing:.2em;color:var(--t1);margin-bottom:14px}
+.h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+.lead{font-size:17px;color:var(--muted);max-width:760px;margin-bottom:36px}
+
+/* arc timeline */
+.arc{display:grid;gap:16px}
+.phase{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 26px}
+.phase .pico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.phase h3{font-size:20px;font-weight:700;margin-bottom:6px}
+.phase .pn{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--dim);margin-bottom:4px}
+.phase p{font-size:14.5px;color:var(--muted)}
+.p1 .pico{background:rgba(224,164,49,.13);color:var(--t1)} .p2 .pico{background:rgba(47,191,176,.13);color:var(--t2)} .p3 .pico{background:rgba(100,152,224,.13);color:var(--t3)} .p4 .pico{background:rgba(70,201,126,.13);color:var(--t4)}
+
+/* protocol: kept/scrubbed split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:30px}
+@media(max-width:720px){.split{grid-template-columns:1fr}}
+.col{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px}
+.col h4{font-size:15px;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.col.scrub h4{color:var(--red)} .col.keep h4{color:var(--t4)}
+.col ul{list-style:none}
+.col li{font-size:14px;color:var(--muted);padding:6px 0 6px 22px;position:relative}
+.col.scrub li::before{content:'\ea76';font-family:'tabler-icons';position:absolute;left:0;color:var(--red);font-size:13px;top:8px}
+.col.keep li::before{content:'\ea5e';font-family:'tabler-icons';position:absolute;left:0;color:var(--t4);font-size:13px;top:8px}
+
+/* before/after table */
+.ba{width:100%;border-collapse:collapse;font-size:13.5px}
+.ba th{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border-l)}
+.ba td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--muted)}
+.ba td.old{font-family:'Montserrat',sans-serif;color:var(--red);text-decoration:line-through;text-decoration-color:rgba(216,100,94,.5)}
+.ba td.new{font-family:'Montserrat',sans-serif;color:var(--t4);font-weight:600}
+.ba td .ti{vertical-align:middle}
+
+/* QC grid */
+.qc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.qc{grid-template-columns:1fr}}
+.check{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;border-left:3px solid var(--t2)}
+.check h4{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.check h4 i{color:var(--t2);font-size:19px}
+.check p{font-size:13.5px;color:var(--muted)}
+.check code{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;color:var(--t1);background:var(--ink2);padding:1px 6px;border-radius:4px}
+
+/* principles */
+.princ{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:720px){.princ{grid-template-columns:1fr}}
+.prin{display:flex;gap:13px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px}
+.prin i{color:var(--t1);font-size:21px;flex:none;margin-top:2px}
+.prin .t{font-family:'Montserrat',sans-serif;font-weight:700;font-size:14.5px;margin-bottom:3px}
+.prin p{font-size:13px;color:var(--muted)}
+
+/* closing */
+.closing{padding:70px 0 90px;text-align:center}
+.closing .mark{font-size:34px;color:var(--t1);margin-bottom:18px}
+.closing h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;max-width:18ch;margin:0 auto 18px}
+.closing p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto 24px}
+.closing .sig{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:var(--dim)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker label">Build Retrospective</div>
+    <h1>The Sanitization &amp; <em>Abstraction</em> Rebuild</h1>
+    <p class="dek">How a stack of confidential client artifacts became a publish-safe portfolio — and how a repeatable quality-control discipline emerged in the process.</p>
+    <div class="meta">VisLogic.AI · Oz Rosario &nbsp;|&nbsp; ozrosario.github.io &nbsp;|&nbsp; June 2026</div>
+    <div class="statline">
+      <div class="stat"><div class="v a">15</div><div class="l label">Engagements Abstracted</div></div>
+      <div class="stat"><div class="v">4</div><div class="l label">Strategic Themes</div></div>
+      <div class="stat"><div class="v">20</div><div class="l label">Publish-Safe Files</div></div>
+      <div class="stat"><div class="v g">0</div><div class="l label">Client-Name Leaks</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- THE ARC -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow label">The Arc</div>
+    <h2 class="h2">Four movements, one through-line</h2>
+    <p class="lead">The exercise started as "rename some files" and became a full method: take real, sensitive deliverables and reduce each to its <em>method and architecture</em> — provable that the work was done, without exposing who it was done for.</p>
+    <div class="arc">
+      <div class="phase p1">
+        <div class="pico"><i class="ti ti-adjustments"></i></div>
+        <div><div class="pn">MOVEMENT 01</div><h3>Context &amp; Standards</h3><p>Split the context payload into voice rules and site content. Set the canonical scope (15 engagements), the email standard, and the delivery discipline: build everything first, commit once. Crucially — agreed the scrub protocol before touching a single file.</p></div>
+      </div>
+      <div class="phase p2">
+        <div class="pico"><i class="ti ti-eraser"></i></div>
+        <div><div class="pn">MOVEMENT 02</div><h3>Sanitize &amp; Build</h3><p>Theme by theme, card by card. Each artifact got a designated source, a narrative frame, and a single pass that scrubbed identity and enriched content at once. Client names to roles, pursuit framing to delivered-work voice, confidentiality stamps to a redaction line.</p></div>
+      </div>
+      <div class="phase p3">
+        <div class="pico"><i class="ti ti-arrow-up-right"></i></div>
+        <div><div class="pn">MOVEMENT 03</div><h3>Enrich</h3><p>Where a thin brief undersold the work, we went back to the richer source. A 1,800-line master dashboard rebuilt with its account strategy surgically removed. A 5,200-line pursuit doc <em>mined</em> down to its strategic concept. A coaching-contaminated map replaced with a real four-pilot AIaaS story — built only after the real numbers arrived.</p></div>
+      </div>
+      <div class="phase p4">
+        <div class="pico"><i class="ti ti-circle-check"></i></div>
+        <div><div class="pn">MOVEMENT 04</div><h3>Capstone &amp; QC</h3><p>A redesigned index tying all 15 together — then the part that mattered most: every link verified, every page swept for leaks, every file parsed. Nothing shipped on assumption.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow label">The Sanitization Protocol</div>
+    <h2 class="h2">A consistent line between exposure and credibility</h2>
+    <p class="lead">The same rule ran on every file. Strip what identifies a client or a deal; keep what proves the method and earns trust. Redaction stayed intentional and visible — never accidental.</p>
+    <div class="split">
+      <div class="col scrub">
+        <h4><i class="ti ti-trash"></i>Scrubbed</h4>
+        <ul>
+          <li>Client names &amp; brands → sector-anchored neutrals</li>
+          <li>Named individuals → role-only</li>
+          <li>Pursuit / interview / account-strategy framing → delivered-work voice</li>
+          <li>Confidentiality stamps → "method &amp; approach showcase" redaction line</li>
+          <li>Leaky filenames → neutral, sector-anchored names</li>
+        </ul>
+      </div>
+      <div class="col keep">
+        <h4><i class="ti ti-check"></i>Kept</h4>
+        <ul>
+          <li>Own ventures — VisLogic.AI, AMPPED, SASE-Experts</li>
+          <li>Public competitors, tools &amp; market entities</li>
+          <li>Architecture, frameworks &amp; method</li>
+          <li>Dollar figures &amp; metrics (anonymized)</li>
+          <li>Real collaborators, credited by choice</li>
+        </ul>
+      </div>
+    </div>
+    <table class="ba">
+      <thead><tr><th>Before — leaky filename</th><th></th><th>After — publish-safe</th></tr></thead>
+      <tbody>
+        <tr><td class="old">████████.html</td><td><i class="ti ti-arrow-right"></i></td><td class="new">field-ops-intel.html</td></tr>
+        <tr><td class="old">█████-fiber.html</td><td><i class="ti ti-arrow-right"></i></td><td class="new">ftth-mdm-scale.html</td></tr>
+        <tr><td class="old">█████-ctv.html</td><td><i class="ti ti-arrow-right"></i></td><td class="new">ctv-commerce.html</td></tr>
+        <tr><td class="old">█████-qms.html</td><td><i class="ti ti-arrow-right"></i></td><td class="new">meddevice-qms.html</td></tr>
+        <tr><td class="old">█████-roi.html</td><td><i class="ti ti-arrow-right"></i></td><td class="new">propmgmt-roi.html</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- QC -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow label">The Level-Up</div>
+    <h2 class="h2">Quality control &amp; validation cross-checks</h2>
+    <p class="lead">This is the part worth memorializing. Sanitization without verification is just hope. Every file passed a battery of automated cross-checks before it was allowed to ship — and a few hard-won tooling lessons made those checks reliable.</p>
+    <div class="qc">
+      <div class="check">
+        <h4><i class="ti ti-eye-search"></i>Leak Sweep</h4>
+        <p>Every page grep'd for client names, brands, and named individuals. The pass condition was absolute: a count of <code>0</code>. False positives (like "compliance" matching "compli") were inspected, not assumed.</p>
+      </div>
+      <div class="check">
+        <h4><i class="ti ti-link"></i>Link Integrity</h4>
+        <p>The #1 failure mode. Every link in the index was resolved against the actual file list, character-for-character, before commit — no broken "Open" buttons, no orphaned destinations.</p>
+      </div>
+      <div class="check">
+        <h4><i class="ti ti-code"></i>Parse Validation</h4>
+        <p>Each file run through an HTML parser to confirm well-formedness — catching unclosed tags and structural breaks that a browser might silently paper over.</p>
+      </div>
+      <div class="check">
+        <h4><i class="ti ti-forbid"></i>No Placeholders</h4>
+        <p>A hard check for <code>href="#"</code> dead links. Coming-soon states were never allowed to ship as broken anchors.</p>
+      </div>
+      <div class="check">
+        <h4><i class="ti ti-anchor"></i>Preservation Counts</h4>
+        <p>Scrubbing is subtractive — so kept references were counted too. After the dashboard rebuild, all 46 platform-anchor references survived; the modeling stayed intact while the strategy was removed.</p>
+      </div>
+      <div class="check">
+        <h4><i class="ti ti-shield-x"></i>No Fabrication</h4>
+        <p>When the numbers weren't in hand, we stopped and asked — rather than invent pilots or projections. The richest card waited for its real assets instead of guessing.</p>
+      </div>
+    </div>
+    <div class="col" style="margin-top:18px;border-left:3px solid var(--t1)">
+      <h4 style="color:var(--t1)"><i class="ti ti-tools"></i>&nbsp;Tooling lessons banked</h4>
+      <ul style="list-style:none">
+        <li style="font-size:14px;color:var(--muted);padding:5px 0 5px 22px;position:relative"><i class="ti ti-point" style="position:absolute;left:0;color:var(--t1);top:7px;font-size:12px"></i>Always name the file in every grep — a missing target silently hangs the command.</li>
+        <li style="font-size:14px;color:var(--muted);padding:5px 0 5px 22px;position:relative"><i class="ti ti-point" style="position:absolute;left:0;color:var(--t1);top:7px;font-size:12px"></i>Normalize encoding (iconv) before sweeping files with emoji and smart-quotes.</li>
+        <li style="font-size:14px;color:var(--muted);padding:5px 0 5px 22px;position:relative"><i class="ti ti-point" style="position:absolute;left:0;color:var(--t1);top:7px;font-size:12px"></i>Use commit dates to distinguish superseded assets from the day's work before deleting.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow label">Durable Principles</div>
+    <h2 class="h2">What carries forward</h2>
+    <div class="princ">
+      <div class="prin"><i class="ti ti-stairs-up"></i><div><div class="t">Source hierarchy matters</div><p>Richer source files produce better cards. A master dashboard beats a thin brief every time.</p></div></div>
+      <div class="prin"><i class="ti ti-refresh-dot"></i><div><div class="t">Rebuild beats patch</div><p>When an artifact carried thematic contamination, rebuilding from the right source beat patching the wrong one.</p></div></div>
+      <div class="prin"><i class="ti ti-pick"></i><div><div class="t">Mine, don't just scrub</div><p>For pursuit-heavy docs, extracting the strategic concept beat scrubbing a hundred woven references.</p></div></div>
+      <div class="prin"><i class="ti ti-versions"></i><div><div class="t">Public vs. proprietary</div><p>Public competitors stay for credibility; proprietary names, execs, and req language go.</p></div></div>
+      <div class="prin"><i class="ti ti-git-commit"></i><div><div class="t">Path A discipline</div><p>Stage everything, commit once. One clean push beats a trail of iterative fixes.</p></div></div>
+      <div class="prin"><i class="ti ti-arrows-split"></i><div><div class="t">Decisions as real choices</div><p>Surface the fork, explain the tradeoff, let the operator choose. Don't bury judgment calls.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="wrap">
+    <div class="mark"><i class="ti ti-award"></i></div>
+    <h2>Provable work, without exposed clients.</h2>
+    <p>Fifteen engagements, distilled to method and architecture, verified end-to-end, and shipped as one clean release. The protocol is the asset now — repeatable on the next stack of artifacts.</p>
+    <div class="sig">Oz Rosario · AI Strategic Operator · VisLogic.AI · AMPPED · SASE-Experts</div>
+  </div>
+</div>
+
+</body>
+</html>
