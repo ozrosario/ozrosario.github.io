@@ -5,93 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oz Rosario — AI Strategic Operator · Co-Development Portfolio</title>
 <meta name="description" content="Translating complex operations into agentic AI infrastructure. 15 AI co-development engagements across infrastructure, field operations, enterprise integration, and margin defense.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" rel="stylesheet">
 <style>
 :root{
   --ink:#0c0b09; --ink2:#15130f; --surface:#191712; --surface2:#211e18; --border:#2c281f; --border-l:#3a352a;
   --cream:#f3efe6; --muted:#a59c88; --dim:#6b6353;
-  --t1:#d99a2b; --t1d:#b87d1a;     /* gold */
-  --t2:#2bb3a6; --t2d:#106668;     /* teal */
-  --t3:#5a8fd6; --t3d:#284568;     /* slate */
-  --t4:#3fbf73; --t4d:#1a6b3a;     /* green */
+  --t1:#e0a431; --t1d:#b87d1a;
+  --t2:#2fbfb0; --t2d:#106668;
+  --t3:#6498e0; --t3d:#284568;
+  --t4:#46c97e; --t4d:#1a6b3a;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--ink);color:var(--cream);font-family:'DM Sans',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+body{background:var(--ink);color:var(--cream);font-family:'Open Sans',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(243,239,230,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(243,239,230,.018) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 26px}
-.mono{font-family:'JetBrains Mono',monospace}
-h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;line-height:1.12}
+h1,h2,h3,.brand{font-family:'Montserrat',sans-serif}
+.label{font-family:'Montserrat',sans-serif;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
 
-/* nav */
 nav{position:sticky;top:0;z-index:50;background:rgba(12,11,9,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 26px}
-nav .brand{font-family:'DM Serif Display',serif;font-size:19px}
+nav .brand{font-size:19px;font-weight:800;letter-spacing:-.01em}
 nav .brand span{color:var(--t1)}
-nav .links{display:flex;gap:22px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.04em}
+nav .links{display:flex;gap:24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600}
 nav .links a{color:var(--muted);text-decoration:none;transition:color .2s}
 nav .links a:hover{color:var(--cream)}
 @media(max-width:680px){nav .links{display:none}}
 
-/* hero */
-.hero{padding:92px 0 64px;border-bottom:1px solid var(--border)}
-.hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--t1);margin-bottom:22px}
-.hero h1{font-size:clamp(40px,6.6vw,72px);letter-spacing:-.015em;margin-bottom:24px;max-width:14ch}
+.hero{padding:94px 0 66px;border-bottom:1px solid var(--border)}
+.hero .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--t1);margin-bottom:22px}
+.hero h1{font-size:clamp(40px,6.8vw,74px);font-weight:800;letter-spacing:-.025em;line-height:1.04;margin-bottom:24px;max-width:15ch}
 .hero h1 em{font-style:normal;color:var(--t1)}
-.hero .sub{font-family:'JetBrains Mono',monospace;font-size:13.5px;letter-spacing:.05em;color:var(--muted);margin-bottom:22px}
-.hero .copy{font-size:clamp(17px,2.1vw,20px);color:var(--cream);opacity:.9;max-width:760px}
-.hero .copy b{color:var(--t1);font-weight:600}
-.statline{display:flex;flex-wrap:wrap;gap:36px;margin-top:42px}
-.stat .v{font-family:'DM Serif Display',serif;font-size:clamp(34px,4.5vw,46px);color:var(--cream)}
-.stat .v small{font-size:.5em;color:var(--t1);font-family:'JetBrains Mono',monospace;vertical-align:super}
-.stat .l{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero .sub{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--muted);margin-bottom:22px}
+.hero .copy{font-size:clamp(17px,2.1vw,20px);color:var(--cream);opacity:.92;max-width:760px}
+.hero .copy b{color:var(--t1);font-weight:700}
+.statline{display:flex;flex-wrap:wrap;gap:40px;margin-top:46px}
+.stat .v{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(36px,4.6vw,50px);line-height:1;letter-spacing:-.02em}
+.stat .v i{font-size:.42em;color:var(--t1);vertical-align:super;margin-left:2px}
+.stat .l{font-size:11px;letter-spacing:.1em;color:var(--muted);margin-top:8px}
 
-/* amped engine */
-.amped{padding:64px 0;border-bottom:1px solid var(--border);background:var(--ink2)}
-.sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--t1);margin-bottom:14px}
-.sec-title{font-size:clamp(28px,3.8vw,40px);margin-bottom:14px;letter-spacing:-.01em}
-.sec-sub{font-size:17px;color:var(--muted);max-width:680px;margin-bottom:36px}
+.amped{padding:66px 0;border-bottom:1px solid var(--border);background:var(--ink2)}
+.sec-eyebrow{font-size:12px;letter-spacing:.2em;color:var(--t1);margin-bottom:14px}
+.sec-title{font-size:clamp(28px,3.8vw,42px);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+.sec-sub{font-size:17px;color:var(--muted);max-width:680px;margin-bottom:38px}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;position:relative}
-.step .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t1);letter-spacing:.1em;margin-bottom:14px}
-.step h3{font-size:21px;margin-bottom:10px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.step .stepicon{width:50px;height:50px;border-radius:13px;background:rgba(224,164,49,.12);color:var(--t1);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+.step .n{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--t1);margin-bottom:8px}
+.step h3{font-size:21px;font-weight:700;margin-bottom:10px}
 .step p{font-size:14.5px;color:var(--muted)}
-.step .arrow{position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px;z-index:2}
+.step .arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:20px;z-index:3}
 @media(max-width:760px){.steps{grid-template-columns:1fr}.step .arrow{display:none}}
 
-/* themes + cards */
-.theme{padding:58px 0;border-bottom:1px solid var(--border)}
-.theme-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
-.theme-num{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;padding:4px 11px;border-radius:6px}
-.theme-name{font-size:clamp(24px,3.2vw,32px);letter-spacing:-.01em}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.theme{padding:60px 0;border-bottom:1px solid var(--border)}
+.theme-head{display:flex;align-items:center;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+.theme-num{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;padding:6px 12px;border-radius:7px}
+.theme-name{font-size:clamp(23px,3.2vw,33px);font-weight:800;letter-spacing:-.02em}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 @media(max-width:780px){.cards{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
-.card:hover{transform:translateY(-3px)}
-.card .ct{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.card .sector{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
-.card h3{font-size:21px;margin-bottom:10px;line-height:1.2}
+.card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px)}
+.card .watermark{position:absolute;right:-18px;bottom:-26px;font-size:140px;line-height:1;opacity:.055;pointer-events:none;z-index:0}
+.card>*{position:relative;z-index:1}
+.card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.icon-tile{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.sector{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 11px;border-radius:20px}
+.card h3{font-size:20px;font-weight:700;letter-spacing:-.01em;line-height:1.22;margin-bottom:10px}
 .card p{font-size:14.5px;color:var(--muted);flex:1}
-.card .foot{display:flex;align-items:center;gap:14px;margin-top:18px}
-.open{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.06em;text-decoration:none;padding:9px 18px;border-radius:8px;border:1px solid;transition:all .18s;display:inline-flex;align-items:center;gap:7px}
-.open::after{content:'→';transition:transform .18s}
-.open:hover::after{transform:translateX(3px)}
-.sub-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--dim);transition:color .18s}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.chip i{font-size:14px}
+.foot{display:flex;align-items:center;gap:16px;margin-top:20px}
+.open{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.03em;text-decoration:none;padding:10px 20px;border-radius:9px;border:1.5px solid;transition:all .18s;display:inline-flex;align-items:center;gap:8px}
+.open i{font-size:15px;transition:transform .18s}
+.open:hover i{transform:translateX(3px)}
+.sub-link{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:color .18s}
 .sub-link:hover{color:var(--cream)}
 
-/* theme color binding */
-.t1 .theme-num{background:rgba(217,154,43,.14);color:var(--t1)} .t1 .sector{background:rgba(217,154,43,.12);color:var(--t1)} .t1 .card:hover{border-color:var(--t1d)} .t1 .open{color:var(--t1);border-color:var(--t1d)} .t1 .open:hover{background:var(--t1);color:var(--ink)}
-.t2 .theme-num{background:rgba(43,179,166,.14);color:var(--t2)} .t2 .sector{background:rgba(43,179,166,.12);color:var(--t2)} .t2 .card:hover{border-color:var(--t2d)} .t2 .open{color:var(--t2);border-color:var(--t2d)} .t2 .open:hover{background:var(--t2);color:var(--ink)}
-.t3 .theme-num{background:rgba(90,143,214,.14);color:var(--t3)} .t3 .sector{background:rgba(90,143,214,.12);color:var(--t3)} .t3 .card:hover{border-color:var(--t3d)} .t3 .open{color:var(--t3);border-color:var(--t3d)} .t3 .open:hover{background:var(--t3);color:var(--ink)}
-.t4 .theme-num{background:rgba(63,191,115,.14);color:var(--t4)} .t4 .sector{background:rgba(63,191,115,.12);color:var(--t4)} .t4 .card:hover{border-color:var(--t4d)} .t4 .open{color:var(--t4);border-color:var(--t4d)} .t4 .open:hover{background:var(--t4);color:var(--ink)}
+.t1 .theme-num{background:rgba(224,164,49,.14);color:var(--t1)} .t1 .icon-tile{background:rgba(224,164,49,.13);color:var(--t1)} .t1 .sector{background:rgba(224,164,49,.1);color:var(--t1)} .t1 .chip{background:rgba(224,164,49,.09);color:var(--t1);border:1px solid rgba(224,164,49,.22)} .t1 .watermark{color:var(--t1)} .t1 .card:hover{border-color:var(--t1d);box-shadow:0 14px 40px -18px rgba(224,164,49,.4)} .t1 .open{color:var(--t1);border-color:var(--t1d)} .t1 .open:hover{background:var(--t1);color:var(--ink)}
+.t2 .theme-num{background:rgba(47,191,176,.14);color:var(--t2)} .t2 .icon-tile{background:rgba(47,191,176,.13);color:var(--t2)} .t2 .sector{background:rgba(47,191,176,.1);color:var(--t2)} .t2 .chip{background:rgba(47,191,176,.09);color:var(--t2);border:1px solid rgba(47,191,176,.22)} .t2 .watermark{color:var(--t2)} .t2 .card:hover{border-color:var(--t2d);box-shadow:0 14px 40px -18px rgba(47,191,176,.4)} .t2 .open{color:var(--t2);border-color:var(--t2d)} .t2 .open:hover{background:var(--t2);color:var(--ink)}
+.t3 .theme-num{background:rgba(100,152,224,.14);color:var(--t3)} .t3 .icon-tile{background:rgba(100,152,224,.13);color:var(--t3)} .t3 .sector{background:rgba(100,152,224,.1);color:var(--t3)} .t3 .chip{background:rgba(100,152,224,.09);color:var(--t3);border:1px solid rgba(100,152,224,.22)} .t3 .watermark{color:var(--t3)} .t3 .card:hover{border-color:var(--t3d);box-shadow:0 14px 40px -18px rgba(100,152,224,.4)} .t3 .open{color:var(--t3);border-color:var(--t3d)} .t3 .open:hover{background:var(--t3);color:var(--ink)}
+.t4 .theme-num{background:rgba(70,201,126,.14);color:var(--t4)} .t4 .icon-tile{background:rgba(70,201,126,.13);color:var(--t4)} .t4 .sector{background:rgba(70,201,126,.1);color:var(--t4)} .t4 .chip{background:rgba(70,201,126,.09);color:var(--t4);border:1px solid rgba(70,201,126,.22)} .t4 .watermark{color:var(--t4)} .t4 .card:hover{border-color:var(--t4d);box-shadow:0 14px 40px -18px rgba(70,201,126,.4)} .t4 .open{color:var(--t4);border-color:var(--t4d)} .t4 .open:hover{background:var(--t4);color:var(--ink)}
 
-/* footer */
-footer{padding:60px 0 80px}
+footer{padding:62px 0 84px}
 .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
-.foot-grid h2{font-size:clamp(26px,3.4vw,36px);margin-bottom:10px}
-.foot-grid .contact{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--t1)}
+.foot-grid h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+.foot-grid .contact{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:600}
 .foot-grid .contact a{color:var(--t1);text-decoration:none}
-.foot-meta{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--dim);text-align:right;line-height:1.8}
-.redaction{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--dim);margin-top:40px;padding-top:22px;border-top:1px solid var(--border)}
+.foot-meta{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;color:var(--dim);text-align:right;line-height:1.9}
+.redaction{font-size:11.5px;letter-spacing:.03em;color:var(--dim);margin-top:42px;padding-top:22px;border-top:1px solid var(--border);font-family:'Montserrat',sans-serif;font-weight:500}
 </style>
 </head>
 <body>
@@ -109,40 +111,39 @@ footer{padding:60px 0 80px}
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">AI Strategic Operator</div>
+    <div class="eyebrow label">AI Strategic Operator</div>
     <h1>Translating complex operations into <em>agentic AI infrastructure</em>.</h1>
     <div class="sub">VisLogic.AI &nbsp;·&nbsp; Oz Rosario, Chief Growth &amp; Strategy Officer</div>
     <p class="copy">I identify operational friction, architect <b>deterministic AI systems</b>, and deploy them to drive sub-linear scaling, protect margins, and enforce enterprise compliance.</p>
     <div class="statline">
-      <div class="stat"><div class="v">15<small>★</small></div><div class="l">AI Co-Development Engagements</div></div>
-      <div class="stat"><div class="v">4</div><div class="l">Strategic Themes</div></div>
-      <div class="stat"><div class="v">3</div><div class="l">Ventures Operated</div></div>
+      <div class="stat"><div class="v">15<i class="ti ti-star-filled"></i></div><div class="l label">AI Co-Development Engagements</div></div>
+      <div class="stat"><div class="v">4</div><div class="l label">Strategic Themes</div></div>
+      <div class="stat"><div class="v">3</div><div class="l label">Ventures Operated</div></div>
     </div>
   </div>
 </header>
 
-<!-- AMPPED ENGINE -->
 <section class="amped" id="engine">
   <div class="wrap">
-    <div class="sec-eyebrow">How I Build</div>
+    <div class="sec-eyebrow label">How I Build</div>
     <h2 class="sec-title">The AMPPED Engine</h2>
-    <p class="sec-sub">A proprietary multi-LLM orchestration workflow designed to rapidly deploy enterprise-grade operational solutions — the same method that produced every engagement below.</p>
+    <p class="sec-sub">A proprietary multi-LLM orchestration workflow designed to rapidly deploy enterprise-grade operational solutions — the same method behind every engagement below.</p>
     <div class="steps">
       <div class="step">
-        <div class="n">STEP 01</div>
-        <h3>Context Extraction</h3>
-        <p>Establishing hyper-refined foundational instructions — the deterministic ground truth every downstream model reasons from.</p>
-        <span class="arrow">→</span>
+        <div class="stepicon"><i class="ti ti-crosshair"></i></div>
+        <div class="n">STEP 01</div><h3>Context Extraction</h3>
+        <p>Hyper-refined foundational instructions — the deterministic ground truth every downstream model reasons from.</p>
+        <span class="arrow"><i class="ti ti-chevron-right"></i></span>
       </div>
       <div class="step">
-        <div class="n">STEP 02</div>
-        <h3>Multi-LLM Stacking</h3>
+        <div class="stepicon"><i class="ti ti-stack-2"></i></div>
+        <div class="n">STEP 02</div><h3>Multi-LLM Stacking</h3>
         <p>Orchestrated sequencing across models for reasoning, algorithmic structuring, and syntax refinement — each LLM on what it does best.</p>
-        <span class="arrow">→</span>
+        <span class="arrow"><i class="ti ti-chevron-right"></i></span>
       </div>
       <div class="step">
-        <div class="n">STEP 03</div>
-        <h3>Verification Guardrails</h3>
+        <div class="stepicon"><i class="ti ti-shield-check"></i></div>
+        <div class="n">STEP 03</div><h3>Verification Guardrails</h3>
         <p>Target validation against compliance parameters and external data sets — the deterministic sandbox that keeps output trustworthy.</p>
       </div>
     </div>
@@ -151,133 +152,158 @@ footer{padding:60px 0 80px}
 
 <div id="work"></div>
 
-<!-- THEME 1 -->
 <section class="theme t1">
   <div class="wrap">
     <div class="theme-head"><span class="theme-num">THEME 01</span><h2 class="theme-name">Infrastructure Scale &amp; CapEx/OpEx Optimization</h2></div>
     <div class="cards">
       <div class="card">
-        <div class="ct"><span class="sector">Broadband · Private Equity</span></div>
+        <i class="ti ti-broadcast watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-broadcast"></i></div><span class="sector">Broadband · PE</span></div>
         <h3>Private-Equity Backed Broadband Provider</h3>
-        <p>A mandated 5-year expansion roadmap stalled by instinct-driven capital allocation. Built an Agentic Scoring Engine across 7+ data pipelines (FCC, Census, GIS) with "Market Scout" agents pushing live Tier 1/2/3 heatmaps — plus a "Trench Once" EV co-deployment thesis cutting cost-per-passing 10–20%.</p>
-        <div class="foot"><a class="open" href="ftth-mdm-scale.html">Open</a></div>
+        <p>A stalled 5-year expansion roadmap, unblocked by an Agentic Scoring Engine over 7+ data pipelines (FCC, Census, GIS) with live Tier 1/2/3 "Market Scout" heatmaps.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-trending-down"></i>10–20% cost/passing</span><span class="chip"><i class="ti ti-plug-connected"></i>7+ pipelines</span></div>
+        <div class="foot"><a class="open" href="ftth-mdm-scale.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Hospitality · Real Estate Dev</span></div>
+        <i class="ti ti-building-skyscraper watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-building-skyscraper"></i></div><span class="sector">Hospitality · RE Dev</span></div>
         <h3>AMPPED &amp; National Hospitality / Resort Developer</h3>
-        <p>Multi-variable site-development paralysis against strict IRS tax deadlines. Built an automated comparative matrix ingesting unstructured financing terms and tax codes into a structured pro forma framework — a 4× velocity multiplier reclaiming 15–20 hours per project.</p>
-        <div class="foot"><a class="open" href="hospitality-dev.html">Open</a></div>
+        <p>Multi-variable site decisions racing IRS deadlines — solved with an automated matrix ingesting unstructured financing terms and tax codes into a structured pro forma.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-rocket"></i>4× velocity</span><span class="chip"><i class="ti ti-clock"></i>15–20 hrs/project</span></div>
+        <div class="foot"><a class="open" href="hospitality-dev.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Enterprise Network · NaaS</span></div>
+        <i class="ti ti-server-2 watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-server-2"></i></div><span class="sector">Enterprise Network · NaaS</span></div>
         <h3>Enterprise Network Infrastructure Provider (NaaS)</h3>
-        <p>A scattergun approach to real-estate partnerships burning sales cycles. Built an interactive market guide turning regional data into "Prime Target" and "Skip" calls plus a dynamic Building Scorecard — decoding regional telecom exclusivity laws into negotiation levers.</p>
-        <div class="foot"><a class="open" href="naas-infra-cre.html">Open</a></div>
+        <p>A scattergun partnership approach, refocused by an interactive market guide with "Prime Target / Skip" calls and a dynamic Building Scorecard.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-target"></i>Prime-Target scoring</span><span class="chip"><i class="ti ti-gavel"></i>exclusivity-law levers</span></div>
+        <div class="foot"><a class="open" href="naas-infra-cre.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">EV Charging · CleanTech</span></div>
+        <i class="ti ti-bolt watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-bolt"></i></div><span class="sector">EV Charging · CleanTech</span></div>
         <h3>AMPPED / Regional EV Charging Network</h3>
-        <p>120+ day offline, abandoned charging assets needing re-engagement. Engineered a multi-channel outreach system consolidating technical, ownership, and financial data into a low-friction digital intake pipeline with automated remediation — a scalable path to reactivate assets and restore revenue.</p>
-        <div class="foot"><a class="open" href="ampped-ev-net.html">Open</a></div>
+        <p>120+ day offline charging assets, brought back online via a multi-channel outreach system and low-friction digital intake with automated remediation.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-refresh"></i>offline → live</span><span class="chip"><i class="ti ti-cash"></i>revenue restored</span></div>
+        <div class="foot"><a class="open" href="ampped-ev-net.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THEME 2 -->
 <section class="theme t2">
   <div class="wrap">
     <div class="theme-head"><span class="theme-num">THEME 02</span><h2 class="theme-name">Field Operations &amp; Compliance Governance</h2></div>
     <div class="cards">
       <div class="card">
-        <div class="ct"><span class="sector">Public Safety · GovTech</span></div>
+        <i class="ti ti-lifebuoy watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-lifebuoy"></i></div><span class="sector">Public Safety · GovTech</span></div>
         <h3>Municipal Lifeguard &amp; Field-Operations Agency</h3>
-        <p>A multi-million-dollar seasonal overtime budget deployed on intuition, with coverage gaps during a 12.8× rescue surge. Built a 5-platform intelligence overlay triangulating 12 months of incident data with NOAA surf and UV APIs into a predictive risk-scoring model — displacing redundant SaaS before a contract was signed.</p>
-        <div class="foot"><a class="open" href="field-ops-intel.html">Open</a></div>
+        <p>A seasonal overtime budget run on intuition — replaced by a 5-platform overlay triangulating 12 months of incident data with NOAA surf &amp; UV APIs into a predictive risk model.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-wave-sine"></i>12.8× surge modeled</span><span class="chip"><i class="ti ti-coin"></i>SaaS displaced pre-contract</span></div>
+        <div class="foot"><a class="open" href="field-ops-intel.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Civil / Environmental Eng</span></div>
+        <i class="ti ti-ruler-2 watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-ruler-2"></i></div><span class="sector">Civil / Environmental Eng</span></div>
         <h3>Regional Civil/Environmental Engineering Firm</h3>
-        <p>Key-person risk, manual prevailing-wage math, and reactive COI tracking as volume scaled. Engineered a "Deterministic Sandbox" — LLM vision agents extract unstructured data while hard-coded rules engines calculate strict prevailing wages, eliminating hallucination. Self-funding: discovery + Phase 1 below the cost of a budgeted hire.</p>
-        <div class="foot"><a class="open" href="civil-eng.html">Open</a></div>
+        <p>Key-person risk and manual prevailing-wage math, solved with a "Deterministic Sandbox": LLM vision extracts data, hard-coded rules engines compute wages — no hallucination.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-wallet"></i>&lt; cost of one hire</span><span class="chip"><i class="ti ti-circle-check"></i>zero-hallucination engine</span></div>
+        <div class="foot"><a class="open" href="civil-eng.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Regulated Industry · Compliance</span></div>
+        <i class="ti ti-clipboard-check watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-clipboard-check"></i></div><span class="sector">Regulated · Compliance</span></div>
         <h3>Regulated-Industry Vendor &amp; Compliance Platform</h3>
-        <p>An operations lead drowning in manual tracking across vendor SLA misses and complex deployments. Designed an exception-based UI powered by 4 AI agents — PMO, Vendor Accountability, Compliance, and Runbook Generator — replacing daily status-chasing with automated briefings and auto-drafted vendor penalty packages.</p>
-        <div class="foot"><a class="open" href="compliance-platform.html">Open</a><a class="sub-link" href="compliance-roadmap.html">+ Engagement Roadmap</a></div>
+        <p>An ops lead drowning in manual tracking — given an exception-based UI powered by 4 AI agents (PMO, Vendor Accountability, Compliance, Runbook Generator).</p>
+        <div class="chips"><span class="chip"><i class="ti ti-robot"></i>4 AI agents</span><span class="chip"><i class="ti ti-mail-fast"></i>status-chase → auto-brief</span></div>
+        <div class="foot"><a class="open" href="compliance-platform.html">Open<i class="ti ti-arrow-right"></i></a><a class="sub-link" href="compliance-roadmap.html"><i class="ti ti-map-2"></i>Roadmap</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THEME 3 -->
 <section class="theme t3">
   <div class="wrap">
     <div class="theme-head"><span class="theme-num">THEME 03</span><h2 class="theme-name">Enterprise Integration &amp; Partner Ecosystems</h2></div>
     <div class="cards">
       <div class="card">
-        <div class="ct"><span class="sector">Fortune 1 · CTV Commerce</span></div>
+        <i class="ti ti-device-tv watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-device-tv"></i></div><span class="sector">Fortune 1 · CTV Commerce</span></div>
         <h3>Fortune 1 Retailer &amp; CTV Subsidiary</h3>
-        <p>A post-acquisition transition with competing roadmaps and new Commerce SDK requirements across 19M+ active users. Architected an 8-node automation layer — automated pre-cert screening, LLM onboarding assistants, QA anomaly detection — cutting partner certification from 15+ days to under 8.</p>
-        <div class="foot"><a class="open" href="ctv-commerce.html">Open</a><a class="sub-link" href="ctv-commerce-tam-qa.html">+ TAM Quadrant</a></div>
+        <p>A post-acquisition transition enforcing Commerce SDK requirements across 19M+ users — via an 8-node automation layer: pre-cert screening, LLM onboarding, QA anomaly detection.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-clock-bolt"></i>cert 15+ → &lt;8 days</span><span class="chip"><i class="ti ti-users"></i>19M+ users</span></div>
+        <div class="foot"><a class="open" href="ctv-commerce.html">Open<i class="ti ti-arrow-right"></i></a><a class="sub-link" href="ctv-commerce-tam-qa.html"><i class="ti ti-chart-dots-3"></i>TAM Quadrant</a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Cybersecurity · SASE</span></div>
+        <i class="ti ti-shield-lock watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-shield-lock"></i></div><span class="sector">Cybersecurity · SASE</span></div>
         <h3>Global Cybersecurity Consulting Enterprise</h3>
-        <p>Executive paralysis from incumbent gaslighting toward an 18-month, hardware-heavy overhaul that failed cross-border compliance. Used the AI stack to generate a matrixed technical teardown exposing architectural flaws — securing millions in 5-year savings and compressing global deployment from 18 months to under 45 days.</p>
-        <div class="foot"><a class="open" href="sasex-transformation.html">Open</a></div>
+        <p>Executive paralysis toward an 18-month hardware overhaul — broken by a matrixed technical teardown exposing architectural flaws and failed cross-border compliance.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-calendar-stats"></i>18 mo → &lt;45 days</span><span class="chip"><i class="ti ti-pig-money"></i>$M saved / 5 yrs</span></div>
+        <div class="foot"><a class="open" href="sasex-transformation.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Global Audio · Media Platform</span></div>
+        <i class="ti ti-headphones watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-headphones"></i></div><span class="sector">Global Audio · Media</span></div>
         <h3>Global Audio Tech &amp; Media Platform</h3>
-        <p>Cross-organizational integration friction, OTT player fragmentation, and DRM variability slowing global partner deployment. Applied a platform-first integration pattern — telemetry dashboards for quality signals, automated upstream PR tracking, hardened secure pathways. MTTU down 20%, ≥95% playback conformance.</p>
-        <div class="foot"><a class="open" href="av-tech-platform.html">Open</a></div>
+        <p>Integration friction and DRM variability slowing global partners — met with a platform-first pattern: telemetry dashboards, automated upstream PR tracking, hardened pathways.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-clock-down"></i>MTTU ↓20%</span><span class="chip"><i class="ti ti-player-play"></i>≥95% conformance</span></div>
+        <div class="foot"><a class="open" href="av-tech-platform.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Enterprise Analytics · B2B SaaS</span></div>
+        <i class="ti ti-chart-dots watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-chart-dots"></i></div><span class="sector">Enterprise Analytics · B2B SaaS</span></div>
         <h3>Enterprise Analytics &amp; B2B SaaS Platform</h3>
-        <p>"Build-vs-buy" paralysis stalling transformation. Designed a 3-Phase Intelligence Journey (Foundation → Activation → Simulation) feeding a client-facing agentic workflow and a Digital Twin — packaged as a four-pilot AIaaS "business in a box" with a $9–11M three-year force-multiplier and clear IP boundaries.</p>
-        <div class="foot"><a class="open" href="aiaas-journey.html">Open</a></div>
+        <p>"Build-vs-buy" paralysis, resolved into a 3-Phase Intelligence Journey + Digital Twin — packaged as a four-pilot AIaaS "business in a box" with clear IP boundaries.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-coins"></i>$9–11M / 3 yrs</span><span class="chip"><i class="ti ti-flask"></i>4-pilot AIaaS</span></div>
+        <div class="foot"><a class="open" href="aiaas-journey.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THEME 4 -->
 <section class="theme t4">
   <div class="wrap">
     <div class="theme-head"><span class="theme-num">THEME 04</span><h2 class="theme-name">Margin Defense &amp; Change Management</h2></div>
     <div class="cards">
       <div class="card">
-        <div class="ct"><span class="sector">Retail · Loyalty</span></div>
+        <i class="ti ti-shopping-bag watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-shopping-bag"></i></div><span class="sector">Retail · Loyalty</span></div>
         <h3>National Omnichannel Athletic Retailer</h3>
-        <p>An 850K+ member paid loyalty program running like a transactional coupon club, eroding product margins. Reframed it into a recurring-revenue subscription via a 6-pillar AI loyalty orchestration layer — including predictive shoe-rotation modeling — shifting promotional weight to AI-triggered, behavior-based offers.</p>
-        <div class="foot"><a class="open" href="loyalty-os.html">Open</a></div>
+        <p>An 850K+ member coupon-club program eroding margins — reframed into recurring-revenue subscription via a 6-pillar AI loyalty layer with predictive rotation modeling.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-users-group"></i>850K+ members</span><span class="chip"><i class="ti ti-arrows-shuffle"></i>coupon-club → subscription</span></div>
+        <div class="foot"><a class="open" href="loyalty-os.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Med-Device · QMS</span></div>
+        <i class="ti ti-heartbeat watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-heartbeat"></i></div><span class="sector">Med-Device · QMS</span></div>
         <h3>Boutique Med-Device Engineering Firm</h3>
-        <p>Engineers acting as "regression machines," running full manual revalidation for every algorithm change. Architected a 5-layer operational intelligence system — agentic workflows automating CAPA pipelines, ingesting dead archives, flagging regression deltas — slashing V&amp;V cycle times and institutionalizing founder-dependent regulatory knowledge.</p>
-        <div class="foot"><a class="open" href="meddevice-qms.html">Open</a><a class="sub-link" href="meddevice-demo.html">+ Team Demo</a></div>
+        <p>Engineers stuck as "regression machines" — freed by a 5-layer operational intelligence system automating CAPA pipelines, ingesting dead archives, flagging regression deltas.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-stack"></i>5-layer intel system</span><span class="chip"><i class="ti ti-clock-down"></i>V&amp;V cycle ↓</span></div>
+        <div class="foot"><a class="open" href="meddevice-qms.html">Open<i class="ti ti-arrow-right"></i></a><a class="sub-link" href="meddevice-demo.html"><i class="ti ti-presentation"></i>Team Demo</a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Property Management</span></div>
+        <i class="ti ti-building-community watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-building-community"></i></div><span class="sector">Property Management</span></div>
         <h3>Regional Residential Property Management Firm</h3>
-        <p>Margin decay from linear human scaling, needing a shift to a "platform operator" model. Architected a 3-pillar engagement with a bespoke "AI Readiness Audit" framework and a layered OS architecture — modeling hundreds of thousands in annual savings by replacing administrative headcount with a human-in-the-loop review layer.</p>
-        <div class="foot"><a class="open" href="propmgmt-engagement.html">Open</a><a class="sub-link" href="propmgmt-roi.html">+ ROI Model</a></div>
+        <p>Margin decay from linear human scaling — re-architected toward a "platform operator" model with a bespoke "AI Readiness Audit" and a layered OS architecture.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-cash-banknote"></i>$100Ks saved</span><span class="chip"><i class="ti ti-transform"></i>services → platform</span></div>
+        <div class="foot"><a class="open" href="propmgmt-engagement.html">Open<i class="ti ti-arrow-right"></i></a><a class="sub-link" href="propmgmt-roi.html"><i class="ti ti-chart-bar"></i>ROI Model</a></div>
       </div>
       <div class="card">
-        <div class="ct"><span class="sector">Construction · Estimating</span></div>
+        <i class="ti ti-tools watermark"></i>
+        <div class="top"><div class="icon-tile"><i class="ti ti-tools"></i></div><span class="sector">Construction · Estimating</span></div>
         <h3>Construction Estimating &amp; Development Firm</h3>
-        <p>Estimation locked in tribal knowledge and manual takeoffs, capping the firm's ability to scale. Architected an intelligence layer that transforms estimation into enterprise intelligence — structured data capture and agentic workflows that institutionalize estimating expertise and free senior estimators to scale capacity.</p>
-        <div class="foot"><a class="open" href="estimating-rollout.html">Open</a></div>
+        <p>Estimation locked in tribal knowledge and manual takeoffs — transformed into enterprise intelligence with structured data capture and agentic estimating workflows.</p>
+        <div class="chips"><span class="chip"><i class="ti ti-ruler-measure"></i>estimation → intelligence</span><span class="chip"><i class="ti ti-database"></i>knowledge institutionalized</span></div>
+        <div class="foot"><a class="open" href="estimating-rollout.html">Open<i class="ti ti-arrow-right"></i></a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer id="contact">
   <div class="wrap">
     <div class="foot-grid">
@@ -291,7 +317,7 @@ footer{padding:60px 0 80px}
         San Diego, CA
       </div>
     </div>
-    <div class="redaction">Method &amp; approach showcase · every engagement is presented as method and architecture · client identities intentionally redacted.</div>
+    <div class="redaction">Method &amp; approach showcase · every engagement presented as method and architecture · client identities intentionally redacted.</div>
   </div>
 </footer>
 
