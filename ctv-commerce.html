@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VÜE LYNQ — CTV Commerce & Partner-Operations Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050a12; --surface:#0c1620; --surface2:#111d2b; --border:#1c2e42; --border-light:#243447;
+  --accent:#00c6ff; --gold:#f5c842; --green:#00e599; --red:#ff4757; --purple:#a55eea; --orange:#ff6b35;
+  --text:#e8eef4; --muted:#8aa6c0; --dim:#4d6a87;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,198,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,198,255,0.02) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace}
+h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;line-height:1.15}
+
+/* hero */
+.hero{padding:84px 0 52px;border-bottom:1px solid var(--border)}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.hero h1{font-size:clamp(36px,6vw,62px);letter-spacing:-.01em;margin-bottom:18px}
+.hero h1 .vue{color:var(--accent)}
+.lede{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:760px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.badge{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;padding:7px 13px;border:1px solid var(--border-light);border-radius:6px;color:var(--muted);background:var(--surface)}
+.badge.b-acc{border-color:rgba(0,198,255,.4);color:var(--accent)}
+.badge.b-gold{border-color:rgba(245,200,66,.4);color:var(--gold)}
+
+section{padding:52px 0;border-bottom:1px solid var(--border)}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.sec-h{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px;letter-spacing:-.01em}
+.sec-intro{font-size:17px;color:var(--muted);max-width:820px;margin-bottom:30px}
+
+/* thesis battle card */
+.battle{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border-light);border-radius:14px;padding:30px;margin-bottom:26px}
+.battle .pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);border:1px solid rgba(245,200,66,.35);border-radius:5px;padding:4px 9px;margin-bottom:16px}
+.battle p{font-size:18px;color:var(--text)}
+.battle p strong{color:var(--accent)}
+.stat-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:24px}
+.stat{flex:1;min-width:150px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.stat .v{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:600;color:var(--accent)}
+.stat .v.g{color:var(--green)} .stat .v.gd{color:var(--gold)}
+.stat .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+/* dual flight */
+.flights{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.flight{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px}
+.flight.int{border-top:3px solid var(--accent)}
+.flight.ext{border-top:3px solid var(--green)}
+.flight h3{font-size:21px;margin-bottom:4px}
+.flight .pov{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--dim);margin-bottom:18px}
+.stage{display:flex;gap:13px;padding:13px 0;border-top:1px solid var(--border)}
+.stage:first-of-type{border-top:none}
+.stage .n{flex:none;width:26px;height:26px;border-radius:6px;background:var(--surface2);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--muted)}
+.stage.sdk .n{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.4);color:var(--gold)}
+.stage .st{font-weight:600;font-size:14.5px;margin-bottom:2px}
+.stage .sd{font-size:13px;color:var(--muted)}
+.stage .ai{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent);margin-top:6px;display:flex;gap:6px}
+.stage .ai::before{content:'⚡';flex:none}
+.sdk-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--gold);border:1px solid rgba(245,200,66,.4);border-radius:4px;padding:1px 6px;margin-left:7px;vertical-align:middle}
+
+/* commerce sdk */
+.sdk-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sdk-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;position:relative;overflow:hidden}
+.sdk-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.sdk-card .ico{font-size:26px;margin-bottom:12px}
+.sdk-card h3{font-size:20px;margin-bottom:10px}
+.sdk-card p{font-size:14.5px;color:var(--muted)}
+.sdk-card ul{list-style:none;margin-top:14px}
+.sdk-card li{font-size:13.5px;color:var(--muted);padding:5px 0 5px 18px;position:relative}
+.sdk-card li::before{content:'›';position:absolute;left:0;color:var(--gold);font-weight:700}
+
+/* automation nodes */
+.nodes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.node{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.node .top{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+.node .ico{font-size:20px}
+.node .nm{font-weight:700;font-size:15px}
+.node p{font-size:13.5px;color:var(--muted)}
+.node .imp{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;margin-top:12px;padding:3px 9px;border-radius:5px;border:1px solid var(--border-light);color:var(--muted)}
+.node .imp.high{color:var(--green);border-color:rgba(0,229,153,.35)}
+.node .imp.mh{color:var(--accent);border-color:rgba(0,198,255,.35)}
+
+/* footer */
+footer{padding:46px 0 70px}
+.foot-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;text-align:center}
+.foot-card .who{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px}
+.foot-card .role{font-size:14px;color:var(--muted);margin-bottom:14px}
+.foot-card .c{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent)}
+.redaction{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--dim);margin-top:18px;text-align:center}
+
+@media(max-width:760px){
+  .flights,.sdk-grid,.nodes{grid-template-columns:1fr}
+  .hero{padding:60px 0 40px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Project · CTV Commerce & Partner Operations</div>
+    <h1>Project <span class="vue">VÜE LYNQ</span></h1>
+    <p class="lede">A platform-operations and commerce-convergence concept architected for a Fortune-class Connected-TV operating system after its acquisition by a Fortune&nbsp;1 retail parent — turning a living-room ad impression into verifiable retail outcome.</p>
+    <div class="badges">
+      <span class="badge b-acc">CTV / FAST Platform</span>
+      <span class="badge">Partner Operations</span>
+      <span class="badge b-gold">Commerce SDK</span>
+      <span class="badge">AI Automation Layer</span>
+    </div>
+  </div>
+</header>
+
+<!-- STRATEGIC MOMENT -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">The Strategic Moment</div>
+    <h2 class="sec-h">A $2.3B bet on living-room commerce</h2>
+    <p class="sec-intro">A Fortune&nbsp;1 retail parent acquired a Connected-TV operating system as a commerce-infrastructure play. The operating challenge: convert that bet into recurring partner revenue, platform credibility, and the closed-loop data flywheel that justifies the acquisition. The artifact below maps the partner-operations engine and the new commerce primitives that make it possible.</p>
+
+    <div class="battle">
+      <span class="pill">Battle Card · Commerce-to-Content</span>
+      <p>The retail-parent + CTV-OS combination is <strong>the only CTV platform where a single ad impression can prove retail ROI.</strong> Every other platform sells reach and frequency. This one sells <strong>verified outcomes</strong> — a closed loop from living-room content exposure to in-store or online purchase, measured against one of the largest retail datasets in the country. A structurally different value proposition, and the reason the market still underestimates the acquisition.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="v gd">$2.3B</div><div class="l">Acquisition price · Dec 2024</div></div>
+        <div class="stat"><div class="v">150M+</div><div class="l">Active CTV devices reached</div></div>
+        <div class="stat"><div class="v g">Closed-loop</div><div class="l">Exposure → purchase attribution</div></div>
+      </div>
+    </div>
+    <p class="sec-intro" style="margin-bottom:0">The platform competes against Roku, Fire&nbsp;TV, and Google&nbsp;TV for partner development resources and promotional priority. VÜE LYNQ exists to make it the <em>preferred</em> platform for streaming and commerce partners — a technical and commercial mandate at once.</p>
+  </div>
+</section>
+
+<!-- DUAL FLIGHT -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Operational Framework</div>
+    <h2 class="sec-h">The Dual-Flight Partner Integration Model</h2>
+    <p class="sec-intro">Two parallel tracks that must stay synchronized. <strong style="color:var(--accent)">Internal Flight</strong> is the platform's operational view — the certification and launch machinery. <strong style="color:var(--green)">External Flight</strong> is the partner's lived experience — what they see, feel, and grade you on. The gap between the two views is where partner satisfaction goes to die. Stages tagged <span class="sdk-tag">SDK</span> are the new commerce tracks (Unified Account SSO + Shoppable&nbsp;TV API) that the standard cert pipeline does not yet cover.</p>
+
+    <div class="flights">
+      <div class="flight int">
+        <h3>Internal Flight</h3>
+        <div class="pov mono">PLATFORM OPERATIONAL POV</div>
+        <div class="stage"><div class="n">1</div><div><div class="st">Partner Intake &amp; Qualification</div><div class="sd">BD hand-off to the partner-ops team. Profile created, specs collected, scope defined, tier classified (Tier 1 streaming scale → Tier 3 emerging).</div><div class="ai">Auto-classify partner tier from CRM signals + app-store metadata</div></div></div>
+        <div class="stage"><div class="n">2</div><div><div class="st">Technical Review &amp; Scoping</div><div class="sd">Eng review of app architecture. JavaScript/Chromium compatibility, deep-linking, SDK integration verified. QA timeline estimated.</div><div class="ai">Automated pre-check of build artifacts against known failure patterns</div></div></div>
+        <div class="stage"><div class="n">3</div><div><div class="st">QA Pipeline Execution</div><div class="sd">Functional testing across device SKUs, remote-control mapping, performance benchmarking, accessibility, regression against the OS version matrix.</div><div class="ai">Anomaly detection on QA logs; auto-flag regressions vs. baseline</div></div></div>
+        <div class="stage"><div class="n">4</div><div><div class="st">Certification Decision &amp; Remediation</div><div class="sd">Pass/fail gate with documented issue taxonomy. Structured remediation tickets, re-submission SLA, escalation path for systemic platform issues.</div><div class="ai">Intelligent issue categorization; predict re-submission likelihood</div></div></div>
+        <div class="stage sdk"><div class="n">4b</div><div><div class="st">Commerce SDK Integration Review <span class="sdk-tag">NEW</span></div><div class="sd">Dedicated track for the two commerce primitives — verifying account-state handling and data-permissioning for Unified SSO, and purchase-flow interruption, cart persistence, QR-trigger reliability, and product-link validation for Shoppable TV.</div><div class="ai">Auto-validate product-link integrity + purchase-flow state coverage</div></div></div>
+        <div class="stage"><div class="n">5</div><div><div class="st">Launch Readiness Gate</div><div class="sd">Marketing assets reviewed, FAST-service promo placement allocated, retail-parent ad-network campaign alignment, shoppable units confirmed, staged rollout defined.</div></div></div>
+        <div class="stage"><div class="n">6</div><div><div class="st">Post-Launch Ops &amp; QBR Cadence</div><div class="sd">30/60/90 reviews. MAU, session length, crash-rate monitoring. Quarterly business reviews. Upsell identification: ads, placement, commerce.</div><div class="ai">Performance anomaly alerts; predictive churn from engagement data</div></div></div>
+      </div>
+
+      <div class="flight ext">
+        <h3>External Flight</h3>
+        <div class="pov mono">PARTNER-FACING JOURNEY</div>
+        <div class="stage"><div class="n">1</div><div><div class="st">Deal Close → Onboarding Kickoff</div><div class="sd">Welcome package + integration guide within 24hrs. Dedicated partner manager assigned, portal provisioned, kickoff within 5 business days.</div><div class="ai">Onboarding assistant surfaces docs by partner app category</div></div></div>
+        <div class="stage"><div class="n">2</div><div><div class="st">Technical Integration Support</div><div class="sd">Developer docs, SDK, and test environment. Dedicated channel for Tier 1; async ticketing for Tier 2/3. Build-submission portal with status tracking.</div><div class="ai">Chatbot for integration FAQs; ~40% reduction in support-interrupt load</div></div></div>
+        <div class="stage"><div class="n">3</div><div><div class="st">Certification Process (Visible)</div><div class="sd">Submission confirmation → status dashboard → feedback report. Target 10-day cert for Tier 1; 15 for Tier 2/3. Rejection reports carry specific, actionable taxonomy.</div></div></div>
+        <div class="stage sdk"><div class="n">3b</div><div><div class="st">Commerce Integration Briefing <span class="sdk-tag">NEW</span></div><div class="sd">A guided session on the two commerce primitives and the business case for each — what branded shoppable formats enable, what unified SSO unlocks for attribution, what QR/remote shoppable units require in production. Partners understand the upside <em>before</em> entering the commerce cert track.</div><div class="ai">Personalized impact projection by content category and audience</div></div></div>
+        <div class="stage"><div class="n">4</div><div><div class="st">Launch Coordination &amp; Promotion</div><div class="sd">Co-marketed launch via platform promotions, home-screen carousel placement, FAST-channel promotion, retail-parent campaign integration for commerce partners.</div></div></div>
+        <div class="stage"><div class="n">5</div><div><div class="st">Post-Launch Analytics Access</div><div class="sd">Partner dashboard: DAU/MAU, session length, discovery attribution, FAST ad-revenue share. ACR-derived insights shared where contractually permitted; benchmarks vs. platform averages.</div><div class="ai">Automated insight narratives with the monthly dashboard</div></div></div>
+        <div class="stage"><div class="n">6</div><div><div class="st">Ongoing Relationship &amp; Growth</div><div class="sd">QBR cadence with exec stakeholders, annual joint business planning, roadmap preview and first-look on new commerce + personalization capabilities for strategic partners.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMERCE SDK -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">The New Primitives</div>
+    <h2 class="sec-h">Commerce SDK — two integration tracks</h2>
+    <p class="sec-intro">The commerce thesis only pays off if partners can actually wire content to checkout. Two new SDK primitives sit outside the standard certification pipeline and get their own review track, test protocol, and QA matrix.</p>
+    <div class="sdk-grid">
+      <div class="sdk-card">
+        <div class="ico">🔐</div>
+        <h3>Unified Account SSO</h3>
+        <p>Single sign-on that ties the living-room session to the retail-parent account — the authentication layer that makes closed-loop attribution possible.</p>
+        <ul>
+          <li>Account-state handling across app and platform</li>
+          <li>Opt-in / opt-out and data-permissioning compliance</li>
+          <li>Attribution coverage from exposure to verified purchase</li>
+        </ul>
+      </div>
+      <div class="sdk-card">
+        <div class="ico">🛒</div>
+        <h3>Shoppable TV API</h3>
+        <p>The on-screen commerce primitive — QR and remote-triggered shoppable units that turn a branded content moment into a cart without leaving the couch.</p>
+        <ul>
+          <li>Purchase-flow interruption + cart-state persistence</li>
+          <li>QR / remote shoppable-unit trigger reliability</li>
+          <li>Product-link validation against the retail storefront</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION LAYER -->
+<section>
+  <div class="wrap">
+    <div class="sec-label">Automation Strategy</div>
+    <h2 class="sec-h">The AI &amp; Automation Integration Layer</h2>
+    <p class="sec-intro">Not AI for its own sake — compressing the human-in-the-loop bottlenecks that slow partner time-to-live. Each node maps to a specific friction point in the certification and account-management pipeline.</p>
+    <div class="nodes">
+      <div class="node"><div class="top"><span class="ico">🔍</span><span class="nm">Automated Pre-Cert Screening</span></div><p>Static analysis of submitted build artifacts against known failure patterns and platform spec. Catches ~60–70% of common rejection causes before human QA — cutting clean-submission cert cycles from 15 → 8 days.</p><span class="imp high">Leverage · High</span></div>
+      <div class="node"><div class="top"><span class="ico">💬</span><span class="nm">Intelligent Onboarding Assistant</span></div><p>An LLM assistant trained on platform developer docs and common partner-ops responses. Surfaces contextually relevant docs by app category (SVOD vs. FAST vs. sports). Target: 40% reduction in Tier 2/3 interrupt rate.</p><span class="imp high">Leverage · High</span></div>
+      <div class="node"><div class="top"><span class="ico">⚠️</span><span class="nm">QA Anomaly Detection</span></div><p>An ML model on historical QA logs flags statistical anomalies in device performance (memory, load time, crash rate) vs. expected baseline by app category — surfacing regression risk before the certification gate.</p><span class="imp high">Leverage · High</span></div>
+      <div class="node"><div class="top"><span class="ico">📊</span><span class="nm">Partner Health Scoring</span></div><p>A health index computed from engagement trends, ticket velocity, QBR participation, revenue trajectory, and integration depth — surfacing early churn or growth signals to drive partner-ops prioritization.</p><span class="imp mh">Leverage · Med-High</span></div>
+      <div class="node"><div class="top"><span class="ico">📋</span><span class="nm">Certification Status Portal</span></div><p>A real-time, partner-facing dashboard showing submission state, feedback reports, and cert-cycle position — replacing status-chasing email threads with self-serve visibility.</p><span class="imp mh">Leverage · Med-High</span></div>
+      <div class="node"><div class="top"><span class="ico">📈</span><span class="nm">Automated Performance Narratives</span></div><p>Monthly partner analytics auto-generated with plain-language insight ("retention improved X% vs. platform average") — turning a raw dashboard into a strategy conversation.</p><span class="imp mh">Leverage · Med-High</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-card">
+      <div class="who">Oz Rosario</div>
+      <div class="role">AI Strategic Operator · CTV Commerce &amp; Partner Operations</div>
+      <div class="c mono">oz.rosario@gmail.com · 619.987.4040</div>
+    </div>
+    <div class="redaction">Method &amp; approach showcase · client details intentionally redacted</div>
+  </div>
+</footer>
+
+</body>
+</html>
